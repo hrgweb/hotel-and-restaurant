@@ -1,3 +1,3 @@
 <template>
-    <div>Here is the app</div>
+    <div>Welcome</div>
 </template>
