@@ -1,11 +1,27 @@
-@section('title')
-    Dashboard
-@endsection
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-@extends('layouts.app')
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-@section('content')
-    <div class="container">
+    <title>@yield('title')</title>
+
+    <style>
+        html,
+        body {
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+            color: #161c2d;
+        }
+    </style>
+
+    @vite(['resources/css/app.scss', 'resources/js/app.js'])
+</head>
+
+<body class="font-sans antialiased dark:bg-black dark:text-white/50">
+    <div id="app">
         <div class="header">
             <a href="/dashboard" style="text-decoration: none; font-size: 24px; font-weight: bold">hrgweb</a>
         </div>
@@ -27,8 +43,8 @@
                 <div><a href="/">Feedback</a></div>
             </nav>
 
-            <main class="col">
-                <h2 class="pl-2">@yield('body-title', 'Page Title')</h2>
+            <main class="col p-3">
+                <h2 class="p-0 mt-2">@yield('body-title', 'Page Title')</h2>
 
                 @yield('body')
             </main>
@@ -38,4 +54,6 @@
             footer
         </div>
     </div>
-@endsection
+</body>
+
+</html>
