@@ -7,12 +7,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function() {
+Route::get('/dashboard', function () {
     return view('dashboard');
-});
-
-Route::get('/outlet-management', function() {
-    return view('outlet');
 });
 
 Route::resource('categories', CategoryController::class);

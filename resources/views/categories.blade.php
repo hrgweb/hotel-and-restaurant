@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('body-title')
-    Outlet Management
+    Categories
 @endsection
 
 @section('body')

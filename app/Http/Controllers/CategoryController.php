@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Log;
 
 class CategoryController extends Controller
 {
+    public function index()
+    {
+        return view('categories');
+    }
+
     public function store(Request $request)
     {
         try {
@@ -22,7 +27,24 @@ class CategoryController extends Controller
             return response()->json($category, 201);
         } catch (Exception $e) {
             Log::error($e->getMessage());
-            return $e->getMessage();
+            return response()->json($e->getMessage(), 500);
         }
     }
+
+    // public function update(Request $request)
+    // {
+    //     try {
+    //         $validated = $request->validate([
+    //             'name' => 'required',
+    //             'desc' => 'nullable'
+    //         ]);
+
+    //         $category = Category::create($validated);
+
+    //         return response()->json($category, 201);
+    //     } catch (Exception $e) {
+    //         Log::error($e->getMessage());
+    //         return response()->json($e->getMessage(), 500);
+    //     }
+    // }
 }

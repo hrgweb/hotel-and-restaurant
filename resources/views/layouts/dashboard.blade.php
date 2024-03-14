@@ -30,9 +30,8 @@
         <div class="body grid">
             <nav class="col-fixed" style="width: 300px">
                 <div><a href="/dashboard">Dashboard</a></div>
-                <div><a href="/outlet-management">Outlet Management</a></div>
+                <div><a href="/categories">Categories</a></div>
                 <div><a href="/">Taxes</a></div>
-                <div><a href="/">Category</a></div>
                 <div><a href="/">Units</a></div>
                 <div><a href="/">Coupon</a></div>
                 <div><a href="/">Menu Items</a></div>
