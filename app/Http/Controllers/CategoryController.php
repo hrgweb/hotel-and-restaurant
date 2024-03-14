@@ -31,6 +31,9 @@ class CategoryController extends Controller
                 // Generate a unique file name
                 $fileNameToStore = time() . '.' . $extension;
 
+                // Merge the validated thumbnail key
+                $validated['thumbnail'] = $fileNameToStore;
+
                 // Upload file
                 $request->file('thumbnail')->storeAs('public/uploads', $fileNameToStore);
             }
