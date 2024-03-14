@@ -10,6 +10,6 @@ Route::get('/dashboard', function() {
     return view('dashboard');
 });
 
-Route::get('/outlet', function() {
+Route::get('/outlet-management', function() {
     return view('outlet');
 });
