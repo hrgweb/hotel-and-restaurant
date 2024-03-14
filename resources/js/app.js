@@ -9,14 +9,18 @@ import 'primeicons/primeicons.css'
 import 'primeflex/primeflex.css'
 
 import Button from 'primevue/button'
+import InputText from 'primevue/inputtext'
+import FileUpload from 'primevue/fileupload'
+
+import Categories from '@/categories/index.vue'
 
 const app = createApp({
-  methods: {
-    dashboard() {
-      alert('here from the parent')
-    },
+  components: {
+    Categories,
   },
 })
 app.use(PrimeVue)
 app.component('Button', Button)
+app.component('InputText', InputText)
+app.component('FileUpload', FileUpload)
 app.mount('#app')

@@ -5,5 +5,5 @@
 @endsection
 
 @section('body')
-    <p>lorem ipsum</p>
+    <categories />
 @endsection

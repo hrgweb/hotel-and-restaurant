@@ -19,8 +19,21 @@ class CategoryController extends Controller
         try {
             $validated = $request->validate([
                 'name' => 'required',
-                'desc' => 'nullable'
+                'desc' => 'nullable',
+                'thumbnail' => 'nullable|image|max:2048'
             ]);
+
+            // Handle file upload
+            if ($request->hasFile('thumbnail')) {
+                // Get just the file extension
+                $extension = $request->file('thumbnail')->getClientOriginalExtension();
+
+                // Generate a unique file name
+                $fileNameToStore = time() . '.' . $extension;
+
+                // Upload file
+                $request->file('thumbnail')->storeAs('public/uploads', $fileNameToStore);
+            }
 
             $category = Category::create($validated);
 
