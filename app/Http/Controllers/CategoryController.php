@@ -49,20 +49,47 @@ class CategoryController extends Controller
         }
     }
 
-    // public function update(Request $request)
-    // {
-    //     try {
-    //         $validated = $request->validate([
-    //             'name' => 'required',
-    //             'desc' => 'nullable'
-    //         ]);
+    public function update(Request $request, Category $category)
+    {
+        try {
+            $validated = $request->validate([
+                'name' => 'required',
+                'desc' => 'nullable',
+                'thumbnail' => 'nullable|image|max:2048'
+            ]);
 
-    //         $category = Category::create($validated);
+            // Handle file upload
+            if ($request->hasFile('thumbnail')) {
+                // Check for the previous thumbnail, once found delete
+                if ($category->thumbnail) {
+                    unlink(storage_path('app/public/uploads/' . $category->thumbnail));
+                }
 
-    //         return response()->json($category, 201);
-    //     } catch (Exception $e) {
-    //         Log::error($e->getMessage());
-    //         return response()->json($e->getMessage(), 500);
-    //     }
-    // }
+                // Get file name with extension
+                $fileNameWithExtension = $request->file('thumbnail')->getClientOriginalName();
+
+                // Get just the file extension
+                $extension = $request->file('thumbnail')->getClientOriginalExtension();
+
+                // Generate a unique file name
+                $fileNameToStore = time() . '.' . $extension;
+
+                // Merge the validated thumbnail key
+                $validated['thumbnail'] = $fileNameToStore;
+
+                // Upload file
+                $request->file('thumbnail')->storeAs('public/uploads', $fileNameToStore);
+            }
+
+            $category->name = $validated['name'];
+            $category->desc = $validated['desc'];
+            $category->thumbnail = $validated['thumbnail'];
+            $category->save();
+
+            return response()->json($category, 201);
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json($e->getMessage(), 500);
+        }
+    }
 }

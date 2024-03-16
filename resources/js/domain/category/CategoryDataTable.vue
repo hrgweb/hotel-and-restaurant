@@ -20,7 +20,15 @@
       <Column field="name" header="Name"></Column>
       <Column field="desc" header="Description"> </Column>
       <Column header="Action">
-        <template #body>action</template>
+        <template #body="slotProps">
+          <Button
+            icon="pi pi-pencil"
+            severity="warning"
+            class="mr-1"
+            @click.prevent="category.edit(slotProps.data)"
+          />
+          <Button icon="pi pi-times" severity="danger" />
+        </template>
       </Column>
     </DataTable>
   </div>

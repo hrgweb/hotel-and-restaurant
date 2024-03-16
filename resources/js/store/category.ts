@@ -11,8 +11,15 @@ export const useCategoryStore = defineStore('category', {
       desc: '',
       thumbnail: null,
     } as Category,
+    editForm: {
+      name: '',
+      desc: '',
+      thumbnail: null,
+    } as Category,
+    isEdit: false,
     errorMsg: '',
     showForm: false,
+    selectCategory: null as Category,
   }),
 
   actions: {
@@ -31,16 +38,55 @@ export const useCategoryStore = defineStore('category', {
         .post('/categories', formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
+        .then(() => this.reset())
+        .catch((error) => {
+          this.errorMsg = error?.response?.data
+          console.error(error) // Handle error
+        })
+        .finally(() => (this.showForm = false))
+    },
+
+    edit(category: Category) {
+      this.showForm = true
+      this.isEdit = true
+      this.selectCategory = category
+      this.editForm = category
+    },
+
+    update(hasThumbnail: boolean) {
+      this.errorMsg = ''
+
+      let formData = new FormData()
+      formData.append('_method', 'PATCH')
+      formData.append('name', this.editForm.name)
+      formData.append('desc', this.editForm.desc)
+
+      if (hasThumbnail) {
+        formData.append('thumbnail', this.editForm.thumbnail)
+      }
+
+      axios
+        .post(`/categories/${this.selectCategory?.id}`, formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        })
         .then((response) => {
-          this.form.name = ''
-          this.form.desc = ''
-          this.form.thumbnail = null
-          this.showForm = false
+          this.reset()
         })
         .catch((error) => {
           this.errorMsg = error?.response?.data
           console.error(error) // Handle error
         })
+        .finally(() => (this.showForm = false))
+    },
+
+    reset() {
+      this.form.name = ''
+      this.form.desc = ''
+      this.form.thumbnail = null
+    },
+
+    close() {
+      this.isEdit = false
     },
   },
 })

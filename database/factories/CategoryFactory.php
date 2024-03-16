@@ -17,6 +17,7 @@ class CategoryFactory extends Factory
     public function definition(): array
     {
         return [
+            'thumbnail' => time() . '.png',
             'name' => fake()->word(),
             'desc' => fake()->sentence()
         ];

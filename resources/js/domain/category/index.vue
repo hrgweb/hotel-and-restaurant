@@ -9,12 +9,13 @@
 
     <Dialog
       v-model:visible="category.showForm"
-      header="New Category"
+      :header="`${category.isEdit ? ' Edit' : 'New'} Category`"
       :style="{ width: '35rem' }"
       :dismissableMask="true"
       :closeOnEscape="true"
       :draggable="false"
       modal
+      @hide="category.close()"
     >
       <CategoryForm />
     </Dialog>

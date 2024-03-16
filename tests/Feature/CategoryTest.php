@@ -4,6 +4,8 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\Models\Category;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -21,5 +23,22 @@ class CategoryTest extends TestCase
         $body = Category::factory()->make();
 
         $this->post(route('categories.store'), $body->toArray())->assertStatus(201);
+    }
+
+    public function test_update_a_category(): void
+    {
+        $category = Category::factory()->create();
+
+        Storage::fake('avatars');
+
+        $file = UploadedFile::fake()->image(time() . '.png');
+
+        $this->patch(route('categories.update', ['category' => $category->id]), [
+            'thumbnail' => $file,
+            'name' => 'updated name',
+            'desc' => 'updated ipsum'
+        ])->assertCreated()->assertJson([
+            'name' => 'updated name'
+        ]);
     }
 }

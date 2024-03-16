@@ -5,7 +5,7 @@
       category.errorMsg
     }}</Message>
 
-    <form enctype="multipart/form-data" method="POST" @submit.prevent="save">
+    <form enctype="multipart/form-data" @submit.prevent="save">
       <FileUpload
         name="thumbnail"
         :multiple="false"
@@ -31,7 +31,20 @@
       </div>
       <br />
       <div class="flex flex-column gap-2">
-        <Button label="Save" type="submit" />
+        <Button v-if="!category.isEdit" label="Save" type="submit" />
+        <Button
+          v-else
+          label="Update"
+          type="button"
+          severity="info"
+          @click.prevent="update"
+        />
+        <Button
+          label="Cancel"
+          type="button"
+          severity="secondary"
+          @click.prevent="category.cancel()"
+        />
       </div>
     </form>
   </div>
@@ -45,15 +58,21 @@ import { useCategoryStore } from '@/store/category'
 
 const category = useCategoryStore()
 
-const form = computed(() => category.form)
+const form = computed(() =>
+  !category.isEdit ? category.form : category.editForm
+)
 
 const hasThumbnail = ref(false)
 function selectedThumbnail(e) {
-  category.form.thumbnail = e.files[0]
+  form.value.thumbnail = e.files[0]
   hasThumbnail.value = true
 }
 
 function save() {
   category.save(hasThumbnail.value)
+}
+
+function update() {
+  category.update(hasThumbnail.value)
 }
 </script>
