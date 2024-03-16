@@ -15,5 +15,32 @@ export const useCategoryStore = defineStore('category', {
     showForm: false,
   }),
 
-  actions: {},
+  actions: {
+    save(hasThumbnail: boolean) {
+      this.errorMsg = ''
+
+      let formData = new FormData()
+      formData.append('name', this.form.name)
+      formData.append('desc', this.form.desc)
+
+      if (hasThumbnail) {
+        formData.append('thumbnail', this.form.thumbnail)
+      }
+
+      axios
+        .post('/categories', formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        })
+        .then((response) => {
+          this.form.name = ''
+          this.form.desc = ''
+          this.form.thumbnail = null
+          this.showForm = false
+        })
+        .catch((error) => {
+          this.errorMsg = error?.response?.data
+          console.error(error) // Handle error
+        })
+    },
+  },
 })

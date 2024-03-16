@@ -54,29 +54,6 @@ function selectedThumbnail(e) {
 }
 
 function save() {
-  category.errorMsg = ''
-
-  let formData = new FormData()
-  formData.append('name', category.form.name)
-  formData.append('desc', category.form.desc)
-
-  if (hasThumbnail.value) {
-    formData.append('thumbnail', category.form.thumbnail)
-  }
-
-  axios
-    .post('/categories', formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    })
-    .then((response) => {
-      category.form.name = ''
-      category.form.desc = ''
-      category.form.thumbnail = null
-      category.showForm = false
-    })
-    .catch((error) => {
-      category.errorMsg = error?.response?.data
-      console.error(error) // Handle error
-    })
+  category.save(hasThumbnail.value)
 }
 </script>
