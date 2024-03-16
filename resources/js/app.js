@@ -11,6 +11,7 @@ import 'primeflex/primeflex.css'
 import Button from 'primevue/button'
 import InputText from 'primevue/inputtext'
 import FileUpload from 'primevue/fileupload'
+import Message from 'primevue/message'
 
 import Categories from '@/categories/index.vue'
 
@@ -23,4 +24,5 @@ app.use(PrimeVue)
 app.component('Button', Button)
 app.component('InputText', InputText)
 app.component('FileUpload', FileUpload)
+app.component('Message', Message)
 app.mount('#app')
