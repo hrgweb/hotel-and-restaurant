@@ -5,6 +5,8 @@
       @click="category.showForm = !category.showForm"
     />
 
+    <CategoryDataTable />
+
     <Dialog
       v-model:visible="category.showForm"
       header="New Category"
@@ -13,7 +15,6 @@
       :closeOnEscape="true"
       :draggable="false"
       modal
-      @dialog-close="closed"
     >
       <CategoryForm />
     </Dialog>
@@ -21,10 +22,21 @@
 </template>
 
 <script lang="ts" setup>
+import { onMounted } from 'vue'
 import CategoryForm from './CategoryForm.vue'
+import CategoryDataTable from './CategoryDataTable.vue'
 
 // @ts-ignore
 import { useCategoryStore } from '@/store/category.ts'
 
+const props = defineProps({
+  data: {
+    type: [Array, Object],
+    required: true,
+  },
+})
+
 const category = useCategoryStore()
+
+onMounted(() => (category.data = props.data))
 </script>

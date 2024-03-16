@@ -13,6 +13,8 @@ import InputText from 'primevue/inputtext'
 import FileUpload from 'primevue/fileupload'
 import Message from 'primevue/message'
 import Dialog from 'primevue/dialog'
+import DataTable from 'primevue/datatable'
+import Column from 'primevue/column'
 
 import CategoryPage from '@/domain/category/index.vue'
 
@@ -29,4 +31,6 @@ app.component('InputText', InputText)
 app.component('FileUpload', FileUpload)
 app.component('Message', Message)
 app.component('Dialog', Dialog)
+app.component('DataTable', DataTable)
+app.component('Column', Column)
 app.mount('#app')

@@ -11,6 +11,11 @@ class CategoryTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_all_categories()
+    {
+        $this->get(route('categories.index'))->assertOk();
+    }
+
     public function test_add_new_category(): void
     {
         $body = Category::factory()->make();
