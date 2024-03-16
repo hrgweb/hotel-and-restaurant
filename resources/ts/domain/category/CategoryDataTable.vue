@@ -1,6 +1,11 @@
 <template>
   <div>
-    <DataTable :value="data" tableStyle="min-width: 50rem">
+    <DataTable
+      :value="data"
+      tableStyle="min-width: 50rem"
+      :stripedRows="true"
+      size="small"
+    >
       <Column header="Image">
         <template #body="{ data }">
           <img
@@ -8,12 +13,16 @@
             :src="useImageSrc(data.thumbnail)"
             :alt="data.image"
             class="w-6rem border-round"
+            height="96"
+            width="96"
           />
           <img
             v-else
             :src="useImageSrc('default.png')"
             :alt="data.image"
             class="w-6rem border-round"
+            height="96"
+            width="96"
           />
         </template>
       </Column>
