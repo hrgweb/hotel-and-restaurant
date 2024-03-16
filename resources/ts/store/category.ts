@@ -127,8 +127,13 @@ export const useCategoryStore = defineStore('category', {
       document.getElementById('query')?.focus()
     },
 
+    askRemove(category: Category, index: number) {
+      this.selectedCategory = category
+      this.index = index
+    },
+
     remove() {
-      axios.delete(`/categories/${this.selected}`)
+      return axios.delete(`/categories/${this.selectedCategory?.id}`)
     },
   },
 })

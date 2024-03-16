@@ -93,4 +93,15 @@ class CategoryController extends Controller
             return response()->json($e->getMessage(), 500);
         }
     }
+
+    public function destroy(Category $category)
+    {
+        try {
+            $category->delete();
+            return response()->json(1, 200);
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json($e->getMessage(), 500);
+        }
+    }
 }

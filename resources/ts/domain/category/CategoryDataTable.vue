@@ -27,7 +27,14 @@
             class="mr-1"
             @click.prevent="category.edit(data, index)"
           />
-          <Button icon="pi pi-times" severity="danger" />
+          <Button
+            icon="pi pi-times"
+            severity="danger"
+            @click.prevent="confirmRemove(data, index, $event)"
+          />
+
+          <!-- Ask dialog remove -->
+          <ConfirmPopup />
         </template>
       </Column>
 
@@ -40,12 +47,46 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { useCategoryStore } from '@/store/category.ts'
-import { useImageSrc } from '@/composables/useImageSrc.ts'
+import { useCategoryStore } from '@/store/category'
+import { useImageSrc } from '@/composables/useImageSrc'
+import { useConfirm } from 'primevue/useconfirm'
+import { useToast } from 'primevue/usetoast'
+import type { Category } from '@/types/category'
 
 const category = useCategoryStore()
+const confirm = useConfirm()
+const toast = useToast()
 
 const data = computed(() =>
   !category.isSearch ? category.data : category.searchResult
 )
+
+const confirmRemove = (data: Category, index: number, e: any) => {
+  category.askRemove(data, index)
+  confirm.require({
+    target: event.currentTarget,
+    message: `Are you sure you want to remove '${data?.name}'?`,
+    icon: 'pi pi-exclamation-triangle',
+    rejectClass: 'p-button-secondary p-button-outlined p-button-sm',
+    acceptClass: 'p-button-sm',
+    rejectLabel: 'No',
+    acceptLabel: 'Yes',
+    accept: () => {
+      category
+        .remove()
+        .then(({ data: Category }) => {
+          category.data.splice(category.index, 1)
+          toast.add({
+            severity: 'success',
+            summary: 'Confirmed',
+            detail: '1 record successfully removed.',
+            life: 3000,
+          })
+        })
+        .catch((error: any) => {
+          console.error(error)
+        })
+    },
+  })
+}
 </script>

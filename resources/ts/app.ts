@@ -17,6 +17,10 @@ import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
 import IconField from 'primevue/iconfield'
 import InputIcon from 'primevue/inputicon'
+import ConfirmPopup from 'primevue/confirmpopup'
+import ConfirmationService from 'primevue/confirmationservice'
+import Toast from 'primevue/toast'
+import ToastService from 'primevue/toastservice'
 
 import CategoryPage from '@/domain/category/index.vue'
 
@@ -28,6 +32,8 @@ const app = createApp({
 })
 app.use(pinia)
 app.use(PrimeVue)
+app.use(ConfirmationService)
+app.use(ToastService)
 app.component('Button', Button)
 app.component('InputText', InputText)
 app.component('FileUpload', FileUpload)
@@ -37,4 +43,6 @@ app.component('DataTable', DataTable)
 app.component('Column', Column)
 app.component('IconField', IconField)
 app.component('InputIcon', InputIcon)
+app.component('ConfirmPopup', ConfirmPopup)
+app.component('Toast', Toast)
 app.mount('#app')

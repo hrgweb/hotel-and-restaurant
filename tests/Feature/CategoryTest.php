@@ -41,4 +41,11 @@ class CategoryTest extends TestCase
             'name' => 'updated name'
         ]);
     }
+
+    public function test_remove_a_category(): void
+    {
+        $category = Category::factory()->create();
+
+        $this->delete(route('categories.destroy', ['category' => $category->id]))->assertOk();
+    }
 }
