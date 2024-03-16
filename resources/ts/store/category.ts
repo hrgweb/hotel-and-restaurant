@@ -122,6 +122,7 @@ export const useCategoryStore = defineStore('category', {
     clearSearch() {
       this.isSearch = false
       this.query = ''
+      document.getElementById('query')?.focus()
     },
   },
 })

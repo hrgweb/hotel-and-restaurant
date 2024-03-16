@@ -8,6 +8,7 @@
         v-model="category.query"
         @keyup.enter="category.search()"
         placeholder="Search for category name"
+        id="query"
       />
       <Button
         label="Clear"
