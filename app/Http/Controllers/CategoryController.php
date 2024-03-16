@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use Exception;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\File;
 
 class CategoryController extends Controller
 {
@@ -58,11 +59,14 @@ class CategoryController extends Controller
                 'thumbnail' => 'nullable|image|max:2048'
             ]);
 
+
             // Handle file upload
             if ($request->hasFile('thumbnail')) {
                 // Check for the previous thumbnail, once found delete
-                if ($category->thumbnail) {
-                    unlink(storage_path('app/public/uploads/' . $category->thumbnail));
+                $path = 'app/public/uploads/';
+
+                if ($category->thumbnail && File::exists(storage_path($path . $category->thumbnail))) {
+                    unlink(storage_path($path . $category->thumbnail));
                 }
 
                 // Get file name with extension
@@ -81,10 +85,7 @@ class CategoryController extends Controller
                 $request->file('thumbnail')->storeAs('public/uploads', $fileNameToStore);
             }
 
-            $category->name = $validated['name'];
-            $category->desc = $validated['desc'];
-            $category->thumbnail = $validated['thumbnail'];
-            $category->save();
+            $category->updateOrCreate(['id' => $category->id], $validated);
 
             return response()->json($category, 201);
         } catch (Exception $e) {
