@@ -23,20 +23,20 @@ class CategoryController extends Controller
             $validated = $request->validate([
                 'name' => 'required',
                 'desc' => 'nullable',
-                'file' => 'nullable|image|max:2048',
+                'image' => 'nullable|image|max:2048',
                 'thumbnail' => 'nullable'
             ]);
 
             // Handle file upload
-            if ($request->hasFile('file')) {
+            if ($request->hasFile('image')) {
                 // Get just the file extension
-                $extension = $request->file('file')->getClientOriginalExtension();
+                $extension = $request->file('image')->getClientOriginalExtension();
 
                 // Generate a unique file name
                 $fileNameToStore = time() . '.' . $extension;
 
                 // Upload file
-                $request->file('file')->storeAs('public/uploads', $fileNameToStore);
+                $request->file('image')->storeAs('public/uploads', $fileNameToStore);
 
                 // Merge the validated thumbnail key
                 $validated['thumbnail'] = $fileNameToStore;
@@ -57,12 +57,12 @@ class CategoryController extends Controller
             $validated = $request->validate([
                 'name' => 'required',
                 'desc' => 'nullable',
-                'file' => 'nullable|image|max:2048',
+                'image' => 'nullable|image|max:2048',
                 'thumbnail' => 'nullable'
             ]);
 
             // Handle file upload
-            if ($request->hasFile('thumbnail')) {
+            if ($request->hasFile('image')) {
                 // Check for the previous thumbnail, once found delete
                 $path = 'app/public/uploads/';
 
@@ -71,13 +71,13 @@ class CategoryController extends Controller
                 }
 
                 // Get just the file extension
-                $extension = $request->file('thumbnail')->getClientOriginalExtension();
+                $extension = $request->file('image')->getClientOriginalExtension();
 
                 // Generate a unique file name
                 $fileNameToStore = time() . '.' . $extension;
 
                 // Upload file
-                $request->file('thumbnail')->storeAs('public/uploads', $fileNameToStore);
+                $request->file('image')->storeAs('public/uploads', $fileNameToStore);
 
                 // Merge the validated thumbnail key
                 $validated['thumbnail'] = $fileNameToStore;

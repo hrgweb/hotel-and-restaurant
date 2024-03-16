@@ -29,10 +29,10 @@ export const useCategoryStore = defineStore('category', {
       let formData = new FormData()
       formData.append('name', this.form.name)
       formData.append('desc', this.form.desc)
-      formData.append('thumbnail', this.form.desc)
+      formData.append('thumbnail', '')
 
       if (hasThumbnail) {
-        formData.append('file', this.form.thumbnail)
+        formData.append('image', this.form.image)
       }
 
       axios
@@ -43,7 +43,7 @@ export const useCategoryStore = defineStore('category', {
           this.showForm = false
           this.reset()
         })
-        .catch((error) => {
+        .catch((error: any) => {
           this.errorMsg = error?.response?.data
           console.error(error) // Handle error
         })
@@ -63,20 +63,20 @@ export const useCategoryStore = defineStore('category', {
       formData.append('_method', 'PATCH')
       formData.append('name', this.editForm.name)
       formData.append('desc', this.editForm.desc)
-      formData.append('thumbnail', this.form.desc)
+      formData.append('thumbnail', '')
 
       if (hasThumbnail) {
-        formData.append('file', this.editForm.thumbnail)
+        formData.append('image', this.editForm.image)
       }
 
       axios
         .post(`/categories/${this.selectCategory?.id}`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
-        .then((response) => {
+        .then(() => {
           this.reset()
         })
-        .catch((error) => {
+        .catch((error: any) => {
           this.errorMsg = error?.response?.data
           console.error(error) // Handle error
         })
@@ -86,11 +86,20 @@ export const useCategoryStore = defineStore('category', {
     reset() {
       this.form.name = ''
       this.form.desc = ''
-      this.form.thumbnail = null
+      this.form.image = null
+      this.form.thumbnail = ''
+    },
+
+    new() {
+      this.showForm = !this.showForm
+      this.isEdit = false
+      this.reset()
+      this.errorMsg = ''
     },
 
     close() {
       this.isEdit = false
+      this.showForm = false
     },
   },
 })

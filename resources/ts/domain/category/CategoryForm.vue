@@ -43,7 +43,7 @@
           label="Cancel"
           type="button"
           severity="secondary"
-          @click.prevent="category.cancel()"
+          @click.prevent="category.close()"
         />
       </div>
     </form>
@@ -52,8 +52,6 @@
 
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
-
-// @ts-ignore
 import { useCategoryStore } from '@/store/category'
 
 const category = useCategoryStore()
@@ -64,7 +62,7 @@ const form = computed(() =>
 
 const hasThumbnail = ref(false)
 function selectedThumbnail(e) {
-  form.value.file = e.files[0]
+  form.value.image = e.files[0]
   hasThumbnail.value = true
 }
 

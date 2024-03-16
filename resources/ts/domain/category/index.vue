@@ -1,9 +1,6 @@
 <template>
   <div>
-    <Button
-      label="New Category"
-      @click="category.showForm = !category.showForm"
-    />
+    <Button label="New Category" @click="category.new()" />
 
     <CategoryDataTable />
 
@@ -26,8 +23,6 @@
 import { onMounted } from 'vue'
 import CategoryForm from './CategoryForm.vue'
 import CategoryDataTable from './CategoryDataTable.vue'
-
-// @ts-ignore
 import { useCategoryStore } from '@/store/category.ts'
 
 const props = defineProps({
