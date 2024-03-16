@@ -53,6 +53,8 @@ function selectedThumbnail(e) {
   hasThumbnail.value = true
 }
 
+const emit = defineEmits(['dialog-close'])
+
 function save() {
   errorMsg.value = ''
 
@@ -66,17 +68,14 @@ function save() {
 
   axios
     .post('/categories', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
+      headers: { 'Content-Type': 'multipart/form-data' },
     })
     .then((response) => {
-      console.log(response.data) // Handle success
-
-      // Optionally reset the form fields
       form.name = ''
       form.desc = ''
       form.thumbnail = null
+
+      emit('dialog-close')
     })
     .catch((error) => {
       errorMsg.value = error?.response?.data
