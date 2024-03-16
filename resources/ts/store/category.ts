@@ -20,6 +20,7 @@ export const useCategoryStore = defineStore('category', {
     errorMsg: '',
     showForm: false,
     selectCategory: null as Category,
+    index: 0,
   }),
 
   actions: {
@@ -49,11 +50,12 @@ export const useCategoryStore = defineStore('category', {
         })
     },
 
-    edit(category: Category) {
+    edit(category: Category, index: number) {
       this.showForm = true
       this.isEdit = true
       this.selectCategory = category
       this.editForm = category
+      this.index = index
     },
 
     update(hasThumbnail: boolean) {
@@ -73,7 +75,8 @@ export const useCategoryStore = defineStore('category', {
         .post(`/categories/${this.selectCategory?.id}`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
-        .then(() => {
+        .then(({ data }: Category) => {
+          this.data[this.index].thumbnail = data?.thumbnail // update thumbnail
           this.reset()
         })
         .catch((error: any) => {

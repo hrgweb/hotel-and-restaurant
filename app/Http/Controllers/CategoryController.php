@@ -85,7 +85,7 @@ class CategoryController extends Controller
 
             $category->updateOrCreate(['id' => $category->id], $validated);
 
-            return response()->json($category, 201);
+            return response()->json($validated, 201);
         } catch (Exception $e) {
             Log::error($e->getMessage());
             return response()->json($e->getMessage(), 500);
