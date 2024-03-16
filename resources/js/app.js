@@ -13,11 +13,11 @@ import InputText from 'primevue/inputtext'
 import FileUpload from 'primevue/fileupload'
 import Message from 'primevue/message'
 
-import Categories from '@/categories/index.vue'
+import CategoryPage from '@/category/index.vue'
 
 const app = createApp({
   components: {
-    Categories,
+    CategoryPage,
   },
 })
 app.use(PrimeVue)

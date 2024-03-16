@@ -9,5 +9,5 @@
 @endsection
 
 @section('body')
-    <categories />
+    <category-page />
 @endsection
