@@ -64,7 +64,7 @@ const form = computed(() =>
 
 const hasThumbnail = ref(false)
 function selectedThumbnail(e) {
-  form.value.thumbnail = e.files[0]
+  form.value.file = e.files[0]
   hasThumbnail.value = true
 }
 

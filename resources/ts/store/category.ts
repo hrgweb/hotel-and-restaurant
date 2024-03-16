@@ -1,6 +1,4 @@
 import { defineStore } from 'pinia'
-
-// @ts-ignore
 import type { Category } from '@/types/category.ts'
 
 export const useCategoryStore = defineStore('category', {
@@ -9,12 +7,14 @@ export const useCategoryStore = defineStore('category', {
     form: {
       name: '',
       desc: '',
-      thumbnail: null,
+      file: null as Blob | null,
+      thumbnail: '',
     } as Category,
     editForm: {
       name: '',
       desc: '',
-      thumbnail: null,
+      file: null as Blob | null,
+      thumbnail: '',
     } as Category,
     isEdit: false,
     errorMsg: '',
@@ -29,21 +29,24 @@ export const useCategoryStore = defineStore('category', {
       let formData = new FormData()
       formData.append('name', this.form.name)
       formData.append('desc', this.form.desc)
+      formData.append('thumbnail', this.form.desc)
 
       if (hasThumbnail) {
-        formData.append('thumbnail', this.form.thumbnail)
+        formData.append('file', this.form.thumbnail)
       }
 
       axios
         .post('/categories', formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
-        .then(() => this.reset())
+        .then(() => {
+          this.showForm = false
+          this.reset()
+        })
         .catch((error) => {
           this.errorMsg = error?.response?.data
           console.error(error) // Handle error
         })
-        .finally(() => (this.showForm = false))
     },
 
     edit(category: Category) {
@@ -60,9 +63,10 @@ export const useCategoryStore = defineStore('category', {
       formData.append('_method', 'PATCH')
       formData.append('name', this.editForm.name)
       formData.append('desc', this.editForm.desc)
+      formData.append('thumbnail', this.form.desc)
 
       if (hasThumbnail) {
-        formData.append('thumbnail', this.editForm.thumbnail)
+        formData.append('file', this.editForm.thumbnail)
       }
 
       axios

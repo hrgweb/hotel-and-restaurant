@@ -1,7 +1,8 @@
 type Category = {
   name: string
   desc: string
-  thumbnail: Blob | null
+  image: Blob | null
+  thumbnail: string
 }
 
 export type { Category }
