@@ -4,7 +4,7 @@
       <Column header="Image">
         <template #body="{ data }">
           <img
-            v-if="useImageSrc(data.thumbnail)"
+            v-if="data.thumbnail"
             :src="useImageSrc(data.thumbnail)"
             :alt="data.image"
             class="w-6rem border-round"

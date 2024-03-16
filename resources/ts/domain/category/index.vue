@@ -8,7 +8,6 @@
       v-model:visible="category.showForm"
       :header="`${category.isEdit ? ' Edit' : 'New'} Category`"
       :style="{ width: '35rem' }"
-      :dismissableMask="true"
       :closeOnEscape="true"
       :draggable="false"
       modal

@@ -61,6 +61,8 @@ class CategoryController extends Controller
                 'thumbnail' => 'nullable'
             ]);
 
+            unset($validated['thumbnail']);
+
             // Handle file upload
             if ($request->hasFile('image')) {
                 // Check for the previous thumbnail, once found delete

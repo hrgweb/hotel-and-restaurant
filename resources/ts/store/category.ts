@@ -19,7 +19,7 @@ export const useCategoryStore = defineStore('category', {
     isEdit: false,
     errorMsg: '',
     showForm: false,
-    selectCategory: null as Category,
+    selectedCategory: null as Category,
     index: 0,
     searchResult: [] as Category[],
     isSearch: false,
@@ -57,7 +57,7 @@ export const useCategoryStore = defineStore('category', {
     edit(category: Category, index: number) {
       this.showForm = true
       this.isEdit = true
-      this.selectCategory = category
+      this.selectedCategory = category
       this.editForm = category
       this.index = index
     },
@@ -76,11 +76,13 @@ export const useCategoryStore = defineStore('category', {
       }
 
       axios
-        .post(`/categories/${this.selectCategory?.id}`, formData, {
+        .post(`/categories/${this.selectedCategory?.id}`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
         .then(({ data }: Category) => {
-          this.data[this.index].thumbnail = data?.thumbnail // update thumbnail
+          if (data?.thumbnail) {
+            this.data[this.index].thumbnail = data?.thumbnail // update thumbnail
+          }
           this.reset()
         })
         .catch((error: any) => {
@@ -123,6 +125,10 @@ export const useCategoryStore = defineStore('category', {
       this.isSearch = false
       this.query = ''
       document.getElementById('query')?.focus()
+    },
+
+    remove() {
+      axios.delete(`/categories/${this.selected}`)
     },
   },
 })
