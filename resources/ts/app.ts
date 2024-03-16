@@ -15,6 +15,8 @@ import Message from 'primevue/message'
 import Dialog from 'primevue/dialog'
 import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
+import IconField from 'primevue/iconfield'
+import InputIcon from 'primevue/inputicon'
 
 import CategoryPage from '@/domain/category/index.vue'
 
@@ -33,4 +35,6 @@ app.component('Message', Message)
 app.component('Dialog', Dialog)
 app.component('DataTable', DataTable)
 app.component('Column', Column)
+app.component('IconField', IconField)
+app.component('InputIcon', InputIcon)
 app.mount('#app')

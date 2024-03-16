@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Button label="New Category" @click="category.new()" />
-
+    <CategoryFilter />
+    <br />
     <CategoryDataTable />
 
     <Dialog
@@ -22,8 +22,9 @@
 <script lang="ts" setup>
 import { onMounted } from 'vue'
 import CategoryForm from './CategoryForm.vue'
+import CategoryFilter from './CategoryFilter.vue'
 import CategoryDataTable from './CategoryDataTable.vue'
-import { useCategoryStore } from '@/store/category.ts'
+import { useCategoryStore } from '@/store/category'
 
 const props = defineProps({
   data: {

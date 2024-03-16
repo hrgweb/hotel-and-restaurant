@@ -21,6 +21,9 @@ export const useCategoryStore = defineStore('category', {
     showForm: false,
     selectCategory: null as Category,
     index: 0,
+    searchResult: [] as Category[],
+    isSearch: false,
+    query: '',
   }),
 
   actions: {
@@ -104,6 +107,21 @@ export const useCategoryStore = defineStore('category', {
     close() {
       this.isEdit = false
       this.showForm = false
+    },
+
+    search() {
+      if (!this.query) return
+
+      this.isSearch = true
+      this.searchResult = this.data.filter(
+        (data) =>
+          data.name?.toLowerCase().indexOf(this.query.toLowerCase()) !== -1
+      )
+    },
+
+    clearSearch() {
+      this.isSearch = false
+      this.query = ''
     },
   },
 })
