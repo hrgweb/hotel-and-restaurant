@@ -40,7 +40,8 @@ export const useCategoryStore = defineStore('category', {
         .post('/categories', formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
-        .then(() => {
+        .then(({ data }: Category) => {
+          this.data.push(data)
           this.showForm = false
           this.reset()
         })
