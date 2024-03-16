@@ -1,8 +1,8 @@
 <template>
   <div>
     <!-- Error -->
-    <Message v-if="errorMsg" severity="error" :closable="false">{{
-      errorMsg
+    <Message v-if="category.errorMsg" severity="error" :closable="false">{{
+      category.errorMsg
     }}</Message>
 
     <form enctype="multipart/form-data" method="POST" @submit.prevent="save">
@@ -38,32 +38,30 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from 'vue'
+import { ref, computed } from 'vue'
 
-const form = reactive({
-  name: '',
-  desc: '',
-  thumbnail: null as Blob | null,
-})
-const errorMsg = ref('')
+// @ts-ignore
+import { useCategoryStore } from '@/store/category'
+
+const category = useCategoryStore()
+
+const form = computed(() => category.form)
 
 const hasThumbnail = ref(false)
 function selectedThumbnail(e) {
-  form.thumbnail = e.files[0]
+  category.form.thumbnail = e.files[0]
   hasThumbnail.value = true
 }
 
-const emit = defineEmits(['dialog-close'])
-
 function save() {
-  errorMsg.value = ''
+  category.errorMsg = ''
 
   let formData = new FormData()
-  formData.append('name', form.name)
-  formData.append('desc', form.desc)
+  formData.append('name', category.form.name)
+  formData.append('desc', category.form.desc)
 
   if (hasThumbnail.value) {
-    formData.append('thumbnail', form.thumbnail)
+    formData.append('thumbnail', category.form.thumbnail)
   }
 
   axios
@@ -71,14 +69,13 @@ function save() {
       headers: { 'Content-Type': 'multipart/form-data' },
     })
     .then((response) => {
-      form.name = ''
-      form.desc = ''
-      form.thumbnail = null
-
-      emit('dialog-close')
+      category.form.name = ''
+      category.form.desc = ''
+      category.form.thumbnail = null
+      category.showForm = false
     })
     .catch((error) => {
-      errorMsg.value = error?.response?.data
+      category.errorMsg = error?.response?.data
       console.error(error) // Handle error
     })
 }
