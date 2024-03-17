@@ -7,18 +7,12 @@
 
     <form enctype="multipart/form-data" @submit.prevent="save">
       <FileUpload
-        name="thumbnail"
-        :multiple="false"
+        mode="basic"
+        name="thumbnail[]"
         accept="image/*"
         :maxFileSize="1000000"
-        :show-upload-button="false"
-        :show-cancel-button="false"
         @select="selectedThumbnail($event)"
-      >
-        <template #empty>
-          <p>Drag and drop a file here to upload.</p>
-        </template>
-      </FileUpload>
+      />
       <br />
       <div class="flex flex-column gap-2">
         <label for="name">Name</label>
