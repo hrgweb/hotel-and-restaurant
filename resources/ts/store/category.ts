@@ -83,13 +83,13 @@ export const useCategoryStore = defineStore('category', {
           if (data?.thumbnail) {
             this.data[this.index].thumbnail = data?.thumbnail // update thumbnail
           }
+          this.showForm = false
           this.reset()
         })
         .catch((error: any) => {
           this.errorMsg = error?.response?.data
           console.error(error) // Handle error
         })
-        .finally(() => (this.showForm = false))
     },
 
     reset() {

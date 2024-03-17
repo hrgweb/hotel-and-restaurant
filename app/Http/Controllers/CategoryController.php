@@ -31,6 +31,7 @@ class CategoryController extends Controller
             if ($request->hasFile('image')) {
                 $fileNameToStore = img_filename($request);
 
+                // Upload and optimized image
                 img_optimzer(file: $request->file('image'), pathToSave: storage_path('app/public/uploads/' . $fileNameToStore));
 
                 // Merge the validated thumbnail key
@@ -52,7 +53,7 @@ class CategoryController extends Controller
             $validated = $request->validate([
                 'name' => 'required',
                 'desc' => 'nullable',
-                'image' => 'nullable|image|max:2048',
+                'image' => 'nullable|image',
                 'thumbnail' => 'nullable'
             ]);
 
@@ -67,14 +68,11 @@ class CategoryController extends Controller
                     unlink(storage_path($path . $category->thumbnail));
                 }
 
-                // Get just the file extension
-                $extension = $request->file('image')->getClientOriginalExtension();
-
                 // Generate a unique file name
-                $fileNameToStore = time() . '.' . $extension;
+                $fileNameToStore = img_filename($request);
 
-                // Upload file
-                $request->file('image')->storeAs('public/uploads', $fileNameToStore);
+                // Upload and optimized image
+                img_optimzer(file: $request->file('image'), pathToSave: storage_path('app/public/uploads/' . $fileNameToStore));
 
                 // Merge the validated thumbnail key
                 $validated['thumbnail'] = $fileNameToStore;
