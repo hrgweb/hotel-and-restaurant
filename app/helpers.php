@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\File;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 
@@ -32,5 +33,14 @@ if (!function_exists('img_filename')) {
         $fileNameToStore = time() . '.' . $extension;
 
         return $fileNameToStore;
+    }
+}
+
+if (!function_exists('old_img_remove')) {
+    function old_img_remove(string $thumbnail, string $path = 'app/public/uploads/'): void
+    {
+        if ($thumbnail && File::exists(storage_path($path . $thumbnail))) {
+            unlink(storage_path($path . $thumbnail));
+        }
     }
 }

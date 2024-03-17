@@ -61,12 +61,8 @@ class CategoryController extends Controller
 
             // Handle file upload
             if ($request->hasFile('image')) {
-                // Check for the previous thumbnail, once found delete
-                $path = 'app/public/uploads/';
-
-                if ($category->thumbnail && File::exists(storage_path($path . $category->thumbnail))) {
-                    unlink(storage_path($path . $category->thumbnail));
-                }
+                // Remove old img
+                old_img_remove($category->thumbnail);
 
                 // Generate a unique file name
                 $fileNameToStore = img_filename($request);
@@ -90,6 +86,9 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         try {
+            // Remove old img
+            old_img_remove($category->thumbnail);
+
             $category->delete();
             return response()->json(1, 200);
         } catch (Exception $e) {
