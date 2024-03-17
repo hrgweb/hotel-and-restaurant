@@ -10,7 +10,7 @@
         mode="basic"
         name="thumbnail[]"
         accept="image/*"
-        :maxFileSize="1000000"
+        :maxFileSize="100000000"
         @select="selectedThumbnail($event)"
       />
       <br />

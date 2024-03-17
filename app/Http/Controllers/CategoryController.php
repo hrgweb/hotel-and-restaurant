@@ -23,20 +23,15 @@ class CategoryController extends Controller
             $validated = $request->validate([
                 'name' => 'required',
                 'desc' => 'nullable',
-                'image' => 'nullable|image|max:2048',
+                'image' => 'nullable|image',
                 'thumbnail' => 'nullable'
             ]);
 
             // Handle file upload
             if ($request->hasFile('image')) {
-                // Get just the file extension
-                $extension = $request->file('image')->getClientOriginalExtension();
+                $fileNameToStore = img_filename($request);
 
-                // Generate a unique file name
-                $fileNameToStore = time() . '.' . $extension;
-
-                // Upload file
-                $request->file('image')->storeAs('public/uploads', $fileNameToStore);
+                img_optimzer(file: $request->file('image'), pathToSave: storage_path('app/public/uploads/' . $fileNameToStore));
 
                 // Merge the validated thumbnail key
                 $validated['thumbnail'] = $fileNameToStore;
