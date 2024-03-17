@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -41,6 +42,23 @@ if (!function_exists('old_img_remove')) {
     {
         if ($thumbnail && File::exists(storage_path($path . $thumbnail))) {
             unlink(storage_path($path . $thumbnail));
+        }
+    }
+}
+
+if (!function_exists('find_or_create_directory')) {
+    function find_or_create_directory(string $path = 'app/public/uploads/'): void
+    {
+        // Specify the directory path
+        $directory = storage_path($path);
+
+        // Check if the directory exists
+        if (!is_dir($directory)) {
+            // Directory doesn't exist, so create it
+            if (!mkdir($directory, 0755, true)) {
+                // Failed to create directory
+                Log::error('failed to create directory');
+            }
         }
     }
 }

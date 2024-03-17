@@ -27,6 +27,9 @@ class CategoryController extends Controller
                 'thumbnail' => 'nullable'
             ]);
 
+            // Find or create uploads directory
+            find_or_create_directory();
+
             // Handle file upload
             if ($request->hasFile('image')) {
                 $fileNameToStore = img_filename($request);
