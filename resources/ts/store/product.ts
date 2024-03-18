@@ -10,18 +10,20 @@ export const useProductStore = defineStore('product', {
       barcode: '',
       name: '',
       desc: '',
-      file: null as Blob | null,
+      image: null as Blob | null,
       thumbnail: '',
       price: 0,
+      available: true,
     } as Product,
     editForm: {
       category_id: 0,
       barcode: '',
       name: '',
       desc: '',
-      file: null as Blob | null,
+      image: null as Blob | null,
       thumbnail: '',
       price: 0,
+      available: true,
     } as Product,
     isEdit: false,
     errorMsg: '',
@@ -39,16 +41,20 @@ export const useProductStore = defineStore('product', {
       this.errorMsg = ''
 
       let formData = new FormData()
+      formData.append('barcode', this.form.barcode)
+      formData.append('category_id', this.selectedCategory?.id)
       formData.append('name', this.form.name)
       formData.append('desc', this.form.desc)
       formData.append('thumbnail', '')
+      formData.append('price', this.form.price)
+      formData.append('available', this.form.available)
 
       if (hasThumbnail) {
         formData.append('image', this.form.image)
       }
 
       axios
-        .post('/categories', formData, {
+        .post('/products', formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
         .then(({ data }: Product) => {

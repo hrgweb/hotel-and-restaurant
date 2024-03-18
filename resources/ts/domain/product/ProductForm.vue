@@ -47,9 +47,16 @@
       <br />
       <div class="flex flex-column gap-2">
         <label for="available">Available</label>
-        <InputText id="available" v-model="form.available" />
+        <InputSwitch v-model="product.form.available" />
       </div>
       <br />
+      <div>
+        <!-- Error -->
+        <Message v-if="product.errorMsg" severity="error" :closable="false">{{
+          product.errorMsg
+        }}</Message>
+      </div>
+
       <div class="flex flex-column gap-2">
         <Button v-if="!product.isEdit" label="Save" type="submit" />
         <Button

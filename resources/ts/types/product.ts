@@ -2,7 +2,7 @@ type Product = {
   id?: number
   category_id?: number
   thumbnail?: string
-  file?: Blob | null
+  image?: Blob | null
   barcode?: string
   name: string
   desc?: string

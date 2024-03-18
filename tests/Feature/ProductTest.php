@@ -13,16 +13,16 @@ class ProductTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_all_categories()
+    public function test_all_products()
     {
-        $this->get(route('categories.index'))->assertOk();
+        $this->get(route('products.index'))->assertOk();
     }
 
     public function test_add_new_category(): void
     {
         $body = Product::factory()->make();
 
-        $this->post(route('categories.store'), $body->toArray())->assertStatus(201);
+        $this->post(route('products.store'), $body->toArray())->assertStatus(201);
     }
 
     public function test_update_a_category(): void
@@ -33,7 +33,7 @@ class ProductTest extends TestCase
 
         $file = UploadedFile::fake()->image(time() . '.png');
 
-        $this->patch(route('categories.update', ['category' => $category->id]), [
+        $this->patch(route('products.update', ['category' => $category->id]), [
             'thumbnail' => $file,
             'name' => 'updated name',
             'desc' => 'updated ipsum'
@@ -46,6 +46,6 @@ class ProductTest extends TestCase
     {
         $category = Product::factory()->create();
 
-        $this->delete(route('categories.destroy', ['category' => $category->id]))->assertOk();
+        $this->delete(route('products.destroy', ['category' => $category->id]))->assertOk();
     }
 }

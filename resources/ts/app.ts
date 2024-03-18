@@ -22,6 +22,7 @@ import ConfirmationService from 'primevue/confirmationservice'
 import Toast from 'primevue/toast'
 import ToastService from 'primevue/toastservice'
 import Dropdown from 'primevue/dropdown'
+import InputSwitch from 'primevue/inputswitch'
 
 import CategoryPage from '@/domain/category/index.vue'
 import ProductPage from '@/domain/product/index.vue'
@@ -49,4 +50,5 @@ app.component('InputIcon', InputIcon)
 app.component('ConfirmPopup', ConfirmPopup)
 app.component('Toast', Toast)
 app.component('Dropdown', Dropdown)
+app.component('InputSwitch', InputSwitch)
 app.mount('#app')
