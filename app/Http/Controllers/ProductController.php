@@ -3,34 +3,25 @@
 namespace App\Http\Controllers;
 
 use Exception;
-use App\Models\Category;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
     public function index()
     {
+        $data = Product::all();
         $categories = Category::all();
 
-        return view('products', ['data' => [], 'categories' => $categories]);
+        return view('products', ['data' => $data, 'categories' => $categories]);
     }
 
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
         try {
-            $validated = $request->validate([
-                'category_id' => 'required|not_in:0,undefined,null',
-                'barcode' => 'nullable',
-                'name' => 'required',
-                'desc' => 'nullable',
-                'image' => 'nullable|image',
-                'price' => 'required',
-                'available' => 'nullable',
-                'thumbnail' => 'nullable'
-            ]);
-
             // Find or create uploads directory
             find_or_create_directory();
 
@@ -45,7 +36,7 @@ class ProductController extends Controller
                 $validated['thumbnail'] = $fileNameToStore;
             }
 
-            $category = Product::create($validated);
+            $category = Product::create($request->validated());
 
             return response()->json($category, 201);
         } catch (Exception $e) {

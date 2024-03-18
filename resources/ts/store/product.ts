@@ -42,7 +42,11 @@ export const useProductStore = defineStore('product', {
 
       let formData = new FormData()
       formData.append('barcode', this.form.barcode)
-      formData.append('category_id', this.selectedCategory?.id)
+
+      if (this.selectedCategory?.id) {
+        formData.append('category_id', this.selectedCategory?.id)
+      }
+
       formData.append('name', this.form.name)
       formData.append('desc', this.form.desc)
       formData.append('thumbnail', '')

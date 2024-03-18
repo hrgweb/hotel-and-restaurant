@@ -26,8 +26,19 @@
           />
         </template>
       </Column>
-      <Column field="name" header="Name"></Column>
+      <Column field="barcode" header="Barcode"></Column>
+      <Column field="category_id" header="Category"></Column>
+      <Column field="name" header="Product Name"></Column>
       <Column field="desc" header="Description"> </Column>
+      <Column field="price" header="Price"> </Column>
+      <Column field="available" header="Availabe">
+        <template #body="{ data }">
+          <Badge
+            :value="`${data?.available ? 'Available' : 'Not Available'}`"
+            :severity="`${data?.available ? 'success' : 'danger'}`"
+          ></Badge>
+        </template>
+      </Column>
       <Column header="Action">
         <template #body="{ data, index }">
           <Button
