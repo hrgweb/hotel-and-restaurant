@@ -38,7 +38,7 @@ if (!function_exists('img_filename')) {
 }
 
 if (!function_exists('old_img_remove')) {
-    function old_img_remove(string $thumbnail, string $path = 'app/public/uploads/'): void
+    function old_img_remove(string|null $thumbnail, string $path = 'app/public/uploads/'): void
     {
         if ($thumbnail && File::exists(storage_path($path . $thumbnail))) {
             unlink(storage_path($path . $thumbnail));
