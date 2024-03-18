@@ -6,7 +6,7 @@
 
     <Dialog
       v-model:visible="product.showForm"
-      :header="`${product.isEdit ? ' Edit' : 'New'} Category`"
+      :header="`${product.isEdit ? ' Edit' : 'New'} Product`"
       :style="{ width: '35rem' }"
       :closeOnEscape="true"
       :draggable="false"
@@ -32,10 +32,16 @@ const props = defineProps({
     type: [Array, Object],
     required: true,
   },
+  categories: {
+    type: [Array, Object],
+    required: true,
+  },
 })
 
 const product = useProductStore()
 
-onMounted(() => (product.data = props.data))
+onMounted(() => {
+  product.data = props.data
+  product.categories = props.categories
+})
 </script>
-./ProductDataTable.vue

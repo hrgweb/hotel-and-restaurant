@@ -15,6 +15,22 @@
       />
       <br />
       <div class="flex flex-column gap-2">
+        <label for="category">Category</label>
+        <Dropdown
+          v-model="product.selectedCategory"
+          :options="product.categories"
+          optionLabel="name"
+          placeholder="Select a City"
+          class="w-full"
+        />
+      </div>
+      <br />
+      <div class="flex flex-column gap-2">
+        <label for="barcode">Barcode</label>
+        <InputText id="barcode" v-model="form.barcode" />
+      </div>
+      <br />
+      <div class="flex flex-column gap-2">
         <label for="name">Name</label>
         <InputText id="name" v-model="form.name" />
       </div>
@@ -22,6 +38,16 @@
       <div class="flex flex-column gap-2">
         <label for="desc">Description</label>
         <InputText id="desc" v-model="form.desc" />
+      </div>
+      <br />
+      <div class="flex flex-column gap-2">
+        <label for="price">Price</label>
+        <InputText id="price" v-model="form.price" />
+      </div>
+      <br />
+      <div class="flex flex-column gap-2">
+        <label for="available">Available</label>
+        <InputText id="available" v-model="form.available" />
       </div>
       <br />
       <div class="flex flex-column gap-2">

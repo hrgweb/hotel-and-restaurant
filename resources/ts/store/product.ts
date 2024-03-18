@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import type { Product } from '@/types/product'
+import type { Category } from '@/types/category'
 
 export const useProductStore = defineStore('product', {
   state: () => ({
@@ -25,11 +26,12 @@ export const useProductStore = defineStore('product', {
     isEdit: false,
     errorMsg: '',
     showForm: false,
-    selectedCategory: null as Product,
+    selectedCategory: null as Category,
     index: 0,
-    searchResult: [] as Product[],
+    searchResult: [] as Product[] | null,
     isSearch: false,
     query: '',
+    categories: [] as Category[] | null,
   }),
 
   actions: {

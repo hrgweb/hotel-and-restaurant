@@ -1,13 +1,13 @@
 <template>
   <div class="flex justify-content-between">
-    <Button label="New Category" @click="product.new()" />
+    <Button label="New Product" @click="product.new()" />
 
     <IconField iconPosition="left">
       <InputIcon class="pi pi-search"> </InputIcon>
       <InputText
         v-model="product.query"
         @keyup.enter="product.search()"
-        placeholder="Search for category name"
+        placeholder="Search for product name"
         id="query"
       />
       <Button

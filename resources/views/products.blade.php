@@ -9,5 +9,5 @@
 @endsection
 
 @section('body')
-    <product-page :data="{{ json_encode($data) }}" />
+    <product-page :data="{{ json_encode($data) }}" :categories="{{ json_encode($categories) }}" />
 @endsection
