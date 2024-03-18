@@ -56,13 +56,13 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { useCategoryStore } from '@/store/category'
+import { useProductStore } from '@/store/product'
 import { useImageSrc } from '@/composables/useImageSrc'
 import { useConfirm } from 'primevue/useconfirm'
 import { useToast } from 'primevue/usetoast'
-import type { Category } from '@/types/category'
+import type { Product } from '@/types/product'
 
-const category = useCategoryStore()
+const category = useProductStore()
 const confirm = useConfirm()
 const toast = useToast()
 
@@ -70,7 +70,7 @@ const data = computed(() =>
   !category.isSearch ? category.data : category.searchResult
 )
 
-const confirmRemove = (data: Category, index: number, event: any) => {
+const confirmRemove = (data: Product, index: number, event: any) => {
   category.askRemove(data, index)
   confirm.require({
     target: event.currentTarget,
@@ -83,7 +83,7 @@ const confirmRemove = (data: Category, index: number, event: any) => {
     accept: () => {
       category
         .remove()
-        .then(({ data: Category }) => {
+        .then(({ data: Product }) => {
           category.data.splice(category.index, 1)
           toast.add({
             severity: 'success',

@@ -1,0 +1,41 @@
+<template>
+  <div>
+    <ProductFilter />
+    <br />
+    <ProductDataTable />
+
+    <Dialog
+      v-model:visible="product.showForm"
+      :header="`${product.isEdit ? ' Edit' : 'New'} Category`"
+      :style="{ width: '35rem' }"
+      :closeOnEscape="true"
+      :draggable="false"
+      modal
+      @hide="product.close()"
+    >
+      <ProductForm />
+    </Dialog>
+
+    <Toast position="top-right" />
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { onMounted } from 'vue'
+import ProductForm from './ProductForm.vue'
+import ProductFilter from './ProductFilter.vue'
+import ProductDataTable from './ProductDataTable.vue'
+import { useProductStore } from '@/store/product'
+
+const props = defineProps({
+  data: {
+    type: [Array, Object],
+    required: true,
+  },
+})
+
+const product = useProductStore()
+
+onMounted(() => (product.data = props.data))
+</script>
+./ProductDataTable.vue

@@ -23,11 +23,13 @@ import Toast from 'primevue/toast'
 import ToastService from 'primevue/toastservice'
 
 import CategoryPage from '@/domain/category/index.vue'
+import ProductPage from '@/domain/product/index.vue'
 
 const pinia = createPinia()
 const app = createApp({
   components: {
     CategoryPage,
+    ProductPage,
   },
 })
 app.use(pinia)
