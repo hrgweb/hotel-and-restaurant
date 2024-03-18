@@ -34,6 +34,7 @@ export const useProductStore = defineStore('product', {
     isSearch: false,
     query: '',
     categories: [] as Category[] | null,
+    selectedProduct: null as Product,
   }),
 
   actions: {
@@ -72,11 +73,13 @@ export const useProductStore = defineStore('product', {
         })
     },
 
-    edit(category: Product, index: number) {
+    edit(product: Product, index: number) {
       this.showForm = true
       this.isEdit = true
-      this.selectedCategory = category
-      this.editForm = category
+      this.selectedProduct = product
+      this.selectedCategory = product?.category
+      this.editForm = product
+      this.editForm.available = product?.available ? true : false
       this.index = index
     },
 
@@ -85,16 +88,24 @@ export const useProductStore = defineStore('product', {
 
       let formData = new FormData()
       formData.append('_method', 'PATCH')
+      formData.append('barcode', this.editForm.barcode)
+
+      if (this.selectedCategory?.id) {
+        formData.append('category_id', this.selectedCategory?.id)
+      }
+
       formData.append('name', this.editForm.name)
       formData.append('desc', this.editForm.desc)
       formData.append('thumbnail', '')
+      formData.append('price', this.editForm.price)
+      formData.append('available', this.editForm.available)
 
       if (hasThumbnail) {
         formData.append('image', this.editForm.image)
       }
 
       axios
-        .post(`/categories/${this.selectedCategory?.id}`, formData, {
+        .post(`/products/${this.selectedProduct?.id}`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
         .then(({ data }: Product) => {

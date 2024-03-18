@@ -47,7 +47,7 @@
       <br />
       <div class="flex flex-column gap-2">
         <label for="available">Available</label>
-        <InputSwitch v-model="product.form.available" />
+        <InputSwitch v-model="form.available" />
       </div>
       <br />
       <div>

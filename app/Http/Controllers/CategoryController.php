@@ -12,7 +12,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::select(['id', 'name'])->get();
 
         return view('categories', ['data' => $categories]);
     }

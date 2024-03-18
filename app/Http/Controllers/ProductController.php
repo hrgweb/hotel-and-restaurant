@@ -13,8 +13,8 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $data = Product::all();
-        $categories = Category::all();
+        $data = Product::with(['category:id,name'])->get();
+        $categories = Category::select(['id', 'name'])->get();
 
         return view('products', ['data' => $data, 'categories' => $categories]);
     }
@@ -47,22 +47,17 @@ class ProductController extends Controller
         }
     }
 
-    public function update(Request $request, Category $category)
+    public function update(ProductRequest $request, Product $product)
     {
         try {
-            $validated = $request->validate([
-                'name' => 'required',
-                'desc' => 'nullable',
-                'image' => 'nullable|image',
-                'thumbnail' => 'nullable'
-            ]);
+            $validated = $request->validated();
 
             unset($validated['thumbnail']);
 
             // Handle file upload
             if ($request->hasFile('image')) {
                 // Remove old img
-                old_img_remove($category->thumbnail);
+                old_img_remove($product->thumbnail);
 
                 // Generate a unique file name
                 $fileNameToStore = img_filename($request);
@@ -74,7 +69,7 @@ class ProductController extends Controller
                 $validated['thumbnail'] = $fileNameToStore;
             }
 
-            $category->updateOrCreate(['id' => $category->id], $validated);
+            $product->updateOrCreate(['id' => $product->id], $validated);
 
             return response()->json($validated, 201);
         } catch (Exception $e) {

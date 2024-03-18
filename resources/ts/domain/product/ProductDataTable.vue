@@ -27,7 +27,7 @@
         </template>
       </Column>
       <Column field="barcode" header="Barcode"></Column>
-      <Column field="category_id" header="Category"></Column>
+      <Column field="category.name" header="Category"></Column>
       <Column field="name" header="Product Name"></Column>
       <Column field="desc" header="Description"> </Column>
       <Column field="price" header="Price"> </Column>

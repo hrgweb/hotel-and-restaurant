@@ -27,13 +27,13 @@ class ProductTest extends TestCase
 
     public function test_update_a_category(): void
     {
-        $category = Product::factory()->create();
+        $product = Product::factory()->create();
 
         Storage::fake('avatars');
 
         $file = UploadedFile::fake()->image(time() . '.png');
 
-        $this->patch(route('products.update', ['category' => $category->id]), [
+        $this->patch(route('products.update', ['product' => $product->id]), [
             'thumbnail' => $file,
             'name' => 'updated name',
             'desc' => 'updated ipsum'
