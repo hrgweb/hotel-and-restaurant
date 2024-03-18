@@ -67,7 +67,7 @@ export const useProductStore = defineStore('product', {
           this.reset()
         })
         .catch((error: any) => {
-          this.errorMsg = error?.response?.data
+          this.errorMsg = error?.response?.data?.message
           console.error(error) // Handle error
         })
     },

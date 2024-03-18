@@ -22,6 +22,8 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         try {
+            $validated = $request->validated();
+
             // Find or create uploads directory
             find_or_create_directory();
 
@@ -36,7 +38,7 @@ class ProductController extends Controller
                 $validated['thumbnail'] = $fileNameToStore;
             }
 
-            $category = Product::create($request->validated());
+            $category = Product::create($validated);
 
             return response()->json($category, 201);
         } catch (Exception $e) {
