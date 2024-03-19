@@ -1,7 +1,5 @@
-type Table = {
-  prefix: string
-  name?: string
-  bulkOfTable?: number | null
+type Role = {
+  role: string
 }
 
-export type { Table }
+export type { Role }

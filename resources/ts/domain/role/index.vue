@@ -1,19 +1,19 @@
 <template>
   <div>
-    <TableFilter />
+    <RoleFilter />
     <br />
-    <TableDataTable />
+    <RoleDataTable />
 
     <Dialog
       v-model:visible="table.showForm"
-      :header="`${table.isEdit ? ' Edit' : 'New'} Table`"
+      :header="`${table.isEdit ? ' Edit' : 'New'} Role`"
       :style="{ width: '35rem' }"
       :closeOnEscape="true"
       :draggable="false"
       modal
       @hide="table.close()"
     >
-      <TableForm />
+      <RoleForm />
     </Dialog>
 
     <Toast position="top-right" />
@@ -22,10 +22,10 @@
 
 <script lang="ts" setup>
 import { onMounted } from 'vue'
-import TableForm from './TableForm.vue'
-import TableFilter from './TableFilter.vue'
-import TableDataTable from './TableDataTable.vue'
-import { useTableStore } from '@/domain/table/store/index'
+import RoleForm from './RoleForm.vue'
+import RoleFilter from './RoleFilter.vue'
+import RoleDataTable from './RoleDataTable.vue'
+import { useRoleStore } from '@/domain/role/store/index'
 
 const props = defineProps({
   data: {
@@ -34,7 +34,7 @@ const props = defineProps({
   },
 })
 
-const table = useTableStore()
+const table = useRoleStore()
 
 onMounted(() => (table.data = props.data))
 </script>

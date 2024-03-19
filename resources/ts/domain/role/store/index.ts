@@ -1,26 +1,22 @@
 import { defineStore } from 'pinia'
-import type { Table } from '../types'
+import type { Role } from '../types'
 
-export const useTableStore = defineStore('table', {
+export const useRoleStore = defineStore('role', {
   state: () => ({
-    resource: 'tables',
-    data: [] as Table[],
+    resource: 'user-roles',
+    data: [] as Role[],
     form: {
-      prefix: 'Table',
-      name: '',
-      bulkOfTable: 0,
-    } as Table,
+      role: '',
+    } as Role,
     editForm: {
-      prefix: 'Table',
-      name: '',
-      bulkOfTable: 0,
-    } as Table,
+      role: '',
+    } as Role,
     isEdit: false,
     errorMsg: '',
     showForm: false,
-    selectedTable: null as Table | null,
+    selectedRole: null as Role | null,
     index: 0,
-    searchResult: [] as Table[],
+    searchResult: [] as Role[],
     isSearch: false,
     query: '',
     isBulk: false,
@@ -29,23 +25,11 @@ export const useTableStore = defineStore('table', {
   actions: {
     save() {
       this.errorMsg = ''
-      this.form['isBulk'] = this.isBulk
 
       axios
         .post(`/${this.resource}`, this.form)
         .then(({ data }) => {
-          // If result is collection, its bulked
-          if (data && data.length && Array.isArray(data)) {
-            data.forEach((item: Table | null, index: number) => {
-              let newItem = item as any
-              newItem['table_name'] = `${item?.prefix} ${item?.name}`
-              this.data.push(newItem)
-            })
-          } else {
-            data['table_name'] = `${data?.prefix} ${data?.name}`
-            this.data.push(data)
-          }
-
+          this.data.push(data)
           this.showForm = false
           this.reset()
         })
@@ -55,20 +39,19 @@ export const useTableStore = defineStore('table', {
         })
     },
 
-    edit(table: Table, index: number) {
+    edit(table: Role, index: number) {
       this.showForm = true
       this.isEdit = true
-      this.selectedTable = table
+      this.selectedRole = table
       this.editForm = table
       this.index = index
     },
 
     update() {
       this.errorMsg = ''
-      this.form['isBulk'] = this.isBulk
 
       axios
-        .patch(`/${this.resource}/${this.selectedTable?.id}`, this.editForm)
+        .patch(`/${this.resource}/${this.selectedRole?.id}`, this.editForm)
         .then(({ data }) => {
           this.data[this.index].prefix = data?.prefix
           this.data[this.index].name = data?.name
@@ -83,8 +66,7 @@ export const useTableStore = defineStore('table', {
     },
 
     reset() {
-      this.form.name = ''
-      this.form.prefix = ''
+      this.form.role = ''
     },
 
     new() {
@@ -92,9 +74,6 @@ export const useTableStore = defineStore('table', {
       this.isEdit = false
       this.reset()
       this.errorMsg = ''
-      this.isBulk = false
-      this.form.prefix = 'Table'
-      this.form.bulkOfTable = 0
     },
 
     close() {
@@ -119,22 +98,13 @@ export const useTableStore = defineStore('table', {
       document.getElementById('query')?.focus()
     },
 
-    askRemove(table: Table, index: number) {
-      this.selectedTable = table
+    askRemove(table: Role, index: number) {
+      this.selectedRole = table
       this.index = index
     },
 
     remove() {
-      return axios.delete(`/${this.resource}/${this.selectedTable?.id}`)
-    },
-
-    createBulk() {
-      this.showForm = !this.showForm
-      this.isEdit = false
-      this.reset()
-      this.form.prefix = 'Table'
-      this.errorMsg = ''
-      this.isBulk = true
+      return axios.delete(`/${this.resource}/${this.selectedRole?.id}`)
     },
   },
 })

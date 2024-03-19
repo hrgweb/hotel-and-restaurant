@@ -6,14 +6,14 @@
       :stripedRows="true"
       size="small"
     >
-      <Column field="table_name" header="Name"></Column>
+      <Column field="role" header="Role"></Column>
       <Column header="Action">
         <template #body="{ data, index }">
           <Button
             icon="pi pi-pencil"
             severity="warning"
             class="mr-1"
-            @click.prevent="table.edit(data, index)"
+            @click.prevent="role.edit(data, index)"
           />
           <Button
             icon="pi pi-times"
@@ -35,32 +35,32 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { useTableStore } from '@/domain/table/store/index'
+import { useRoleStore } from '@/domain/role/store'
 import { useConfirm } from 'primevue/useconfirm'
 import { useToast } from 'primevue/usetoast'
-import type { Table } from '@/types/table'
+import type { Table } from '@/types/role'
 
-const table = useTableStore()
+const role = useRoleStore()
 const confirm = useConfirm()
 const toast = useToast()
 
-const data = computed(() => (!table.isSearch ? table.data : table.searchResult))
+const data = computed(() => (!role.isSearch ? role.data : role.searchResult))
 
 const confirmRemove = (data: Table, index: number, event: any) => {
-  table.askRemove(data, index)
+  role.askRemove(data, index)
   confirm.require({
     target: event.currentTarget,
-    message: `Are you sure you want to remove '${data?.table_name}'?`,
+    message: `Are you sure you want to remove '${data?.role}'?`,
     icon: 'pi pi-exclamation-triangle',
     rejectClass: 'p-button-secondary p-button-outlined p-button-sm',
     acceptClass: 'p-button-sm',
     rejectLabel: 'No',
     acceptLabel: 'Yes',
     accept: () => {
-      table
+      role
         .remove()
         .then(({ data: Table }) => {
-          table.data.splice(table.index, 1)
+          role.data.splice(role.index, 1)
           toast.add({
             severity: 'success',
             summary: 'Confirmed',

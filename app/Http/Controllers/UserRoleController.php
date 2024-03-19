@@ -11,17 +11,15 @@ class UserRoleController extends Controller
 {
     public function index()
     {
-        // $roles = UserRole::select(['id', 'name', 'desc', 'thumbnail'])->get();
+        $roles = UserRole::select(['id', 'role'])->get();
 
-        return view('roles', ['data' => []]);
+        return view('roles', ['data' => $roles]);
     }
 
     public function store(UserRoleRequest $request)
     {
         try {
-            $validated = $request->validated();
-
-            $role = UserRole::create($validated);
+            $role = UserRole::create($request->validated());
 
             return response()->json($role, 201);
         } catch (Exception $e) {
@@ -30,12 +28,12 @@ class UserRoleController extends Controller
         }
     }
 
-    public function update(UserRoleRequest $request, UserRole $role)
+    public function update(UserRoleRequest $request, UserRole $user_role)
     {
         try {
             $validated = $request->validated();
 
-            $role->updateOrCreate(['id' => $role->id], $validated);
+            $user_role->updateOrCreate(['id' => $user_role->id], $validated);
 
             return response()->json($validated, 201);
         } catch (Exception $e) {
@@ -44,10 +42,10 @@ class UserRoleController extends Controller
         }
     }
 
-    public function destroy(UserRole $role)
+    public function destroy(UserRole $user_role)
     {
         try {
-            $role->delete();
+            $user_role->delete();
             return response()->json(1, 200);
         } catch (Exception $e) {
             Log::error($e->getMessage());

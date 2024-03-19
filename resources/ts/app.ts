@@ -29,6 +29,7 @@ import CategoryPage from '@/domain/category/index.vue'
 import ProductPage from '@/domain/product/index.vue'
 import TablePage from '@/domain/table/index.vue'
 import StaffPage from '@/domain/staff/index.vue'
+import UserRolePage from '@/domain/role/index.vue'
 
 const pinia = createPinia()
 const app = createApp({
@@ -37,6 +38,7 @@ const app = createApp({
     ProductPage,
     TablePage,
     StaffPage,
+    UserRolePage,
   },
 })
 app.use(pinia)
