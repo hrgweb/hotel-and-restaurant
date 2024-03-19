@@ -56,7 +56,7 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { useCategoryStore } from '@/store/category'
+import { useCategoryStore } from '@/domain/category/store/index'
 import { useImageSrc } from '@/composables/useImageSrc'
 import { useConfirm } from 'primevue/useconfirm'
 import { useToast } from 'primevue/usetoast'

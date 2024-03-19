@@ -25,7 +25,7 @@ import { onMounted } from 'vue'
 import CategoryForm from './CategoryForm.vue'
 import CategoryFilter from './CategoryFilter.vue'
 import CategoryDataTable from './CategoryDataTable.vue'
-import { useCategoryStore } from '@/store/category'
+import { useCategoryStore } from '@/domain/category/store/index'
 
 const props = defineProps({
   data: {

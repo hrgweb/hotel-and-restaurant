@@ -23,7 +23,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useCategoryStore } from '@/store/category'
+import { useCategoryStore } from '@/domain/category/store/index'
 
 const category = useCategoryStore()
 </script>

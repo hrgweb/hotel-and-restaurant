@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import type { Category } from '@/types/category'
+import type { Category } from '@/domain/category/types/index'
 
 export const useCategoryStore = defineStore('category', {
   state: () => ({

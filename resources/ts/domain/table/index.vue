@@ -21,20 +21,20 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted } from 'vue'
-import CategoryForm from './CategoryForm.vue'
-import CategoryFilter from './CategoryFilter.vue'
-import CategoryDataTable from './CategoryDataTable.vue'
-import { useCategoryStore } from '@/store/category'
+// import { onMounted } from 'vue'
+// import CategoryForm from './CategoryForm.vue'
+// import CategoryFilter from './CategoryFilter.vue'
+// import CategoryDataTable from './CategoryDataTable.vue'
+// import { useCategoryStore } from '@/store/category'
 
-const props = defineProps({
-  data: {
-    type: [Array, Object],
-    required: true,
-  },
-})
+// const props = defineProps({
+//   data: {
+//     type: [Array, Object],
+//     required: true,
+//   },
+// })
 
-const category = useCategoryStore()
+// const category = useCategoryStore()
 
-onMounted(() => (category.data = props.data))
+// onMounted(() => (category.data = props.data))
 </script>
