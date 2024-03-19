@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\TableController;
+use App\Http\Controllers\UserRoleController;
 
 Route::get('/', function () {
     return redirect(route('categories.index'));
@@ -18,4 +19,5 @@ Route::get('/dashboard', function () {
 Route::resource('categories', CategoryController::class);
 Route::resource('products', ProductController::class);
 Route::resource('tables', TableController::class);
+Route::resource('user-roles', UserRoleController::class);
 Route::resource('staffs', StaffController::class);
