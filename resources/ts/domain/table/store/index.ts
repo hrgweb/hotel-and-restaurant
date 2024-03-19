@@ -34,8 +34,18 @@ export const useTableStore = defineStore('table', {
       axios
         .post(`/${this.resource}`, this.form)
         .then(({ data }) => {
-          data['table_name'] = `${data?.prefix} ${data?.name}`
-          this.data.push(data)
+          // If result is collection, its bulked
+          if (data && data.length && Array.isArray(data)) {
+            data.forEach((item: Table | null, index: number) => {
+              let newItem = item as any
+              newItem['table_name'] = `${item?.prefix} ${item?.name}`
+              this.data.push(newItem)
+            })
+          } else {
+            data['table_name'] = `${data?.prefix} ${data?.name}`
+            this.data.push(data)
+          }
+
           this.showForm = false
           this.reset()
         })
