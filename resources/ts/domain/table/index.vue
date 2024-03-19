@@ -1,10 +1,10 @@
 <template>
   <div>
-    <TableFilter />
+    <CategoryFilter />
     <br />
-    <!-- <TableDataTable /> -->
+    <CategoryDataTable />
 
-    <!-- <Dialog
+    <Dialog
       v-model:visible="category.showForm"
       :header="`${category.isEdit ? ' Edit' : 'New'} Category`"
       :style="{ width: '35rem' }"
@@ -14,27 +14,27 @@
       @hide="category.close()"
     >
       <CategoryForm />
-    </Dialog> -->
+    </Dialog>
 
     <Toast position="top-right" />
   </div>
 </template>
 
 <script lang="ts" setup>
-// import { onMounted } from 'vue'
-// import CategoryForm from './CategoryForm.vue'
-// import CategoryFilter from './CategoryFilter.vue'
-// import CategoryDataTable from './CategoryDataTable.vue'
-// import { useCategoryStore } from '@/store/category'
+import { onMounted } from 'vue'
+import CategoryForm from './CategoryForm.vue'
+import CategoryFilter from './CategoryFilter.vue'
+import CategoryDataTable from './CategoryDataTable.vue'
+import { useCategoryStore } from '@/domain/category/store/index'
 
-// const props = defineProps({
-//   data: {
-//     type: [Array, Object],
-//     required: true,
-//   },
-// })
+const props = defineProps({
+  data: {
+    type: [Array, Object],
+    required: true,
+  },
+})
 
-// const category = useCategoryStore()
+const category = useCategoryStore()
 
-// onMounted(() => (category.data = props.data))
+onMounted(() => (category.data = props.data))
 </script>

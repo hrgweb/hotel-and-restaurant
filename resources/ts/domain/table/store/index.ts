@@ -1,28 +1,28 @@
 import { defineStore } from 'pinia'
-import type { Category } from '@/types/table'
+import type { Category } from '@/domain/category/types/index'
 
-export const useCategoryStore = defineStore('table', {
+export const useCategoryStore = defineStore('category', {
   state: () => ({
-    resource: 'tables',
-    data: [] as Table[],
+    resource: 'categories',
+    data: [] as Category[],
     form: {
       name: '',
       desc: '',
       file: null as Blob | null,
       thumbnail: '',
-    } as Table,
+    } as Category,
     editForm: {
       name: '',
       desc: '',
       file: null as Blob | null,
       thumbnail: '',
-    } as Table,
+    } as Category,
     isEdit: false,
     errorMsg: '',
     showForm: false,
-    selectedCategory: null as Table,
+    selectedCategory: null as Category,
     index: 0,
-    searchResult: [] as Table[],
+    searchResult: [] as Category[],
     isSearch: false,
     query: '',
   }),
@@ -44,7 +44,7 @@ export const useCategoryStore = defineStore('table', {
         .post(`/${this.resource}`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
-        .then(({ data }: Table) => {
+        .then(({ data }: Category) => {
           this.data.push(data)
           this.showForm = false
           this.reset()
@@ -55,7 +55,7 @@ export const useCategoryStore = defineStore('table', {
         })
     },
 
-    edit(category: Table, index: number) {
+    edit(category: Category, index: number) {
       this.showForm = true
       this.isEdit = true
       this.selectedCategory = category
@@ -80,7 +80,7 @@ export const useCategoryStore = defineStore('table', {
         .post(`/${this.resource}/${this.selectedCategory?.id}`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
-        .then(({ data }: Table) => {
+        .then(({ data }: Category) => {
           if (data?.thumbnail) {
             this.data[this.index].thumbnail = data?.thumbnail // update thumbnail
           }
