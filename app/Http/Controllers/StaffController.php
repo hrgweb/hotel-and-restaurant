@@ -11,9 +11,9 @@ class StaffController extends Controller
 {
     public function index()
     {
-        $staffs = Staff::select(['id', 'role'])->get();
+        // $staffs = Staff::select(['id', 'role'])->get();
 
-        return view('staffs', ['data' => $staffs]);
+        return view('staffs', ['data' => []]);
     }
 
     public function store(StaffRequest $request)
