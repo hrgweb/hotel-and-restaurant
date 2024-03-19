@@ -1,8 +1,6 @@
-import type { User } from './user'
-
 type Staff = {
-  role: string
-  user: User | null
+  role_id: number
+  user_id: number
 }
 
 export type { Staff }

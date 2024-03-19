@@ -1,21 +1,28 @@
 import { defineStore } from 'pinia'
-import type { Staff } from '@/domain/staff/types/index'
+import type { Staff } from '@/domain/staff/types'
+import type { Role } from '@/domain/role/types'
 
 export const useStaffStore = defineStore('staff', {
   state: () => ({
     resource: 'staffs',
     data: [] as Staff[],
     form: {
-      name: '',
-      desc: '',
-      file: null as Blob | null,
-      thumbnail: '',
+      role_id: null,
+      first_name: '',
+      last_name: '',
+      email: '',
+      username: '',
+      gender: '',
+      dob: new Date(),
     } as Staff,
     editForm: {
-      name: '',
-      desc: '',
-      file: null as Blob | null,
-      thumbnail: '',
+      role_id: null,
+      last_name: '',
+      email: '',
+      username: '',
+      gender: '',
+      dob: new Date(),
+      first_name: '',
     } as Staff,
     isEdit: false,
     errorMsg: '',
@@ -25,15 +32,18 @@ export const useStaffStore = defineStore('staff', {
     searchResult: [] as Staff[],
     isSearch: false,
     query: '',
+    roles: [] as Role[],
+    selectedRole: null as Role | null,
   }),
 
   actions: {
     save() {
       this.errorMsg = ''
+      this.form['role_id'] = this.selectedRole?.id
 
       axios
         .post(`/${this.resource}`, this.form)
-        .then(({ data }: Staff) => {
+        .then(({ data }) => {
           this.data.push(data)
           this.showForm = false
           this.reset()
@@ -68,10 +78,13 @@ export const useStaffStore = defineStore('staff', {
     },
 
     reset() {
-      this.form.name = ''
-      this.form.desc = ''
-      this.form.image = null
-      this.form.thumbnail = ''
+      this.form.role_id = null
+      this.form.first_name = ''
+      this.form.last_name = ''
+      this.form.email = ''
+      this.form.username = ''
+      this.form.gender = ''
+      this.form.dob = new Date()
     },
 
     new() {
@@ -92,7 +105,8 @@ export const useStaffStore = defineStore('staff', {
       this.isSearch = true
       this.searchResult = this.data.filter(
         (data) =>
-          data.role?.toLowerCase().indexOf(this.query.toLowerCase()) !== -1
+          data.first_name?.toLowerCase().indexOf(this.query.toLowerCase()) !==
+          -1
       )
     },
 

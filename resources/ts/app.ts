@@ -24,12 +24,14 @@ import ToastService from 'primevue/toastservice'
 import Dropdown from 'primevue/dropdown'
 import InputSwitch from 'primevue/inputswitch'
 import Badge from 'primevue/badge'
+import RadioButton from 'primevue/radiobutton'
+import Calendar from 'primevue/calendar'
 
 import CategoryPage from '@/domain/category/index.vue'
 import ProductPage from '@/domain/product/index.vue'
 import TablePage from '@/domain/table/index.vue'
-import StaffPage from '@/domain/staff/index.vue'
 import UserRolePage from '@/domain/role/index.vue'
+import StaffPage from '@/domain/staff/index.vue'
 
 const pinia = createPinia()
 const app = createApp({
@@ -59,4 +61,6 @@ app.component('Toast', Toast)
 app.component('Dropdown', Dropdown)
 app.component('InputSwitch', InputSwitch)
 app.component('Badge', Badge)
+app.component('RadioButton', RadioButton)
+app.component('Calendar', Calendar)
 app.mount('#app')

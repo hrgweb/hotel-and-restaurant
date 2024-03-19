@@ -32,9 +32,16 @@ const props = defineProps({
     type: [Array, Object],
     required: true,
   },
+  roles: {
+    type: [Array, Object],
+    required: true,
+  },
 })
 
 const staff = useStaffStore()
 
-onMounted(() => (staff.data = props.data))
+onMounted(() => {
+  staff.data = props.data
+  staff.roles = props.roles
+})
 </script>

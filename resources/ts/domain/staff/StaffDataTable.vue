@@ -6,7 +6,14 @@
       :stripedRows="true"
       size="small"
     >
-      <Column field="role" header="Role"></Column>
+      <Column field="user.name" header="Name"></Column>
+      <Column field="user.email" header="Email"></Column>
+      <Column field="user.username" header="Username"></Column>
+      <Column header="User Role">
+        <template #body="{ data }">
+          <Badge :value="data?.user_role?.role" severity="info"></Badge>
+        </template>
+      </Column>
       <Column header="Action">
         <template #body="{ data, index }">
           <Button

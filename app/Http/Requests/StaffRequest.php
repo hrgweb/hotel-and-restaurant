@@ -22,7 +22,20 @@ class StaffRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'role' => 'required'
+            'first_name' => 'required',
+            'last_name' => 'nullable',
+            'email' => 'nullable|email|unique:users,email',
+            'username' => 'nullable',
+            'gender' => 'nullable',
+            'dob' => 'nullable',
+            'role_id' => 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'role_id.required' => 'The user role is required.'
         ];
     }
 }
