@@ -50,7 +50,7 @@ const confirmRemove = (data: Table, index: number, event: any) => {
   table.askRemove(data, index)
   confirm.require({
     target: event.currentTarget,
-    message: `Are you sure you want to remove '${data?.name}'?`,
+    message: `Are you sure you want to remove '${data?.table_name}'?`,
     icon: 'pi pi-exclamation-triangle',
     rejectClass: 'p-button-secondary p-button-outlined p-button-sm',
     acceptClass: 'p-button-sm',

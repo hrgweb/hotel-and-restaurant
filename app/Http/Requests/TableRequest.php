@@ -22,8 +22,9 @@ class TableRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|unique:tables,name',
-            'prefix' => 'required'
+            'name' => 'nullable|unique:tables,name',
+            'prefix' => 'required',
+            'bulkOfTable' => 'nullable'
         ];
     }
 }

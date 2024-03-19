@@ -1,44 +1,38 @@
 import { defineStore } from 'pinia'
-import type { Table } from '@/domain/table/types/index'
+import type { Table } from '../types'
 
 export const useTableStore = defineStore('table', {
   state: () => ({
     resource: 'tables',
     data: [] as Table[],
     form: {
-      name: '',
       prefix: 'Table',
+      name: '',
+      bulkOfTable: 0,
     } as Table,
     editForm: {
-      name: '',
       prefix: 'Table',
+      name: '',
+      bulkOfTable: 0,
     } as Table,
     isEdit: false,
     errorMsg: '',
     showForm: false,
-    selectedTable: null as Table,
+    selectedTable: null as Table | null,
     index: 0,
     searchResult: [] as Table[],
     isSearch: false,
     query: '',
-    showFormBulk: false,
-    isEditBulk: false,
-    closeBulk: false,
+    isBulk: false,
   }),
 
   actions: {
     save() {
       this.errorMsg = ''
 
-      let formData = new FormData()
-      formData.append('name', this.form.name)
-      formData.append('prefix', this.form.prefix)
-
       axios
-        .post(`/${this.resource}`, formData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
-        })
-        .then(({ data }: Table) => {
+        .post(`/${this.resource}`, this.form)
+        .then(({ data }) => {
           data['table_name'] = `${data?.prefix} ${data?.name}`
           this.data.push(data)
           this.showForm = false
@@ -61,16 +55,9 @@ export const useTableStore = defineStore('table', {
     update() {
       this.errorMsg = ''
 
-      let formData = new FormData()
-      formData.append('_method', 'PATCH')
-      formData.append('name', this.editForm.name)
-      formData.append('prefix', this.editForm.prefix)
-
       axios
-        .post(`/${this.resource}/${this.selectedTable?.id}`, formData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
-        })
-        .then(({ data }: Table) => {
+        .patch(`/${this.resource}/${this.selectedTable?.id}`, this.editForm)
+        .then(({ data }) => {
           this.data[this.index].prefix = data?.prefix
           this.data[this.index].name = data?.name
           this.data[this.index].table_name = `${data?.prefix} ${data?.name}`
@@ -94,6 +81,7 @@ export const useTableStore = defineStore('table', {
       this.reset()
       this.form.prefix = 'Table'
       this.errorMsg = ''
+      this.isBulk = false
     },
 
     close() {
@@ -128,15 +116,12 @@ export const useTableStore = defineStore('table', {
     },
 
     createBulk() {
-      this.showFormBulk = !this.showFormBulk
-      this.isEditBulk = false
+      this.showForm = !this.showForm
+      this.isEdit = false
       this.reset()
+      this.form.prefix = 'Table'
       this.errorMsg = ''
-    },
-
-    closeBulk() {
-      this.isEditBulk = false
-      this.showFormBulk = false
+      this.isBulk = true
     },
   },
 })

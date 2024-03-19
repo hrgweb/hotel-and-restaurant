@@ -6,12 +6,23 @@
     }}</Message>
 
     <form enctype="multipart/form-data" @submit.prevent="save">
-      <div class="flex flex-column gap-2">
-        <label for="name">Name</label>
-        <InputText id="name" v-model="form.name" />
+      <div class="flex">
+        <div class="flex flex-column mr-3">
+          <label for="prefix">Prefix</label>
+          <InputText
+            id="prefix"
+            v-model="form.prefix"
+            placeholder="e.g Table"
+          />
+        </div>
+        <br />
+        <div class="flex flex-column">
+          <label for="tableNo">No of Table</label>
+          <InputText id="tableNo" v-model="form.bulkOfTable" />
+        </div>
       </div>
       <br />
-      <div class="flex flex-column gap-2">
+      <div>
         <Button v-if="!table.isEdit" label="Save" type="submit" />
         <Button
           v-else
@@ -21,6 +32,7 @@
           @click.prevent="update"
         />
         <Button
+          class="ml-1"
           label="Cancel"
           type="button"
           severity="secondary"

@@ -5,9 +5,9 @@
       table.errorMsg
     }}</Message>
 
-    <form enctype="multipart/form-data" @submit.prevent="save">
-      <div class="formgrid grid">
-        <div class="field col">
+    <form @submit.prevent="save">
+      <div class="flex">
+        <div class="flex flex-column mr-3">
           <label for="prefix">Prefix</label>
           <InputText
             id="prefix"
@@ -15,12 +15,19 @@
             placeholder="e.g Table"
           />
         </div>
-        <div class="field col">
+        <br />
+
+        <div v-if="!table.isBulk" class="flex flex-column">
           <label for="name">Name</label>
-          <InputText id="name" v-model="form.name" />
+          <InputText id="name" v-model="form.name" placeholder="e.g 1" />
+        </div>
+        <div v-else class="flex flex-column">
+          <label for="bulkOfTable">No of Table</label>
+          <InputText id="bulkOfTable" v-model="form.bulkOfTable" />
         </div>
       </div>
-      <div class="field col">
+      <br />
+      <div>
         <Button v-if="!table.isEdit" label="Save" type="submit" />
         <Button
           v-else
@@ -30,6 +37,7 @@
           @click.prevent="update"
         />
         <Button
+          class="ml-1"
           label="Cancel"
           type="button"
           severity="secondary"
@@ -56,3 +64,11 @@ function update() {
   table.update()
 }
 </script>
+
+<style lang="scss" scoped>
+form {
+  & label {
+    padding-bottom: 0.6rem;
+  }
+}
+</style>
