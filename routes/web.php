@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StaffController;
 use App\Http\Controllers\TableController;
 
 Route::get('/', function () {
@@ -17,3 +18,4 @@ Route::get('/dashboard', function () {
 Route::resource('categories', CategoryController::class);
 Route::resource('products', ProductController::class);
 Route::resource('tables', TableController::class);
+Route::resource('staffs', StaffController::class);

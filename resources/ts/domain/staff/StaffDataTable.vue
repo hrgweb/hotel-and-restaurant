@@ -6,35 +6,14 @@
       :stripedRows="true"
       size="small"
     >
-      <Column header="Image">
-        <template #body="{ data }">
-          <img
-            v-if="data.thumbnail"
-            :src="useImageSrc(data.thumbnail)"
-            :alt="data.image"
-            class="w-6rem border-round"
-            height="96"
-            width="96"
-          />
-          <img
-            v-else
-            :src="useImageSrc('default.png')"
-            :alt="data.image"
-            class="w-6rem border-round"
-            height="96"
-            width="96"
-          />
-        </template>
-      </Column>
-      <Column field="name" header="Name"></Column>
-      <Column field="desc" header="Description"> </Column>
+      <Column field="role" header="Role"></Column>
       <Column header="Action">
         <template #body="{ data, index }">
           <Button
             icon="pi pi-pencil"
             severity="warning"
             class="mr-1"
-            @click.prevent="category.edit(data, index)"
+            @click.prevent="staff.edit(data, index)"
           />
           <Button
             icon="pi pi-times"
@@ -56,35 +35,32 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { useCategoryStore } from '@/domain/category/store/index'
-import { useImageSrc } from '@/composables/useImageSrc'
+import { useStaffStore } from '@/domain/staff/store/index'
 import { useConfirm } from 'primevue/useconfirm'
 import { useToast } from 'primevue/usetoast'
-import type { Category } from '@/types/category'
+import type { Staff } from '@/types/staff'
 
-const category = useCategoryStore()
+const staff = useStaffStore()
 const confirm = useConfirm()
 const toast = useToast()
 
-const data = computed(() =>
-  !category.isSearch ? category.data : category.searchResult
-)
+const data = computed(() => (!staff.isSearch ? staff.data : staff.searchResult))
 
-const confirmRemove = (data: Category, index: number, event: any) => {
-  category.askRemove(data, index)
+const confirmRemove = (data: Staff, index: number, event: any) => {
+  staff.askRemove(data, index)
   confirm.require({
     target: event.currentTarget,
-    message: `Are you sure you want to remove '${data?.name}'?`,
+    message: `Are you sure you want to remove '${data?.role}'?`,
     icon: 'pi pi-exclamation-triangle',
     rejectClass: 'p-button-secondary p-button-outlined p-button-sm',
     acceptClass: 'p-button-sm',
     rejectLabel: 'No',
     acceptLabel: 'Yes',
     accept: () => {
-      category
+      staff
         .remove()
-        .then(({ data: Category }) => {
-          category.data.splice(category.index, 1)
+        .then(({ data: Staff }) => {
+          staff.data.splice(staff.index, 1)
           toast.add({
             severity: 'success',
             summary: 'Confirmed',

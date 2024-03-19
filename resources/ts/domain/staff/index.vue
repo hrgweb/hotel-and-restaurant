@@ -1,19 +1,19 @@
 <template>
   <div>
-    <CategoryFilter />
+    <StaffFilter />
     <br />
-    <CategoryDataTable />
+    <StaffDataTable />
 
     <Dialog
-      v-model:visible="category.showForm"
-      :header="`${category.isEdit ? ' Edit' : 'New'} Category`"
+      v-model:visible="staff.showForm"
+      :header="`${staff.isEdit ? ' Edit' : 'New'} Staff`"
       :style="{ width: '35rem' }"
       :closeOnEscape="true"
       :draggable="false"
       modal
-      @hide="category.close()"
+      @hide="staff.close()"
     >
-      <CategoryForm />
+      <StaffForm />
     </Dialog>
 
     <Toast position="top-right" />
@@ -22,10 +22,10 @@
 
 <script lang="ts" setup>
 import { onMounted } from 'vue'
-import CategoryForm from './CategoryForm.vue'
-import CategoryFilter from './CategoryFilter.vue'
-import CategoryDataTable from './CategoryDataTable.vue'
-import { useCategoryStore } from '@/domain/category/store/index'
+import StaffForm from './StaffForm.vue'
+import StaffFilter from './StaffFilter.vue'
+import StaffDataTable from './StaffDataTable.vue'
+import { useStaffStore } from '@/domain/staff/store/index'
 
 const props = defineProps({
   data: {
@@ -34,7 +34,7 @@ const props = defineProps({
   },
 })
 
-const category = useCategoryStore()
+const staff = useStaffStore()
 
-onMounted(() => (category.data = props.data))
+onMounted(() => (staff.data = props.data))
 </script>

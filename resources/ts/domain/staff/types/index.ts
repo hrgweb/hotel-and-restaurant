@@ -1,8 +1,5 @@
-type Category = {
-  name: string
-  desc: string
-  image: Blob | null
-  thumbnail: string
+type Staff = {
+  role: string
 }
 
-export type { Category }
+export type { Staff }

@@ -1,50 +1,39 @@
 import { defineStore } from 'pinia'
-import type { Category } from '@/domain/category/types/index'
+import type { Staff } from '@/domain/staff/types/index'
 
-export const useCategoryStore = defineStore('category', {
+export const useStaffStore = defineStore('staff', {
   state: () => ({
-    resource: 'categories',
-    data: [] as Category[],
+    resource: 'staffs',
+    data: [] as Staff[],
     form: {
       name: '',
       desc: '',
       file: null as Blob | null,
       thumbnail: '',
-    } as Category,
+    } as Staff,
     editForm: {
       name: '',
       desc: '',
       file: null as Blob | null,
       thumbnail: '',
-    } as Category,
+    } as Staff,
     isEdit: false,
     errorMsg: '',
     showForm: false,
-    selectedCategory: null as Category,
+    selectedStaff: null as Staff,
     index: 0,
-    searchResult: [] as Category[],
+    searchResult: [] as Staff[],
     isSearch: false,
     query: '',
   }),
 
   actions: {
-    save(hasThumbnail: boolean) {
+    save() {
       this.errorMsg = ''
 
-      let formData = new FormData()
-      formData.append('name', this.form.name)
-      formData.append('desc', this.form.desc)
-      formData.append('thumbnail', '')
-
-      if (hasThumbnail) {
-        formData.append('image', this.form.image)
-      }
-
       axios
-        .post(`/${this.resource}`, formData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
-        })
-        .then(({ data }: Category) => {
+        .post(`/${this.resource}`, this.form)
+        .then(({ data }: Staff) => {
           this.data.push(data)
           this.showForm = false
           this.reset()
@@ -55,35 +44,20 @@ export const useCategoryStore = defineStore('category', {
         })
     },
 
-    edit(category: Category, index: number) {
+    edit(category: Staff, index: number) {
       this.showForm = true
       this.isEdit = true
-      this.selectedCategory = category
+      this.selectedStaff = category
       this.editForm = category
       this.index = index
     },
 
-    update(hasThumbnail: boolean) {
+    update() {
       this.errorMsg = ''
 
-      let formData = new FormData()
-      formData.append('_method', 'PATCH')
-      formData.append('name', this.editForm.name)
-      formData.append('desc', this.editForm.desc)
-      formData.append('thumbnail', '')
-
-      if (hasThumbnail) {
-        formData.append('image', this.editForm.image)
-      }
-
       axios
-        .post(`/${this.resource}/${this.selectedCategory?.id}`, formData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
-        })
-        .then(({ data }: Category) => {
-          if (data?.thumbnail) {
-            this.data[this.index].thumbnail = data?.thumbnail // update thumbnail
-          }
+        .patch(`/${this.resource}/${this.selectedStaff?.id}`, this.editForm)
+        .then(({ data }: Staff) => {
           this.showForm = false
           this.reset()
         })
@@ -118,7 +92,7 @@ export const useCategoryStore = defineStore('category', {
       this.isSearch = true
       this.searchResult = this.data.filter(
         (data) =>
-          data.name?.toLowerCase().indexOf(this.query.toLowerCase()) !== -1
+          data.role?.toLowerCase().indexOf(this.query.toLowerCase()) !== -1
       )
     },
 
@@ -128,13 +102,13 @@ export const useCategoryStore = defineStore('category', {
       document.getElementById('query')?.focus()
     },
 
-    askRemove(category: Category, index: number) {
-      this.selectedCategory = category
+    askRemove(category: Staff, index: number) {
+      this.selectedStaff = category
       this.index = index
     },
 
     remove() {
-      return axios.delete(`/${this.resource}/${this.selectedCategory?.id}`)
+      return axios.delete(`/${this.resource}/${this.selectedStaff?.id}`)
     },
   },
 })
