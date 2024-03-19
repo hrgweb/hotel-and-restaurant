@@ -22,7 +22,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import { useCategoryStore } from '@/domain/category/store/index'
 
 const category = useCategoryStore()

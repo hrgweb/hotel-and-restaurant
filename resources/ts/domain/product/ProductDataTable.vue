@@ -67,7 +67,7 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { useProductStore } from '@/store/product'
+import { useProductStore } from '@/domain/product/store/index'
 import { useImageSrc } from '@/composables/useImageSrc'
 import { useConfirm } from 'primevue/useconfirm'
 import { useToast } from 'primevue/usetoast'

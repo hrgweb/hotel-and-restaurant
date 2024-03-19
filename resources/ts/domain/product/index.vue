@@ -25,7 +25,7 @@ import { onMounted } from 'vue'
 import ProductForm from './ProductForm.vue'
 import ProductFilter from './ProductFilter.vue'
 import ProductDataTable from './ProductDataTable.vue'
-import { useProductStore } from '@/store/product'
+import { useProductStore } from '@/domain/product/store/index'
 
 const props = defineProps({
   data: {

@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import { useProductStore } from '@/store/product'
+import { useProductStore } from '@/domain/product/store/index'
 
 const product = useProductStore()
 </script>

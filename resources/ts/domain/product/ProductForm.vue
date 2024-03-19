@@ -79,7 +79,7 @@
 
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
-import { useProductStore } from '@/store/product'
+import { useProductStore } from '@/domain/product/store/index'
 
 const product = useProductStore()
 
