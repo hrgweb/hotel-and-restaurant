@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryRequest;
 use Exception;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -12,20 +13,15 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::select(['id', 'name'])->get();
+        $categories = Category::select(['id', 'name', 'desc', 'thumbnail'])->get();
 
         return view('categories', ['data' => $categories]);
     }
 
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
         try {
-            $validated = $request->validate([
-                'name' => 'required',
-                'desc' => 'nullable',
-                'image' => 'nullable|image',
-                'thumbnail' => 'nullable'
-            ]);
+            $validated = $request->validated();
 
             // Find or create uploads directory
             find_or_create_directory();
@@ -50,15 +46,10 @@ class CategoryController extends Controller
         }
     }
 
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
         try {
-            $validated = $request->validate([
-                'name' => 'required',
-                'desc' => 'nullable',
-                'image' => 'nullable|image',
-                'thumbnail' => 'nullable'
-            ]);
+            $validated = $request->validated();
 
             unset($validated['thumbnail']);
 

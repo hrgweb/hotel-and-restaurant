@@ -3,6 +3,7 @@ import type { Category } from '@/types/category'
 
 export const useCategoryStore = defineStore('category', {
   state: () => ({
+    resource: 'categories',
     data: [] as Category[],
     form: {
       name: '',
@@ -40,7 +41,7 @@ export const useCategoryStore = defineStore('category', {
       }
 
       axios
-        .post('/categories', formData, {
+        .post(`/${this.resource}`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
         .then(({ data }: Category) => {
@@ -49,7 +50,7 @@ export const useCategoryStore = defineStore('category', {
           this.reset()
         })
         .catch((error: any) => {
-          this.errorMsg = error?.response?.data
+          this.errorMsg = error?.response?.data?.message
           console.error(error) // Handle error
         })
     },
@@ -76,7 +77,7 @@ export const useCategoryStore = defineStore('category', {
       }
 
       axios
-        .post(`/categories/${this.selectedCategory?.id}`, formData, {
+        .post(`/${this.resource}/${this.selectedCategory?.id}`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
         .then(({ data }: Category) => {
@@ -87,7 +88,7 @@ export const useCategoryStore = defineStore('category', {
           this.reset()
         })
         .catch((error: any) => {
-          this.errorMsg = error?.response?.data
+          this.errorMsg = error?.response?.data?.message
           console.error(error) // Handle error
         })
     },
@@ -133,7 +134,7 @@ export const useCategoryStore = defineStore('category', {
     },
 
     remove() {
-      return axios.delete(`/categories/${this.selectedCategory?.id}`)
+      return axios.delete(`/${this.resource}/${this.selectedCategory?.id}`)
     },
   },
 })

@@ -78,13 +78,13 @@ class ProductController extends Controller
         }
     }
 
-    public function destroy(Category $category)
+    public function destroy(Product $product)
     {
         try {
             // Remove old img
-            old_img_remove($category->thumbnail);
+            old_img_remove($product->thumbnail);
 
-            $category->delete();
+            $product->delete();
             return response()->json(1, 200);
         } catch (Exception $e) {
             Log::error($e->getMessage());

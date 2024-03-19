@@ -4,6 +4,7 @@ import type { Category } from '@/types/category'
 
 export const useProductStore = defineStore('product', {
   state: () => ({
+    resource: 'products',
     data: [] as Product[],
     form: {
       category_id: 0,
@@ -59,7 +60,7 @@ export const useProductStore = defineStore('product', {
       }
 
       axios
-        .post('/products', formData, {
+        .post(`/${this.resource}`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
         .then(({ data }: Product) => {
@@ -105,7 +106,7 @@ export const useProductStore = defineStore('product', {
       }
 
       axios
-        .post(`/products/${this.selectedProduct?.id}`, formData, {
+        .post(`/${this.resource}/${this.selectedProduct?.id}`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
         .then(({ data }: Product) => {
@@ -162,7 +163,7 @@ export const useProductStore = defineStore('product', {
     },
 
     remove() {
-      return axios.delete(`/categories/${this.selectedCategory?.id}`)
+      return axios.delete(`/${this.resource}/${this.selectedCategory?.id}`)
     },
   },
 })
