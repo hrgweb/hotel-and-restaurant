@@ -1,10 +1,10 @@
 <template>
   <div>
-    <CategoryFilter />
+    <TableFilter />
     <br />
-    <CategoryDataTable />
+    <!-- <TableDataTable /> -->
 
-    <Dialog
+    <!-- <Dialog
       v-model:visible="category.showForm"
       :header="`${category.isEdit ? ' Edit' : 'New'} Category`"
       :style="{ width: '35rem' }"
@@ -14,7 +14,7 @@
       @hide="category.close()"
     >
       <CategoryForm />
-    </Dialog>
+    </Dialog> -->
 
     <Toast position="top-right" />
   </div>

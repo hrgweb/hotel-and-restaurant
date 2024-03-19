@@ -1,13 +1,13 @@
 <template>
   <div class="flex justify-content-between">
-    <Button label="New Category" @click="category.new()" />
+    <Button label="New Table" @click="table.new()" />
 
     <IconField iconPosition="left">
       <InputIcon class="pi pi-search"> </InputIcon>
       <InputText
-        v-model="category.query"
-        @keyup.enter="category.search()"
-        placeholder="Search for category name"
+        v-model="table.query"
+        @keyup.enter="table.search()"
+        placeholder="Search for table name"
         id="query"
       />
       <Button
@@ -15,15 +15,14 @@
         size="small"
         severity="danger"
         text
-        @click.prevent="category.clearSearch()"
+        @click.prevent="table.clearSearch()"
       />
     </IconField>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useCategoryStore } from '@/store/category'
+import { useTableStore } from '@/store/table'
 
-const category = useCategoryStore()
+const table = useTableStore()
 </script>

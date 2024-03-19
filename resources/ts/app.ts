@@ -27,12 +27,14 @@ import Badge from 'primevue/badge'
 
 import CategoryPage from '@/domain/category/index.vue'
 import ProductPage from '@/domain/product/index.vue'
+import TablePage from '@/domain/table/index.vue'
 
 const pinia = createPinia()
 const app = createApp({
   components: {
     CategoryPage,
     ProductPage,
+    TablePage,
   },
 })
 app.use(pinia)
