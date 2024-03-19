@@ -33,6 +33,7 @@
                 <div><a href="/categories">Categories</a></div>
                 <div><a href="/products">Products</a></div>
                 <div><a href="/tables">Tables</a></div>
+                <div><a href="/staffs">Staffs</a></div>
                 <div><a href="/">Taxes</a></div>
                 <div><a href="/">Units</a></div>
                 <div><a href="/">Coupon</a></div>
