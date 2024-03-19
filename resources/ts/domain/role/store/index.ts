@@ -53,9 +53,7 @@ export const useRoleStore = defineStore('role', {
       axios
         .patch(`/${this.resource}/${this.selectedRole?.id}`, this.editForm)
         .then(({ data }) => {
-          this.data[this.index].prefix = data?.prefix
-          this.data[this.index].name = data?.name
-          this.data[this.index].table_name = `${data?.prefix} ${data?.name}`
+          this.data[this.index].role = data?.role
           this.showForm = false
           this.reset()
         })
@@ -87,8 +85,7 @@ export const useRoleStore = defineStore('role', {
       this.isSearch = true
       this.searchResult = this.data.filter(
         (data) =>
-          data.table_name?.toLowerCase().indexOf(this.query.toLowerCase()) !==
-          -1
+          data.role?.toLowerCase().indexOf(this.query.toLowerCase()) !== -1
       )
     },
 
