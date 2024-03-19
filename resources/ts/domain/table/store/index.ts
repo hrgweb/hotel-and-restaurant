@@ -107,7 +107,8 @@ export const useTableStore = defineStore('table', {
       this.isSearch = true
       this.searchResult = this.data.filter(
         (data) =>
-          data.name?.toLowerCase().indexOf(this.query.toLowerCase()) !== -1
+          data.table_name?.toLowerCase().indexOf(this.query.toLowerCase()) !==
+          -1
       )
     },
 
