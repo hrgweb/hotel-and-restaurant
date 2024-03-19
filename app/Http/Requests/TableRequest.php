@@ -21,10 +21,30 @@ class TableRequest extends FormRequest
      */
     public function rules(): array
     {
+        if ($this->isBulk) {
+            return [
+                'prefix' => 'required',
+                'bulkOfTable' => 'required|gt:0',
+            ];
+        }
+
         return [
-            'name' => 'nullable|unique:tables,name',
+            'name' => 'required|unique:tables,name',
             'prefix' => 'required',
-            'bulkOfTable' => 'nullable'
+        ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'bulkOfTable' => (int)$this->bulkOfTable,
+        ]);
+    }
+
+    public function messages()
+    {
+        return [
+            'bulkOfTable.gt' => 'The no of table must be greater than 1.'
         ];
     }
 }

@@ -19,6 +19,22 @@ class TableController extends Controller
     public function store(TableRequest $request)
     {
         try {
+            // Check if bulk
+            if ($request->input('isBulk')) {
+                $result = [];
+                $i = 1;
+                while ($i <= $request->input('bulkOfTable')) {
+                    $category = Table::create([
+                        'prefix' => ucwords($request->input('prefix')),
+                        'name' => $i
+                    ]);
+                    array_push($result, $category);
+                    $i++;
+                }
+
+                return response()->json(collect($result), 201);
+            }
+
             $category = Table::create($request->validated());
 
             return response()->json($category, 201);

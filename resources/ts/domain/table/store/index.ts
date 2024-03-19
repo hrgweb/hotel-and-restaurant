@@ -29,6 +29,7 @@ export const useTableStore = defineStore('table', {
   actions: {
     save() {
       this.errorMsg = ''
+      this.form['isBulk'] = this.isBulk
 
       axios
         .post(`/${this.resource}`, this.form)
@@ -54,6 +55,7 @@ export const useTableStore = defineStore('table', {
 
     update() {
       this.errorMsg = ''
+      this.form['isBulk'] = this.isBulk
 
       axios
         .patch(`/${this.resource}/${this.selectedTable?.id}`, this.editForm)
@@ -79,9 +81,10 @@ export const useTableStore = defineStore('table', {
       this.showForm = !this.showForm
       this.isEdit = false
       this.reset()
-      this.form.prefix = 'Table'
       this.errorMsg = ''
       this.isBulk = false
+      this.form.prefix = 'Table'
+      this.form.bulkOfTable = 0
     },
 
     close() {
