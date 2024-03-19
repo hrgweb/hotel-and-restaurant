@@ -64,6 +64,7 @@ export const useProductStore = defineStore('product', {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
         .then(({ data }: Product) => {
+          data['category'] = this.selectedCategory
           this.data.push(data)
           this.showForm = false
           this.reset()
