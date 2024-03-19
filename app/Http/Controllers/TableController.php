@@ -2,38 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\Table;
-use Illuminate\Http\Request;
+use App\Http\Requests\TableRequest;
+use Illuminate\Support\Facades\Log;
 
 class TableController extends Controller
 {
     public function index()
     {
-        // $tables = Table::select(['id', 'name', 'desc', 'thumbnail'])->get();
+        $tables = Table::selectRaw('id, prefix, name, (prefix || " " || name) as table_name')->get();
 
-        return view('tables', ['data' => []]);
+        return view('tables', ['data' => $tables]);
     }
 
-    public function store(CategoryRequest $request)
+    public function store(TableRequest $request)
     {
         try {
-            $validated = $request->validated();
-
-            // Find or create uploads directory
-            find_or_create_directory();
-
-            // Handle file upload
-            if ($request->hasFile('image')) {
-                $fileNameToStore = img_filename($request);
-
-                // Upload and optimized image
-                img_optimzer(file: $request->file('image'), pathToSave: storage_path('app/public/uploads/' . $fileNameToStore));
-
-                // Merge the validated thumbnail key
-                $validated['thumbnail'] = $fileNameToStore;
-            }
-
-            $category = Category::create($validated);
+            $category = Table::create($request->validated());
 
             return response()->json($category, 201);
         } catch (Exception $e) {
@@ -42,44 +28,22 @@ class TableController extends Controller
         }
     }
 
-    public function update(CategoryRequest $request, Category $category)
+    public function update(TableRequest $request, Table $table)
     {
         try {
-            $validated = $request->validated();
+            $table->updateOrCreate(['id' => $table->id], $request->validated());
 
-            unset($validated['thumbnail']);
-
-            // Handle file upload
-            if ($request->hasFile('image')) {
-                // Remove old img
-                old_img_remove($category->thumbnail);
-
-                // Generate a unique file name
-                $fileNameToStore = img_filename($request);
-
-                // Upload and optimized image
-                img_optimzer(file: $request->file('image'), pathToSave: storage_path('app/public/uploads/' . $fileNameToStore));
-
-                // Merge the validated thumbnail key
-                $validated['thumbnail'] = $fileNameToStore;
-            }
-
-            $category->updateOrCreate(['id' => $category->id], $validated);
-
-            return response()->json($validated, 201);
+            return response()->json($request->validated(), 201);
         } catch (Exception $e) {
             Log::error($e->getMessage());
             return response()->json($e->getMessage(), 500);
         }
     }
 
-    public function destroy(Category $category)
+    public function destroy(Table $table)
     {
         try {
-            // Remove old img
-            old_img_remove($category->thumbnail);
-
-            $category->delete();
+            $table->delete();
             return response()->json(1, 200);
         } catch (Exception $e) {
             Log::error($e->getMessage());

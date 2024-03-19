@@ -1,19 +1,32 @@
 <template>
   <div>
-    <CategoryFilter />
+    <TableFilter />
     <br />
-    <CategoryDataTable />
+    <TableDataTable />
 
     <Dialog
-      v-model:visible="category.showForm"
-      :header="`${category.isEdit ? ' Edit' : 'New'} Category`"
+      v-model:visible="table.showForm"
+      :header="`${table.isEdit ? ' Edit' : 'New'} Table`"
       :style="{ width: '35rem' }"
       :closeOnEscape="true"
       :draggable="false"
       modal
-      @hide="category.close()"
+      @hide="table.close()"
     >
-      <CategoryForm />
+      <TableForm />
+    </Dialog>
+
+    <!-- Create bulk of tables -->
+    <Dialog
+      v-model:visible="table.showFormBulk"
+      :header="`${table.isEditBulk ? ' Edit' : 'New'} Table`"
+      :style="{ width: '35rem' }"
+      :closeOnEscape="true"
+      :draggable="false"
+      modal
+      @hide="table.closeBulk()"
+    >
+      <TableFormBulk />
     </Dialog>
 
     <Toast position="top-right" />
@@ -22,10 +35,11 @@
 
 <script lang="ts" setup>
 import { onMounted } from 'vue'
-import CategoryForm from './CategoryForm.vue'
-import CategoryFilter from './CategoryFilter.vue'
-import CategoryDataTable from './CategoryDataTable.vue'
-import { useCategoryStore } from '@/domain/category/store/index'
+import TableForm from './TableForm.vue'
+import TableFormBulk from './TableFormBulk.vue'
+import TableFilter from './TableFilter.vue'
+import TableDataTable from './TableDataTable.vue'
+import { useTableStore } from '@/domain/table/store/index'
 
 const props = defineProps({
   data: {
@@ -34,7 +48,8 @@ const props = defineProps({
   },
 })
 
-const category = useCategoryStore()
+const table = useTableStore()
 
-onMounted(() => (category.data = props.data))
+onMounted(() => (table.data = props.data))
 </script>
+./TableFilter.vue

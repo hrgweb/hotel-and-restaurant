@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('tables', function (Blueprint $table) {
             $table->id();
+            $table->string('prefix');
+            $table->string('name')->index()->unique();
             $table->timestamps();
         });
     }

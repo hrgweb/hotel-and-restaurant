@@ -1,8 +1,6 @@
-type Category = {
+type Table = {
+  prefix: string
   name: string
-  desc: string
-  image: Blob | null
-  thumbnail: string
 }
 
-export type { Category }
+export type { Table }

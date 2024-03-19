@@ -1,50 +1,45 @@
 import { defineStore } from 'pinia'
-import type { Category } from '@/domain/category/types/index'
+import type { Table } from '@/domain/table/types/index'
 
-export const useCategoryStore = defineStore('category', {
+export const useTableStore = defineStore('table', {
   state: () => ({
-    resource: 'categories',
-    data: [] as Category[],
+    resource: 'tables',
+    data: [] as Table[],
     form: {
       name: '',
-      desc: '',
-      file: null as Blob | null,
-      thumbnail: '',
-    } as Category,
+      prefix: 'Table',
+    } as Table,
     editForm: {
       name: '',
-      desc: '',
-      file: null as Blob | null,
-      thumbnail: '',
-    } as Category,
+      prefix: 'Table',
+    } as Table,
     isEdit: false,
     errorMsg: '',
     showForm: false,
-    selectedCategory: null as Category,
+    selectedTable: null as Table,
     index: 0,
-    searchResult: [] as Category[],
+    searchResult: [] as Table[],
     isSearch: false,
     query: '',
+    showFormBulk: false,
+    isEditBulk: false,
+    closeBulk: false,
   }),
 
   actions: {
-    save(hasThumbnail: boolean) {
+    save() {
       this.errorMsg = ''
 
       let formData = new FormData()
       formData.append('name', this.form.name)
-      formData.append('desc', this.form.desc)
-      formData.append('thumbnail', '')
-
-      if (hasThumbnail) {
-        formData.append('image', this.form.image)
-      }
+      formData.append('prefix', this.form.prefix)
 
       axios
         .post(`/${this.resource}`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
-        .then(({ data }: Category) => {
+        .then(({ data }: Table) => {
+          data['table_name'] = `${data?.prefix} ${data?.name}`
           this.data.push(data)
           this.showForm = false
           this.reset()
@@ -55,35 +50,30 @@ export const useCategoryStore = defineStore('category', {
         })
     },
 
-    edit(category: Category, index: number) {
+    edit(table: Table, index: number) {
       this.showForm = true
       this.isEdit = true
-      this.selectedCategory = category
-      this.editForm = category
+      this.selectedTable = table
+      this.editForm = table
       this.index = index
     },
 
-    update(hasThumbnail: boolean) {
+    update() {
       this.errorMsg = ''
 
       let formData = new FormData()
       formData.append('_method', 'PATCH')
       formData.append('name', this.editForm.name)
-      formData.append('desc', this.editForm.desc)
-      formData.append('thumbnail', '')
-
-      if (hasThumbnail) {
-        formData.append('image', this.editForm.image)
-      }
+      formData.append('prefix', this.editForm.prefix)
 
       axios
-        .post(`/${this.resource}/${this.selectedCategory?.id}`, formData, {
+        .post(`/${this.resource}/${this.selectedTable?.id}`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
-        .then(({ data }: Category) => {
-          if (data?.thumbnail) {
-            this.data[this.index].thumbnail = data?.thumbnail // update thumbnail
-          }
+        .then(({ data }: Table) => {
+          this.data[this.index].prefix = data?.prefix
+          this.data[this.index].name = data?.name
+          this.data[this.index].table_name = `${data?.prefix} ${data?.name}`
           this.showForm = false
           this.reset()
         })
@@ -95,15 +85,14 @@ export const useCategoryStore = defineStore('category', {
 
     reset() {
       this.form.name = ''
-      this.form.desc = ''
-      this.form.image = null
-      this.form.thumbnail = ''
+      this.form.prefix = ''
     },
 
     new() {
       this.showForm = !this.showForm
       this.isEdit = false
       this.reset()
+      this.form.prefix = 'Table'
       this.errorMsg = ''
     },
 
@@ -128,13 +117,25 @@ export const useCategoryStore = defineStore('category', {
       document.getElementById('query')?.focus()
     },
 
-    askRemove(category: Category, index: number) {
-      this.selectedCategory = category
+    askRemove(table: Table, index: number) {
+      this.selectedTable = table
       this.index = index
     },
 
     remove() {
-      return axios.delete(`/${this.resource}/${this.selectedCategory?.id}`)
+      return axios.delete(`/${this.resource}/${this.selectedTable?.id}`)
+    },
+
+    createBulk() {
+      this.showFormBulk = !this.showFormBulk
+      this.isEditBulk = false
+      this.reset()
+      this.errorMsg = ''
+    },
+
+    closeBulk() {
+      this.isEditBulk = false
+      this.showFormBulk = false
     },
   },
 })
