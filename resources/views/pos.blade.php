@@ -9,5 +9,6 @@
 @endsection
 
 @section('body')
-    <pos-page :tables="{{ json_encode($tables) }}" />
+    <pos-page :tables="{{ json_encode($tables) }}" :categories="{{ json_encode($categories) }}"
+        :products="{{ json_encode($products) }}" />
 @endsection

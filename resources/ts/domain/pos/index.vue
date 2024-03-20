@@ -1,6 +1,6 @@
 <template>
   <div class="pos grid">
-    <div class="col-12 header" style="background-color: gray">
+    <div class="col-12 header" style="background-color: rgb(13 83 119)">
       <Button
         label="Home"
         class="home"
@@ -39,7 +39,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, shallowRef, watch } from 'vue'
+import { onMounted, shallowRef, watch } from 'vue'
 import { usePosStore } from '@/domain/pos/store'
 import PosHome from '@/domain/pos/tabs/PosHome.vue'
 import PosTable from '@/domain/pos/tabs/PosTable.vue'
@@ -48,7 +48,9 @@ import PosTableOrder from '@/domain/pos/PosTableOrder.vue'
 const pos = usePosStore()
 
 const props = defineProps({
-  tables: [Array, Object],
+  tables: Array,
+  categories: Array,
+  products: Array,
 })
 
 watch(
@@ -60,7 +62,11 @@ watch(
   }
 )
 
-onMounted(() => (pos.tables = props.tables))
+onMounted(() => {
+  pos.tables = props.tables
+  pos.categories = props.categories
+  pos.products = props.products
+})
 
 let view = shallowRef(PosHome)
 
