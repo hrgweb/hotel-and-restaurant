@@ -1,6 +1,6 @@
 <template>
   <Card
-    style="width: 12rem; height: 6rem; cursor: pointer"
+    style="width: 13rem; height: 6rem; cursor: pointer"
     class="mr-2 mb-2"
     @click="order"
   >

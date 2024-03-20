@@ -25,14 +25,8 @@
     </div>
 
     <div class="col-12">
-      <div class="grid main">
-        <!-- Content -->
-        <div class="content col">
-          <component :is="view" />
-        </div>
-
-        <!-- Order -->
-        <div class="order col-fixed" style="width: 350px">order</div>
+      <div class="main">
+        <component :is="view" />
       </div>
     </div>
   </div>
@@ -106,16 +100,12 @@ button.home {
   text-align: left;
 }
 
-.main {
-  height: 100vh;
-}
-
 .tables {
   display: flex;
   flex-wrap: wrap;
 }
 
-.order {
-  background-color: #fff;
+.main {
+  height: 100vh;
 }
 </style>

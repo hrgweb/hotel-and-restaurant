@@ -26,9 +26,24 @@
           <Card
             style="width: 14rem; height: 16rem; cursor: pointer"
             class="mr-3 mb-3"
+            @click="pos.addOrder(product)"
           >
             <template #title>{{ product?.name }}</template>
           </Card>
+        </template>
+      </div>
+    </div>
+
+    <div class="col-fixed" style="">
+      <div
+        class="p-3"
+        style="width: 350px; height: 100vh; background-color: #fff"
+      >
+        <template v-for="order in pos.orders">
+          <div>
+            <span>{{ order.product.name }}</span> -
+            <span>{{ order.qty }}</span>
+          </div>
         </template>
       </div>
     </div>

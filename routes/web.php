@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PosController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StaffController;
@@ -24,3 +25,4 @@ Route::resource('products', ProductController::class);
 Route::resource('tables', TableController::class);
 Route::resource('user-roles', UserRoleController::class);
 Route::resource('staffs', StaffController::class);
+Route::resource('orders', OrderController::class);
