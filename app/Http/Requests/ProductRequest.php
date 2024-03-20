@@ -27,7 +27,7 @@ class ProductRequest extends FormRequest
             'name' => 'required',
             'desc' => 'nullable',
             'image' => 'nullable|image',
-            'price' => 'required',
+            'price' => 'required|gt:0',
             'available' => 'nullable',
             'thumbnail' => 'nullable'
         ];
@@ -36,7 +36,8 @@ class ProductRequest extends FormRequest
     protected function prepareForValidation()
     {
         $this->merge([
-            'price' => (int)$this->price,
+            'barcode' => (string)$this->barcode,
+            'desc' => (string)$this->desc,
             'available' => filter_var($this->available, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE)
         ]);
     }

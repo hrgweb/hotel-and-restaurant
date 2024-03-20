@@ -7,7 +7,7 @@ type Form = {
   barcode: string
   name: string
   desc: string
-  image: Blob | null
+  image: any
   thumbnail: string
   price: number
   available: boolean
@@ -53,21 +53,7 @@ export const useProductStore = defineStore('product', {
     save(hasThumbnail: boolean) {
       this.errorMsg = ''
 
-      let formData = new FormData()
-      formData.append('barcode', this.form.barcode)
-
-      this.selectedCategory?.id &&
-        formData.append('category_id', this.selectedCategory?.id)
-      this.form.desc && formData.append('desc', this.form.desc)
-
-      formData.append('name', this.form.name)
-      formData.append('thumbnail', '')
-      formData.append('price', this.form.price)
-      formData.append('available', this.form.available)
-
-      if (hasThumbnail) {
-        formData.append('image', this.form.image)
-      }
+      const formData = this.formData(this.form, hasThumbnail)
 
       axios
         .post(`/${this.resource}`, formData, {
@@ -85,6 +71,35 @@ export const useProductStore = defineStore('product', {
         })
     },
 
+    formData(form: Form, hasThumbnail: boolean) {
+      let formData = new FormData()
+
+      // Add method for update
+      if (this.isEdit) {
+        formData.append('_method', 'PATCH')
+      }
+
+      for (const prop in form) {
+        if (prop === 'image') {
+          if (hasThumbnail) {
+            formData.append(prop, form[prop])
+          }
+          continue
+        }
+
+        if (prop === 'category_id') {
+          if (this.selectedCategory?.id) {
+            formData.append(prop, this.selectedCategory?.id)
+          }
+          continue
+        }
+
+        formData.append(prop, form[prop])
+      }
+
+      return formData
+    },
+
     edit(product: Product, index: number) {
       this.reset()
       this.showForm = true
@@ -99,22 +114,7 @@ export const useProductStore = defineStore('product', {
     update(hasThumbnail: boolean) {
       this.errorMsg = ''
 
-      let formData = new FormData()
-      formData.append('_method', 'PATCH')
-      formData.append('barcode', this.editForm.barcode)
-
-      this.selectedCategory?.id &&
-        formData.append('category_id', this.selectedCategory?.id)
-      this.form.desc && formData.append('desc', this.form.desc)
-
-      formData.append('name', this.editForm.name)
-      formData.append('thumbnail', '')
-      formData.append('price', this.editForm.price)
-      formData.append('available', this.editForm.available)
-
-      if (hasThumbnail) {
-        formData.append('image', this.editForm.image)
-      }
+      const formData = this.formData(this.editForm, hasThumbnail)
 
       axios
         .post(`/${this.resource}/${this.selectedProduct?.id}`, formData, {
