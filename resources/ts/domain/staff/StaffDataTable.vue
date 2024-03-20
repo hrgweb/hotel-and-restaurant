@@ -57,7 +57,7 @@ const confirmRemove = (data: Staff, index: number, event: any) => {
   staff.askRemove(data, index)
   confirm.require({
     target: event.currentTarget,
-    message: `Are you sure you want to remove '${data?.role}'?`,
+    message: `Are you sure you want to remove '${data?.user?.name}'?`,
     icon: 'pi pi-exclamation-triangle',
     rejectClass: 'p-button-secondary p-button-outlined p-button-sm',
     acceptClass: 'p-button-sm',

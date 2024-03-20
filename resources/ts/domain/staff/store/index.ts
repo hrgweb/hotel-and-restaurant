@@ -166,7 +166,7 @@ export const useStaffStore = defineStore('staff', {
     },
 
     remove() {
-      return axios.delete(`/${this.resource}/${this.selectedStaff?.id}`)
+      return axios.delete(`/${this.resource}/${this.selectedStaff?.user?.id}`)
     },
   },
 })
