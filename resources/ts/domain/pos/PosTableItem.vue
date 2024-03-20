@@ -17,17 +17,13 @@ const pos = usePosStore()
 const tableName = computed(() => `${props.table?.prefix} ${props.table?.name}`)
 
 const props = defineProps({
-  table: {
-    type: Object,
-    required: true,
-  },
-  index: {
-    type: Number,
-    required: true,
-  },
+  table: Object,
+  index: Number,
 })
 
 const order = () => {
+  pos.selectedTable = props?.table
+  pos.selectedTableIndex = props?.index
   pos.order()
 }
 </script>

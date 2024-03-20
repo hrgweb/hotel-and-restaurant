@@ -6,6 +6,8 @@ export const usePosStore = defineStore('pos', {
     resource: 'pos',
     tables: [] as Table[],
     showOrder: false,
+    selectedTable: null as Table | null,
+    selectedTableIndex: 0,
   }),
 
   actions: {

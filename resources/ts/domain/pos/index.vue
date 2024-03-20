@@ -6,14 +6,14 @@
         class="home"
         severity="info"
         icon="pi pi-home"
-        @click="view = PosHome"
+        @click="componentToShow('home')"
       />
       <Button
         label="Table"
         class="home"
         severity="info"
         icon="pi pi-table"
-        @click="view = PosTable"
+        @click="componentToShow('table')"
       />
       <Button label="Takeaway" class="home" severity="info" icon="pi pi-gift" />
       <Button
@@ -39,10 +39,11 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, shallowRef } from 'vue'
+import { ref, onMounted, shallowRef, watch } from 'vue'
 import { usePosStore } from '@/domain/pos/store'
 import PosHome from '@/domain/pos/tabs/PosHome.vue'
 import PosTable from '@/domain/pos/tabs/PosTable.vue'
+import PosTableOrder from '@/domain/pos/PosTableOrder.vue'
 
 const pos = usePosStore()
 
@@ -50,9 +51,36 @@ const props = defineProps({
   tables: [Array, Object],
 })
 
-let view = shallowRef(PosHome)
+watch(
+  () => pos.showOrder,
+  (newVal) => {
+    if (newVal) {
+      view.value = PosTableOrder
+    }
+  }
+)
 
 onMounted(() => (pos.tables = props.tables))
+
+let view = shallowRef(PosHome)
+
+const componentToShow = (name: string) => {
+  pos.showOrder = false
+
+  let comp = null
+
+  switch (name) {
+    case 'table':
+      comp = PosTable
+      break
+
+    default:
+      comp = PosHome
+      break
+  }
+
+  view.value = comp
+}
 </script>
 
 <style lang="scss">
