@@ -9,10 +9,13 @@ export const usePosStore = defineStore('pos', {
     resource: 'pos',
     tables: [] as Table[],
     categories: [] as Category[],
+    products: [] as Product[],
     showOrder: false,
     selectedTable: null as Table | null,
     selectedTableIndex: 0,
     orders: [] as Order[],
+    filteredProductsByCategory: [] as Product[],
+    hasFilteredByCategory: false,
   }),
 
   actions: {
@@ -42,6 +45,18 @@ export const usePosStore = defineStore('pos', {
         product,
         qty: 1,
       })
+    },
+
+    onFilterByCategory(category: Category) {
+      this.hasFilteredByCategory = true
+
+      this.filteredProductsByCategory = this.products.filter(
+        (product: Product) => product.category_id === category.id
+      )
+    },
+
+    onFilterByAllCategories() {
+      this.hasFilteredByCategory = false
     },
   },
 })

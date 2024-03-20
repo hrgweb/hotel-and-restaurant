@@ -1,6 +1,6 @@
 <template>
-  <div class="pos grid">
-    <div class="col-12 header" style="background-color: rgb(13 83 119)">
+  <div class="pos">
+    <div class="header">
       <Button
         label="Home"
         class="home"
@@ -24,10 +24,8 @@
       />
     </div>
 
-    <div class="col-12">
-      <div class="main">
-        <component :is="view" />
-      </div>
+    <div class="main">
+      <component :is="view" />
     </div>
   </div>
 </template>
@@ -86,26 +84,35 @@ const componentToShow = (name: string) => {
 <style lang="scss">
 .pos {
   background: #e3e3e3;
-}
 
-.header {
-  button {
-    margin-right: 0.3rem;
+  .header {
+    position: fixed;
+    background-color: rgb(13 83 119);
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 0 0.3rem 0.5rem;
+    z-index: 10;
+
+    button {
+      margin-right: 0.3rem;
+    }
   }
-}
 
-button.home {
-  width: 200px !important;
-  height: 60px !important;
-  text-align: left;
-}
+  button.home {
+    width: 200px !important;
+    height: 60px !important;
+    text-align: left;
+  }
 
-.tables {
-  display: flex;
-  flex-wrap: wrap;
-}
+  .tables {
+    display: flex;
+    flex-wrap: wrap;
+  }
 
-.main {
-  height: 100vh;
+  .main {
+    height: 100vh;
+    padding-top: 4.7rem;
+  }
 }
 </style>

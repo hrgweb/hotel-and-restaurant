@@ -18,7 +18,7 @@
         }
     </style>
 
-    @vite(['resources/css/app.scss', 'resources/ts/app.ts'])
+    @vite('resources/ts/app.ts')
 </head>
 
 <body class="font-sans antialiased dark:bg-black dark:text-white/50">

@@ -1,5 +1,6 @@
 <template>
   <div class="grid order" style="background-color: #e3e3e3">
+    <!-- Filter by categories -->
     <div class="col-fixed mx-2" style="background: rgb(53 53 53); width: 200px">
       <Button
         label="All Categories"
@@ -7,6 +8,7 @@
         class="w-full mb-1"
         style="height: 60px"
         raised
+        @click.prevent="pos.onFilterByAllCategories()"
       />
 
       <template v-for="category in pos.categories">
@@ -16,13 +18,15 @@
           class="w-full mb-1"
           style="height: 60px"
           raised
+          @click.prevent="pos.onFilterByCategory(category)"
         />
       </template>
     </div>
 
+    <!-- List of products -->
     <div class="col">
       <div class="flex flex-wrap">
-        <template v-for="product in pos.products">
+        <template v-for="product in listOfProducts">
           <Card
             style="width: 14rem; height: 16rem; cursor: pointer"
             class="mr-3 mb-3"
@@ -34,6 +38,7 @@
       </div>
     </div>
 
+    <!-- Items added to orders -->
     <div class="col-fixed" style="">
       <div
         class="p-3"
@@ -52,8 +57,13 @@
 
 <script lang="ts" setup>
 import { usePosStore } from '@/domain/pos/store'
+import { computed } from 'vue'
 
 const pos = usePosStore()
+
+const listOfProducts = computed(() =>
+  !pos.hasFilteredByCategory ? pos.products : pos.filteredProductsByCategory
+)
 </script>
 
 <style lang="scss">
