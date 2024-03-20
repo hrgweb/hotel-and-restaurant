@@ -1,8 +1,20 @@
 <template>
   <div class="pos grid">
     <div class="col-12 header" style="background-color: gray">
-      <Button label="Home" class="home" severity="info" icon="pi pi-home" />
-      <Button label="Table" class="home" severity="info" icon="pi pi-table" />
+      <Button
+        label="Home"
+        class="home"
+        severity="info"
+        icon="pi pi-home"
+        @click="view = PosHome"
+      />
+      <Button
+        label="Table"
+        class="home"
+        severity="info"
+        icon="pi pi-table"
+        @click="view = PosTable"
+      />
       <Button label="Takeaway" class="home" severity="info" icon="pi pi-gift" />
       <Button
         label="Delivery"
@@ -16,11 +28,7 @@
       <div class="grid main">
         <!-- Content -->
         <div class="content col">
-          <div class="tables flex">
-            <div v-for="(table, i) in tables" :key="table.id" class="table">
-              <PosTable :table="table" :index="i" />
-            </div>
-          </div>
+          <component :is="view" />
         </div>
 
         <!-- Order -->
@@ -31,14 +39,20 @@
 </template>
 
 <script lang="ts" setup>
-import PosTable from './PosTable.vue'
+import { ref, onMounted, shallowRef } from 'vue'
+import { usePosStore } from '@/domain/pos/store'
+import PosHome from '@/domain/pos/tabs/PosHome.vue'
+import PosTable from '@/domain/pos/tabs/PosTable.vue'
+
+const pos = usePosStore()
 
 const props = defineProps({
-  tables: {
-    type: [Array, Object],
-    required: true,
-  },
+  tables: [Array, Object],
 })
+
+let view = shallowRef(PosHome)
+
+onMounted(() => (pos.tables = props.tables))
 </script>
 
 <style lang="scss">
