@@ -1,13 +1,14 @@
 @extends('layouts.dashboard')
 
 @section('title')
-    Dashboard
+    POS
 @endsection
 
 @section('body-title')
-    Dashboard
+    POS
 @endsection
 
 @section('body')
-    <p>lorem ipsum</p>
+    {{-- <pos-page :data="{{ json_encode($data) }}" /> --}}
+    pos
 @endsection

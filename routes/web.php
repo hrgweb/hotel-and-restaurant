@@ -16,6 +16,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 });
 
+Route::get('/pos', function () {
+    return view('pos');
+});
+
 Route::resource('categories', CategoryController::class);
 Route::resource('products', ProductController::class);
 Route::resource('tables', TableController::class);

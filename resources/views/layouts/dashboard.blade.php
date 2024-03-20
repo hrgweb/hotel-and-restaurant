@@ -24,7 +24,7 @@
 <body class="font-sans antialiased dark:bg-black dark:text-white/50">
     <div id="app">
         <div class="header">
-            <a href="/dashboard" style="text-decoration: none; font-size: 24px; font-weight: bold">hrgweb</a>
+            <app-header />
         </div>
 
         <div class="body grid">

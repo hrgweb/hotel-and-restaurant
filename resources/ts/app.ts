@@ -32,10 +32,12 @@ import ProductPage from '@/domain/product/index.vue'
 import TablePage from '@/domain/table/index.vue'
 import UserRolePage from '@/domain/role/index.vue'
 import StaffPage from '@/domain/staff/index.vue'
+import AppHeader from '@/domain/AppHeader.vue'
 
 const pinia = createPinia()
 const app = createApp({
   components: {
+    AppHeader,
     CategoryPage,
     ProductPage,
     TablePage,
