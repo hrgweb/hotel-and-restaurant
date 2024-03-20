@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import type { Role } from '../types'
+import { nextTick } from 'vue'
 
 export const useRoleStore = defineStore('role', {
   state: () => ({
@@ -67,11 +68,13 @@ export const useRoleStore = defineStore('role', {
       this.form.role = ''
     },
 
-    new() {
+    async new() {
       this.showForm = !this.showForm
       this.isEdit = false
       this.reset()
       this.errorMsg = ''
+      await nextTick()
+      document.getElementById('role')?.focus()
     },
 
     close() {

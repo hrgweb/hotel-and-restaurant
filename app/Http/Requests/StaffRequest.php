@@ -24,11 +24,12 @@ class StaffRequest extends FormRequest
         return [
             'first_name' => 'required',
             'last_name' => 'nullable',
-            'email' => 'nullable|email|unique:users,email',
-            'username' => 'nullable',
+            'email' => 'nullable|email|unique:users,email,' . $this?->user_id,
+            'username' => 'required',
             'gender' => 'nullable',
             'dob' => 'nullable',
             'role_id' => 'required',
+            'user_id' => 'required',
         ];
     }
 

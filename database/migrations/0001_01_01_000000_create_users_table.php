@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('first_name')->index();
             $table->string('last_name')->nullable();
-            $table->string('email')->index()->unique();
+            $table->string('email')->index()->unique()->nullable();
             $table->string('username')->nullable();
             $table->string('gender')->nullable();
             $table->timestamp('dob')->nullable();

@@ -1,6 +1,18 @@
-type Staff = {
-  role_id: number
-  user_id: number
+import { Role } from '@/role/types'
+
+type User = {
+  first_name: string
+  last_name: string
+  email: string
+  username: string
+  gender: string
+  dob: string
 }
 
-export type { Staff }
+type Staff = {
+  id?: number
+  role: Role
+  user: User
+}
+
+export type { Staff, User }

@@ -16,7 +16,7 @@ class StaffController extends Controller
     public function index()
     {
         $staffs = Staff::with([
-            'user' => fn (Builder $query) => $query->selectRaw("id, (first_name || ' ' || last_name) as name, first_name, last_name, email, username"),
+            'user' => fn (Builder $query) => $query->selectRaw("id, (first_name || ' ' || last_name) as name, first_name, last_name, DATE(dob) as dob, gender, email, username"),
             'user_role:id,role'
         ])
             ->select(['id', 'user_role_id', 'user_id'])
@@ -29,6 +29,7 @@ class StaffController extends Controller
     public function store(StaffRequest $request)
     {
         $user = null;
+        $staff = null;
 
         DB::beginTransaction();
         try {
@@ -43,7 +44,7 @@ class StaffController extends Controller
             $user['name'] = $user?->first_name . ' ' . $user?->last_name;
 
             $roleId = $request->input('role_id');
-            Staff::create([
+            $staff = Staff::create([
                 'user_role_id' => $roleId,
                 'user_id' => $user?->id
             ]);
@@ -55,6 +56,7 @@ class StaffController extends Controller
         DB::commit();
 
         return response()->json([
+            'id' => $staff?->id,
             'user' => $user->toArray(),
             'user_role' => UserRole::findOrFail($roleId)
         ], 201);
@@ -62,16 +64,30 @@ class StaffController extends Controller
 
     public function update(StaffRequest $request, Staff $staff)
     {
+        DB::beginTransaction();
         try {
             $validated = $request->validated();
 
-            $staff->updateOrCreate(['id' => $staff->id], $validated);
+            // Update user
+            User::where('id', $validated['user_id'])->update([
+                'first_name' => $validated['first_name'],
+                'last_name' => $validated['last_name'],
+                'email' => $validated['email'],
+                'username' => $validated['username'],
+                'gender' => $validated['gender'],
+                'dob' => $validated['dob'],
+            ]);
 
-            return response()->json($validated, 201);
+            // Update staff
+            $staff->updateOrCreate(['id' => $staff?->id], ['user_role_id' => $validated['role_id']]);
         } catch (Exception $e) {
+            DB::rollBack();
             Log::error($e->getMessage());
             return response()->json($e->getMessage(), 500);
         }
+        DB::commit();
+
+        return response()->json($validated, 201);
     }
 
     public function destroy(Staff $staff)

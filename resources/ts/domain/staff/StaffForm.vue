@@ -40,7 +40,7 @@
 
       <div class="flex flex-column gap-2">
         <label for="dob">Date of Birth</label>
-        <Calendar v-model="form.dob" />
+        <Calendar v-model="form.dob" dateFormat="mm-dd-yy" />
       </div>
       <br />
 
