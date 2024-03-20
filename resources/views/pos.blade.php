@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+@extends('layouts.pos')
 
 @section('title')
     POS
@@ -9,6 +9,5 @@
 @endsection
 
 @section('body')
-    {{-- <pos-page :data="{{ json_encode($data) }}" /> --}}
-    pos
+    <pos-page :tables="{{ json_encode($tables) }}" />
 @endsection

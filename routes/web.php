@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PosController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\TableController;
@@ -16,9 +17,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 });
 
-Route::get('/pos', function () {
-    return view('pos');
-});
+Route::get('/pos', [PosController::class, 'index']);
 
 Route::resource('categories', CategoryController::class);
 Route::resource('products', ProductController::class);

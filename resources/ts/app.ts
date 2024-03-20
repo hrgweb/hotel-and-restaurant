@@ -26,6 +26,7 @@ import InputSwitch from 'primevue/inputswitch'
 import Badge from 'primevue/badge'
 import RadioButton from 'primevue/radiobutton'
 import Calendar from 'primevue/calendar'
+import Card from 'primevue/card'
 
 import CategoryPage from '@/domain/category/index.vue'
 import ProductPage from '@/domain/product/index.vue'
@@ -33,6 +34,7 @@ import TablePage from '@/domain/table/index.vue'
 import UserRolePage from '@/domain/role/index.vue'
 import StaffPage from '@/domain/staff/index.vue'
 import AppHeader from '@/domain/AppHeader.vue'
+import PosPage from '@/domain/pos/index.vue'
 
 const pinia = createPinia()
 const app = createApp({
@@ -43,6 +45,7 @@ const app = createApp({
     TablePage,
     StaffPage,
     UserRolePage,
+    PosPage,
   },
 })
 app.use(pinia)
@@ -65,4 +68,5 @@ app.component('InputSwitch', InputSwitch)
 app.component('Badge', Badge)
 app.component('RadioButton', RadioButton)
 app.component('Calendar', Calendar)
+app.component('Card', Card)
 app.mount('#app')
