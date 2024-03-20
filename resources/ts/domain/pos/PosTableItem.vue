@@ -24,6 +24,6 @@ const props = defineProps({
 const order = () => {
   pos.selectedTable = props?.table
   pos.selectedTableIndex = props?.index
-  pos.order()
+  pos.openOrder()
 }
 </script>

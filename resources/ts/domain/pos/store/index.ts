@@ -3,6 +3,7 @@ import type { Table } from '@/domain/table/types'
 import type { Category } from '@/domain/category/types'
 import type { Product } from '@/domain/product/types'
 import type { Order } from '@/domain/pos/types'
+import { nextTick } from 'vue'
 
 export const usePosStore = defineStore('pos', {
   state: () => ({
@@ -19,7 +20,7 @@ export const usePosStore = defineStore('pos', {
   }),
 
   actions: {
-    order() {
+    openOrder() {
       this.showOrder = true
     },
 
@@ -57,6 +58,24 @@ export const usePosStore = defineStore('pos', {
 
     onFilterByAllCategories() {
       this.hasFilteredByCategory = false
+    },
+
+    order() {
+      const data = {
+        orders: this.orders,
+        table: this.selectedTable,
+      }
+
+      axios
+        .post('/orders', data)
+        .then(async ({ data }) => {
+          this.orders = []
+          await nextTick()
+          document.getElementById('table')?.click()
+        })
+        .catch((error) => {
+          console.error(error)
+        })
     },
   },
 })

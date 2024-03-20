@@ -50,6 +50,8 @@
             <span>{{ order.qty }}</span>
           </div>
         </template>
+
+        <Button label="Order" @click.prevent="pos.order()" />
       </div>
     </div>
   </div>

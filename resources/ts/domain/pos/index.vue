@@ -4,21 +4,30 @@
       <Button
         label="Home"
         class="home"
+        id="home"
         severity="info"
         icon="pi pi-home"
         @click="componentToShow('home')"
       />
       <Button
         label="Table"
-        class="home"
+        class="table"
+        id="table"
         severity="info"
         icon="pi pi-table"
         @click="componentToShow('table')"
       />
-      <Button label="Takeaway" class="home" severity="info" icon="pi pi-gift" />
+      <Button
+        label="Takeaway"
+        class="takeaway"
+        id="takeaway"
+        severity="info"
+        icon="pi pi-gift"
+      />
       <Button
         label="Delivery"
-        class="home"
+        class="delivery"
+        id="delivery"
         severity="info"
         icon="pi pi-credit-card"
       />
@@ -95,14 +104,11 @@ const componentToShow = (name: string) => {
     z-index: 10;
 
     button {
+      width: 200px !important;
+      height: 60px !important;
+      text-align: left;
       margin-right: 0.3rem;
     }
-  }
-
-  button.home {
-    width: 200px !important;
-    height: 60px !important;
-    text-align: left;
   }
 
   .tables {
