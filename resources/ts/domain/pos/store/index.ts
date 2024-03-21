@@ -17,6 +17,7 @@ export const usePosStore = defineStore('pos', {
     orders: [] as Order[],
     filteredProductsByCategory: [] as Product[],
     hasFilteredByCategory: false,
+    tabsActiveIndex: 0,
   }),
 
   actions: {
@@ -38,13 +39,17 @@ export const usePosStore = defineStore('pos', {
       const foundIndex = this.existOrderIndex(product)
 
       if (foundIndex !== -1) {
-        this.orders[foundIndex].qty += 1
+        const order = this.orders[foundIndex]
+        order.qty += 1
+        order.subTotal = order?.product?.price * order?.qty
         return
       }
 
+      const qty = 1
       this.orders.push({
         product,
-        qty: 1,
+        qty: qty,
+        subTotal: product?.price * qty,
       })
     },
 
@@ -71,11 +76,34 @@ export const usePosStore = defineStore('pos', {
         .then(async ({ data }) => {
           this.orders = []
           await nextTick()
-          document.getElementById('table')?.click()
+          this.openTable()
         })
         .catch((error) => {
           console.error(error)
         })
+    },
+
+    openTable() {
+      document.getElementById('table')?.click()
+      this.tabsActiveIndex = 1 // table
+      this.showOrder = false
+    },
+
+    async cancelOrder() {
+      this.orders = []
+      await nextTick()
+      this.openTable()
+    },
+
+    totalCost() {
+      // No orders then exit
+      if (this.orders.length <= 0) return 0
+
+      let total = 0
+      this.orders.forEach((order: Order) => {
+        total += order?.subTotal
+      })
+      return total
     },
   },
 })

@@ -25,7 +25,10 @@
 
     <!-- List of products -->
     <div class="col">
-      <div class="product flex flex-wrap">
+      <div
+        class="product flex flex-wrap"
+        style="height: 580px; overflow-y: scroll"
+      >
         <template v-for="product in listOfProducts">
           <Card
             class="mr-3 mb-3"
@@ -50,23 +53,22 @@
       </div>
     </div>
 
-    <!-- Items added to orders -->
+    <!-- view orders -->
     <div class="col-fixed" id="view-order">
       <div
         class="view-order"
-        style="width: 400px; height: 100vh; background-color: #fff"
+        style="width: 400px; height: 600px; background-color: #fff"
       >
-        <DataTable :value="pos.orders">
+        <DataTable :value="pos.orders" scrollable scrollHeight="500px">
+          <template #empty>No orders</template>
           <Column
             field="product.name"
             class="text-sm"
             header="Product Name"
           ></Column>
+          <Column field="product.price" header="Price" />
           <Column header="Qty" class="text-sm custom-col">
-            <template #body="{ data }">
-              <!-- <Button label="Order" @click.prevent="pos.order()" /> -->
-              <!-- <span>{{ data.qty }}</span> -->
-
+            <template #body="{ data, index }">
               <InputNumber
                 v-model="data.qty"
                 showButtons
@@ -74,6 +76,7 @@
                 style="width: 100%"
                 :min="0"
                 :max="99"
+                @input="updatedQty(data, index, $event)"
               >
                 <template #incrementbuttonicon>
                   <span class="pi pi-plus" style="color: #059669" />
@@ -86,7 +89,28 @@
           </Column>
         </DataTable>
 
-        <Button label="Order" @click.prevent="pos.order()" />
+        <div class="footer relative" style="margin-top: 0">
+          <div
+            class="total relative pt-2 px-3 flex justify-content-between align-items-center"
+          >
+            <span class="text-xl">Total</span>
+            <span class="text-2xl">{{ total }}</span>
+          </div>
+
+          <div class="flex p-2">
+            <Button
+              label="Order"
+              severity="info"
+              class="mr-1"
+              @click.prevent="pos.order()"
+            />
+            <Button
+              label="Cancel"
+              severity="danger"
+              @click.prevent="pos.cancelOrder()"
+            />
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -94,14 +118,22 @@
 
 <script lang="ts" setup>
 import { usePosStore } from '@/domain/pos/store'
-import { computed } from 'vue'
 import { useImageSrc } from '@/composables/useImageSrc'
+import { computed } from 'vue'
 
 const pos = usePosStore()
+
+const total = computed(() => pos.totalCost())
 
 const listOfProducts = computed(() =>
   !pos.hasFilteredByCategory ? pos.products : pos.filteredProductsByCategory
 )
+
+const updatedQty = (data: any, index: number, e: any) => {
+  const adjustedQty = e.value
+  pos.orders[index].qty = adjustedQty
+  pos.orders[index].subTotal = data.product.price * adjustedQty
+}
 </script>
 
 <style lang="scss">
@@ -122,6 +154,20 @@ const listOfProducts = computed(() =>
 
     .p-inputnumber-input {
       width: 50px;
+      text-align: center;
+    }
+
+    .footer {
+      button {
+        width: 100%;
+      }
+
+      .total {
+        span {
+          font-weight: bold;
+          text-transform: uppercase;
+        }
+      }
     }
   }
 

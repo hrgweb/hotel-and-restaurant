@@ -1,5 +1,9 @@
 <template>
-  <TabView class="tabview-custom" @tab-click="componentToShow">
+  <TabView
+    :activeIndex="pos.tabsActiveIndex"
+    class="tabview-custom"
+    @tab-click="componentToShow"
+  >
     <!-- Home -->
     <TabPanel>
       <template #header>
