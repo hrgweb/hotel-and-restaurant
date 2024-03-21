@@ -86,6 +86,7 @@ onMounted(() => {
 const view = shallowRef(PosTable)
 const componentToShow = () => {
   pos.showOrder = false
+  pos.viewPerTableOrders = []
 }
 </script>
 

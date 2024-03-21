@@ -7,14 +7,18 @@
           :key="table.id"
           class="table"
         >
-          <PosTableItem :table="table" :index="i" />
+          <PosTableItem
+            :table="table"
+            :index="i"
+            :available="table.vacant ? false : true"
+          />
         </template>
       </div>
     </div>
 
     <div class="col-fixed">
       <div class="order col-fixed" style="width: 390px; height: 100vh">
-        view order
+        <pre>{{ pos.viewPerTableOrders }}</pre>
       </div>
     </div>
   </div>

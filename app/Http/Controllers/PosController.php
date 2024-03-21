@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\Product;
-use Illuminate\Http\Request;
 use App\Models\Table;
+use App\Models\Product;
+use App\Models\Category;
 
 class PosController extends Controller
 {
     public function index()
     {
-        $tables = Table::all();
+        $tables = Table::with(['vacant', 'orders'])->get();
         $categories = Category::orderBy('name')->get();
         $products = Product::orderBy('name')->get();
 

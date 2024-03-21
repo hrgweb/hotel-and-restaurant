@@ -18,6 +18,7 @@ export const usePosStore = defineStore('pos', {
     filteredProductsByCategory: [] as Product[],
     hasFilteredByCategory: false,
     tabsActiveIndex: 0,
+    viewPerTableOrders: [] as Order[],
   }),
 
   actions: {
@@ -74,6 +75,10 @@ export const usePosStore = defineStore('pos', {
       axios
         .post('/orders', data)
         .then(async ({ data }) => {
+          if (data && data.length) {
+            this.tables[this.selectedTableIndex].vacant = data[0]
+            this.tables[this.selectedTableIndex].orders = data
+          }
           this.orders = []
           await nextTick()
           this.openTable()
@@ -87,6 +92,7 @@ export const usePosStore = defineStore('pos', {
       document.getElementById('table')?.click()
       this.tabsActiveIndex = 1 // table
       this.showOrder = false
+      this.viewPerTableOrders = []
     },
 
     async cancelOrder() {
