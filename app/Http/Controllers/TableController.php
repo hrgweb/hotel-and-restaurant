@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Exception;
 use App\Models\Table;
 use App\Http\Requests\TableRequest;
+use App\TableStatus;
 use Illuminate\Support\Facades\Log;
 
 class TableController extends Controller
@@ -19,6 +20,8 @@ class TableController extends Controller
     public function store(TableRequest $request)
     {
         try {
+            $request->merge(['status' => TableStatus::AVAILABLE->value]);
+
             // Check if bulk
             if ($request->input('isBulk')) {
                 $result = [];
@@ -26,7 +29,9 @@ class TableController extends Controller
                 while ($i <= $request->input('bulkOfTable')) {
                     $category = Table::create([
                         'prefix' => ucwords($request->input('prefix')),
-                        'name' => $i
+                        'name' => $i,
+                        'capacity' => $request->input('capacity'),
+                        'status' => $request->input('status')
                     ]);
                     array_push($result, $category);
                     $i++;
@@ -35,7 +40,7 @@ class TableController extends Controller
                 return response()->json(collect($result), 201);
             }
 
-            $category = Table::create($request->validated());
+            $category = Table::create($request->all());
 
             return response()->json($category, 201);
         } catch (Exception $e) {

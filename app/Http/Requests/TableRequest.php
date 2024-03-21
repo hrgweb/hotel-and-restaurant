@@ -21,16 +21,22 @@ class TableRequest extends FormRequest
      */
     public function rules(): array
     {
+        // Create bulk of tables
         if ($this->isBulk) {
             return [
                 'prefix' => 'required',
                 'bulkOfTable' => 'required|gt:0',
+                'capacity' => 'required|gt:0',
+                'status' => 'nullable'
             ];
         }
 
+        // Create one at a time
         return [
             'name' => 'required|unique:tables,name',
             'prefix' => 'required',
+            'capacity' => 'required|gt:0',
+            'status' => 'nullable'
         ];
     }
 
@@ -38,6 +44,7 @@ class TableRequest extends FormRequest
     {
         $this->merge([
             'bulkOfTable' => (int)$this->bulkOfTable,
+            'capacity' => (int)$this->capacity,
         ]);
     }
 

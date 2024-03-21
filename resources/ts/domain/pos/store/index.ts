@@ -15,7 +15,7 @@ export const usePosStore = defineStore('pos', {
     showOrder: false,
     selectedTable: null as Table | null,
     selectedTableIndex: 0,
-    orders: [] as OrderItem[],
+    orders: [] as Order[],
     filteredProductsByCategory: [] as Product[],
     hasFilteredByCategory: false,
     tabsActiveIndex: 0,

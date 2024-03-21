@@ -23,10 +23,27 @@
         </div>
         <div v-else class="flex flex-column">
           <label for="bulkOfTable">No of Table</label>
-          <InputText id="bulkOfTable" v-model="form.bulkOfTable" />
+          <InputText
+            id="bulkOfTable"
+            v-model="form.bulkOfTable"
+            type="number"
+          />
         </div>
       </div>
       <br />
+      <div class="flex">
+        <div class="flex flex-column">
+          <label for="capacity">Capacity</label>
+          <InputText
+            id="capacity"
+            v-model="form.capacity"
+            placeholder="e.g Table"
+            type="number"
+          />
+        </div>
+      </div>
+      <br />
+
       <div>
         <Button v-if="!table.isEdit" label="Save" type="submit" />
         <Button
