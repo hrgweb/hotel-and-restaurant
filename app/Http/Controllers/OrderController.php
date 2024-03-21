@@ -25,7 +25,7 @@ class OrderController extends Controller
                 throw new Exception('Please have an order.');
             }
 
-            $result = [];
+            $list = [];
 
             // Save order
             $order = Order::create([
@@ -48,13 +48,16 @@ class OrderController extends Controller
                     'subTotal' => $product['price'] * $item['qty']
                 ]);
 
-                array_push($result, $item);
+                array_push($list, $item);
             }
 
             // Update table status
             Table::where('id', $table['id'])->update(['status' => TableStatus::OCCUPIED]);
 
-            return response()->json($result, 201);
+            return response()->json([
+                'order' => $order,
+                'orderItems' => $list
+            ], 201);
         } catch (Exception $e) {
             Log::error($e->getMessage());
             return response()->json($e->getMessage(), 500);

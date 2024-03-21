@@ -59,7 +59,7 @@
         class="view-order"
         style="width: 400px; height: 600px; background-color: #fff"
       >
-        <DataTable :value="pos.orders" scrollable scrollHeight="500px">
+        <DataTable :value="pos.orderItems" scrollable scrollHeight="500px">
           <template #empty>No orders</template>
           <Column
             field="product.name"

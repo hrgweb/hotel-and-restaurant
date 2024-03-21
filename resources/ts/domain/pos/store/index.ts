@@ -33,7 +33,7 @@ export const usePosStore = defineStore('pos', {
       if (this.orderItems.length <= 0) return -1
 
       return this.orderItems.findIndex(
-        (order: Order) => order.product.id === product.id
+        (item: Order) => item.product.id === product.id
       )
     },
 
@@ -77,9 +77,10 @@ export const usePosStore = defineStore('pos', {
       axios
         .post('/orders', data)
         .then(async ({ data }) => {
-          if (data && data.length) {
-            this.tables[this.selectedTableIndex].vacant = data[0]
-            this.tables[this.selectedTableIndex].orders = data
+          if (data && data.order) {
+            this.tables[this.selectedTableIndex].status = 'occupied'
+            this.tables[this.selectedTableIndex].order = data?.order
+            this.tables[this.selectedTableIndex].order.items = data?.orderItems
           }
           this.orderItems = []
           await nextTick()
