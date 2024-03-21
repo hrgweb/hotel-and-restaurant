@@ -2,7 +2,8 @@ import { defineStore } from 'pinia'
 import type { Table } from '@/domain/table/types'
 import type { Category } from '@/domain/category/types'
 import type { Product } from '@/domain/product/types'
-import type { Order } from '@/domain/pos/types'
+import type { Order } from '@/domain/pos/types/order'
+import type { OrderItem } from '@/domain/pos/types/orderItem'
 import { nextTick } from 'vue'
 
 export const usePosStore = defineStore('pos', {
@@ -14,11 +15,11 @@ export const usePosStore = defineStore('pos', {
     showOrder: false,
     selectedTable: null as Table | null,
     selectedTableIndex: 0,
-    orders: [] as Order[],
+    orders: [] as OrderItem[],
     filteredProductsByCategory: [] as Product[],
     hasFilteredByCategory: false,
     tabsActiveIndex: 0,
-    viewPerTableOrders: [] as Order[],
+    viewPerTableOrders: [] as OrderItem[],
   }),
 
   actions: {
@@ -68,7 +69,7 @@ export const usePosStore = defineStore('pos', {
 
     order() {
       const data = {
-        orders: this.orders,
+        orderItems: this.orders,
         table: this.selectedTable,
       }
 

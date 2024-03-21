@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use App\OrderStatus;
 use App\Models\Order;
+use App\Models\OrderItem;
+use App\Services\OrderService;
 use App\Http\Requests\OrderRequest;
 use Illuminate\Support\Facades\Log;
 
@@ -12,31 +15,37 @@ class OrderController extends Controller
     public function store(OrderRequest $request)
     {
         try {
-            $orders = $request->input('orders');
+            $orderItems = $request->input('orderItems');
             $table = $request->input('table');
 
-            // If no orders throw error
-            if (count($orders) <= 0) {
+            // If no order items throw error
+            if (count($orderItems) <= 0) {
                 throw new Exception('Please have an order.');
             }
 
             $result = [];
 
-            $refNo = generate_reference_no();
-            foreach ($orders as $order) {
-                $product = $order['product'];
+            // Save order
+            $order = Order::create([
+                'table_id' => $table['id'],
+                'reference_no' => generate_reference_no(),
+                'total' => OrderService::total($orderItems),
+                'status' => OrderStatus::PENDING
+            ]);
 
-                $order = Order::create([
-                    'reference_no' => $refNo,
+            foreach ($orderItems as $item) {
+                $product = $item['product'];
+
+                $item = OrderItem::create([
+                    'order_id' => $order?->id,
                     'product_id' => $product['id'],
-                    'table_id' => $table['id'],
                     'product_name' => $product['name'],
                     'price' => $product['price'],
-                    'qty' => $order['qty'],
-                    'subtotal' => $product['price'] * $order['qty']
+                    'qty' => $item['qty'],
+                    'subTotal' => $product['price'] * $item['qty']
                 ]);
 
-                array_push($result, $order);
+                array_push($result, $item);
             }
 
             return response()->json($result, 201);
