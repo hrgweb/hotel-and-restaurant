@@ -7,37 +7,31 @@
           :key="table.id"
           class="table"
         >
-          <PosTableItem
-            :table="table"
-            :index="i"
-            :available="table.vacant ? false : true"
-          />
+          <PosTableItem :table="table" :index="i" />
         </template>
       </div>
     </div>
 
     <div class="col-fixed">
       <div class="order col-fixed" style="width: 390px; height: 100vh">
-        <div v-if="pos.viewPerTableOrders.length" class="p-3">
+        <div class="p-3">
           <div
             class="reference-no flex justify-content-between"
             style="padding-bottom: 0.5rem; border-bottom: 2px dotted gray"
           >
             <span class="left">Order Reference No:</span>
-            <span class="right">{{
-              pos.viewPerTableOrders[0].reference_no
-            }}</span>
+            <span class="right">{{ pos?.order?.reference_no }}</span>
           </div>
           <br />
-          <div class="orders">
-            <div v-for="order in pos.viewPerTableOrders">
+          <div class="order-items">
+            <div v-for="orderItem in pos.viewPerTableOrders">
               <div class="flex justify-content-between">
                 <span class="left">Item</span>
                 <span>
                   <span class="right capitalize pr-2">{{
-                    order?.product_name
+                    orderItem?.product_name
                   }}</span>
-                  <span>x{{ order?.qty }}</span>
+                  <span>x{{ orderItem?.qty }}</span>
                 </span>
               </div>
               <div
@@ -45,7 +39,7 @@
                 style="padding-bottom: 0.5rem; border-bottom: 1px solid silver"
               >
                 <span class="left">Price</span>
-                <span class="right">{{ order?.price }}</span>
+                <span class="right">{{ orderItem?.price }}</span>
               </div>
             </div>
           </div>
@@ -57,9 +51,7 @@
             <div class="flex justify-content-between mb-1">
               <span class="left">Order Created Time</span>
               <span class="right">{{
-                dayjs(pos.viewPerTableOrders[0].created_at).format(
-                  'YYYY-MM-DD hh:mm:ss A'
-                )
+                dayjs(pos.orderItem?.created_at).format('YYYY-MM-DD hh:mm:ss A')
               }}</span>
             </div>
             <div class="flex justify-content-between mb-1">
@@ -83,7 +75,7 @@ const pos = usePosStore()
 
 const subTotal = computed(() => {
   let result = pos.viewPerTableOrders.reduce(
-    (acc, order) => acc + order?.subtotal,
+    (acc, orderItem) => acc + orderItem?.subtotal,
     0
   )
   return result ? result.toFixed(2) : 0
@@ -100,7 +92,7 @@ const subTotal = computed(() => {
     padding: 0 !important;
   }
 
-  .orders,
+  .order-items,
   .order-footer {
     span {
       font-size: 0.9rem !important;

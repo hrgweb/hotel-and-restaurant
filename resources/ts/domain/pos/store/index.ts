@@ -15,7 +15,8 @@ export const usePosStore = defineStore('pos', {
     showOrder: false,
     selectedTable: null as Table | null,
     selectedTableIndex: 0,
-    orders: [] as Order[],
+    orderItem: null as Order | null,
+    orderItems: [] as OrderItem[],
     filteredProductsByCategory: [] as Product[],
     hasFilteredByCategory: false,
     tabsActiveIndex: 0,
@@ -28,10 +29,10 @@ export const usePosStore = defineStore('pos', {
     },
 
     existOrderIndex(product: Product) {
-      // If no orders return -1 as not found
-      if (this.orders.length <= 0) return -1
+      // If no order items return -1 as not found
+      if (this.orderItems.length <= 0) return -1
 
-      return this.orders.findIndex(
+      return this.orderItems.findIndex(
         (order: Order) => order.product.id === product.id
       )
     },
@@ -41,14 +42,14 @@ export const usePosStore = defineStore('pos', {
       const foundIndex = this.existOrderIndex(product)
 
       if (foundIndex !== -1) {
-        const order = this.orders[foundIndex]
+        const order = this.orderItems[foundIndex]
         order.qty += 1
         order.subTotal = order?.product?.price * order?.qty
         return
       }
 
       const qty = 1
-      this.orders.push({
+      this.orderItems.push({
         product,
         qty: qty,
         subTotal: product?.price * qty,
@@ -67,9 +68,9 @@ export const usePosStore = defineStore('pos', {
       this.hasFilteredByCategory = false
     },
 
-    order() {
+    submitOrder() {
       const data = {
-        orderItems: this.orders,
+        orderItems: this.orderItems,
         table: this.selectedTable,
       }
 
@@ -80,7 +81,7 @@ export const usePosStore = defineStore('pos', {
             this.tables[this.selectedTableIndex].vacant = data[0]
             this.tables[this.selectedTableIndex].orders = data
           }
-          this.orders = []
+          this.orderItems = []
           await nextTick()
           this.openTable()
         })
@@ -97,17 +98,17 @@ export const usePosStore = defineStore('pos', {
     },
 
     async cancelOrder() {
-      this.orders = []
+      this.orderItems = []
       await nextTick()
       this.openTable()
     },
 
     totalCost() {
-      // No orders then exit
-      if (this.orders.length <= 0) return 0
+      // No order items then exit
+      if (this.orderItems.length <= 0) return 0
 
       let total = 0
-      this.orders.forEach((order: Order) => {
+      this.orderItems.forEach((order: Order) => {
         total += order?.subTotal
       })
       return total

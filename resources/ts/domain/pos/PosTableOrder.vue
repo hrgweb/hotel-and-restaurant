@@ -102,7 +102,7 @@
               label="Order"
               severity="info"
               class="mr-1"
-              @click.prevent="pos.order()"
+              @click.prevent="pos.submitOrder()"
             />
             <Button
               label="Cancel"
@@ -131,8 +131,8 @@ const listOfProducts = computed(() =>
 
 const updatedQty = (data: any, index: number, e: any) => {
   const adjustedQty = e.value
-  pos.orders[index].qty = adjustedQty
-  pos.orders[index].subTotal = data.product.price * adjustedQty
+  pos.orderItems[index].qty = adjustedQty
+  pos.orderItems[index].subTotal = data.product.price * adjustedQty
 }
 </script>
 

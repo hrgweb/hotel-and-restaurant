@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Exception;
 use App\OrderStatus;
+use App\TableStatus;
 use App\Models\Order;
+use App\Models\Table;
 use App\Models\OrderItem;
 use App\Services\OrderService;
 use App\Http\Requests\OrderRequest;
@@ -33,6 +35,7 @@ class OrderController extends Controller
                 'status' => OrderStatus::PENDING
             ]);
 
+            // Save order items
             foreach ($orderItems as $item) {
                 $product = $item['product'];
 
@@ -47,6 +50,9 @@ class OrderController extends Controller
 
                 array_push($result, $item);
             }
+
+            // Update table status
+            Table::where('id', $table['id'])->update(['status' => TableStatus::OCCUPIED]);
 
             return response()->json($result, 201);
         } catch (Exception $e) {

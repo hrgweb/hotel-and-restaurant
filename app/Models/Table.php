@@ -12,13 +12,8 @@ class Table extends Model
 
     protected $guarded = ['id'];
 
-    public function vacant()
+    public function order()
     {
-        return $this->hasOne(Order::class)->latestOfMany();
-    }
-
-    public function orders()
-    {
-        return $this->hasMany(Order::class);
+        return $this->hasOne(Order::class);
     }
 }

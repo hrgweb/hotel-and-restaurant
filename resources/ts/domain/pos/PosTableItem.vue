@@ -1,9 +1,11 @@
 <template>
   <Card
     style="width: 13rem; height: 6rem; cursor: pointer"
-    :style="`${!available ? 'background: #F87171; color: #fff' : ''}`"
+    :style="`${
+      table?.status === 'occupied' ? 'background: #F87171; color: #fff' : ''
+    }`"
     class="mr-2 mb-2"
-    @click="order"
+    @click="openOrder"
   >
     <template #title>{{ tableName }}</template>
   </Card>
@@ -20,13 +22,15 @@ const tableName = computed(() => `${props.table?.prefix} ${props.table?.name}`)
 const props = defineProps({
   table: Object,
   index: Number,
-  available: Boolean,
 })
 
-const order = () => {
+const openOrder = () => {
   // Chck if table is not available then view order
-  if (!props.available) {
-    pos.viewPerTableOrders = props.table?.orders
+  if (props.table?.status === 'occupied') {
+    console.log('refer: ', props?.table?.order)
+
+    pos.orderItem = props?.table?.order
+    pos.viewPerTableOrders = props?.table?.order?.items
     return
   }
 
