@@ -27,8 +27,6 @@ const props = defineProps({
 const openOrder = () => {
   // Chck if table is not available then view order
   if (props.table?.status === 'occupied') {
-    console.log('refer: ', props?.table?.order)
-
     pos.orderItem = props?.table?.order
     pos.viewPerTableOrders = props?.table?.order?.items
     return

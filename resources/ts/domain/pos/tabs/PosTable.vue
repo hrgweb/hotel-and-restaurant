@@ -12,9 +12,9 @@
       </div>
     </div>
 
-    <div class="col-fixed">
-      <div class="order col-fixed" style="width: 390px; height: 100vh">
-        <div class="p-3">
+    <div class="order col-fixed" style="width: 390px; height: 100vh">
+      <div class="col-fixed">
+        <div v-if="pos.viewPerTableOrders.length" class="p-3">
           <div
             class="reference-no flex justify-content-between"
             style="padding-bottom: 0.5rem; border-bottom: 2px dotted gray"
@@ -75,7 +75,7 @@ const pos = usePosStore()
 
 const subTotal = computed(() => {
   let result = pos.viewPerTableOrders.reduce(
-    (acc, orderItem) => acc + orderItem?.subtotal,
+    (acc, item) => acc + item?.subTotal,
     0
   )
   return result ? result.toFixed(2) : 0
