@@ -1,11 +1,6 @@
 <template>
   <Card
-    style="
-      background-color: rgb(243 243 243);
-      width: 13rem;
-      height: 6rem;
-      cursor: pointer;
-    "
+    style="width: 13rem; height: 6rem; cursor: pointer"
     :style="`${vacant ? 'background: #F87171; color: #fff' : ''}`"
     class="mr-2 mb-2"
     @click="order"

@@ -25,14 +25,26 @@
 
     <!-- List of products -->
     <div class="col">
-      <div class="flex flex-wrap">
+      <div class="product flex flex-wrap">
         <template v-for="product in listOfProducts">
           <Card
-            style="width: 14rem; height: 16rem; cursor: pointer"
             class="mr-3 mb-3"
+            style="width: 13rem; cursor: pointer"
             @click="pos.addOrder(product)"
           >
-            <template #title>{{ product?.name }}</template>
+            <template #header>
+              <img
+                alt="user header"
+                class="w-full border-round-sm"
+                style="height: 110px"
+                :src="useImageSrc(product.thumbnail)"
+              />
+            </template>
+            <template #title
+              ><span class="text-sm block text-center capitalize">{{
+                product?.name
+              }}</span></template
+            >
           </Card>
         </template>
       </div>
@@ -41,15 +53,38 @@
     <!-- Items added to orders -->
     <div class="col-fixed" id="view-order">
       <div
-        class="view-order p-3"
-        style="width: 350px; height: 100vh; background-color: #fff"
+        class="view-order"
+        style="width: 400px; height: 100vh; background-color: #fff"
       >
-        <template v-for="order in pos.orders">
-          <div>
-            <span>{{ order.product.name }}</span> -
-            <span>{{ order.qty }}</span>
-          </div>
-        </template>
+        <DataTable :value="pos.orders">
+          <Column
+            field="product.name"
+            class="text-sm"
+            header="Product Name"
+          ></Column>
+          <Column header="Qty" class="text-sm custom-col">
+            <template #body="{ data }">
+              <!-- <Button label="Order" @click.prevent="pos.order()" /> -->
+              <!-- <span>{{ data.qty }}</span> -->
+
+              <InputNumber
+                v-model="data.qty"
+                showButtons
+                buttonLayout="horizontal"
+                style="width: 100%"
+                :min="0"
+                :max="99"
+              >
+                <template #incrementbuttonicon>
+                  <span class="pi pi-plus" style="color: #059669" />
+                </template>
+                <template #decrementbuttonicon>
+                  <span class="pi pi-minus" style="color: #f87171" />
+                </template>
+              </InputNumber>
+            </template>
+          </Column>
+        </DataTable>
 
         <Button label="Order" @click.prevent="pos.order()" />
       </div>
@@ -60,6 +95,7 @@
 <script lang="ts" setup>
 import { usePosStore } from '@/domain/pos/store'
 import { computed } from 'vue'
+import { useImageSrc } from '@/composables/useImageSrc'
 
 const pos = usePosStore()
 
@@ -76,6 +112,27 @@ const listOfProducts = computed(() =>
 
   #view-order.col-fixed {
     padding: 0 !important;
+  }
+
+  .view-order {
+    .custom-col {
+      width: 150px;
+      font-size: 0.9rem;
+    }
+
+    .p-inputnumber-input {
+      width: 50px;
+    }
+  }
+
+  .product {
+    .p-card-header {
+      padding: 1.5rem;
+    }
+
+    .p-card-body {
+      padding: 0 !important;
+    }
   }
 }
 </style>

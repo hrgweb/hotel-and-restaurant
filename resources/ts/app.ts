@@ -30,6 +30,7 @@ import Card from 'primevue/card'
 import TabView from 'primevue/tabview'
 import TabPanel from 'primevue/tabpanel'
 import Avatar from 'primevue/avatar'
+import InputNumber from 'primevue/inputnumber'
 
 import CategoryPage from '@/domain/category/index.vue'
 import ProductPage from '@/domain/product/index.vue'
@@ -75,4 +76,5 @@ app.component('Card', Card)
 app.component('TabView', TabView)
 app.component('TabPanel', TabPanel)
 app.component('Avatar', Avatar)
+app.component('InputNumber', InputNumber)
 app.mount('#app')
