@@ -1,7 +1,7 @@
 <template>
   <div class="tables grid">
     <div class="col">
-      <div class="flex flex-wrap px-3">
+      <div class="flex flex-wrap">
         <template
           v-for="(table, i) in pos.tables"
           :key="table.id"

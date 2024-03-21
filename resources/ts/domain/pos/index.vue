@@ -86,34 +86,39 @@ const componentToShow = () => {
 </script>
 
 <style lang="scss">
+.p-tabview-panels {
+  background-color: #e3e3e3 !important;
+  padding: 0.5rem !important;
+}
+
 .pos {
   background: #e3e3e3;
 
-  .header {
-    position: fixed;
-    background-color: rgb(13 83 119);
-    top: 0;
-    left: 0;
-    right: 0;
-    padding: 0 0.3rem 0.5rem;
-    z-index: 10;
+  // .header {
+  //   position: fixed;
+  //   background-color: rgb(13 83 119);
+  //   top: 0;
+  //   left: 0;
+  //   right: 0;
+  //   padding: 0 0.3rem 0.5rem;
+  //   z-index: 10;
 
-    button {
-      width: 200px !important;
-      height: 60px !important;
-      text-align: left;
-      margin-right: 0.3rem;
-    }
-  }
+  //   button {
+  //     width: 200px !important;
+  //     height: 60px !important;
+  //     text-align: left;
+  //     margin-right: 0.3rem;
+  //   }
+  // }
 
-  .tables {
-    display: flex;
-    flex-wrap: wrap;
-  }
+  // .tables {
+  //   display: flex;
+  //   flex-wrap: wrap;
+  // }
 
-  .main {
-    height: 100vh;
-    padding-top: 4.7rem;
-  }
+  // .main {
+  //   height: 100vh;
+  //   padding-top: 4.7rem;
+  // }
 }
 </style>

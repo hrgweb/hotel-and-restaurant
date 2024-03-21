@@ -1,7 +1,7 @@
 <template>
-  <div class="grid table-order" style="background-color: #e3e3e3">
+  <div class="grid table-order">
     <!-- Filter by categories -->
-    <div class="col-fixed mx-2" style="background: rgb(53 53 53); width: 200px">
+    <div class="col-fixed mx-2" style="width: 200px">
       <Button
         label="All Categories"
         severity="secondary"
