@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
             $table->foreignId('table_id')->constrained()->cascadeOnDelete();
-            $table->string('product_name');
+            $table->string('reference_no')->index();
+            $table->string('product_name')->index();
             $table->decimal('price', 15, 2);
             $table->unsignedInteger('qty');
             $table->decimal('subtotal', 15, 2);

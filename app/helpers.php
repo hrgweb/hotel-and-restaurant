@@ -62,3 +62,10 @@ if (!function_exists('find_or_create_directory')) {
         }
     }
 }
+
+if (!function_exists('generate_reference_no')) {
+    function generate_reference_no(string $prefix = 'ORD')
+    {
+        return $prefix . uniqid();
+    }
+}

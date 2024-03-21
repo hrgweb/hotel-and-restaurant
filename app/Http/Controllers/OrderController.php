@@ -22,10 +22,12 @@ class OrderController extends Controller
 
             $result = [];
 
+            $refNo = generate_reference_no();
             foreach ($orders as $order) {
                 $product = $order['product'];
 
                 $order = Order::create([
+                    'reference_no' => $refNo,
                     'product_id' => $product['id'],
                     'table_id' => $table['id'],
                     'product_name' => $product['name'],
