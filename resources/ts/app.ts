@@ -27,6 +27,9 @@ import Badge from 'primevue/badge'
 import RadioButton from 'primevue/radiobutton'
 import Calendar from 'primevue/calendar'
 import Card from 'primevue/card'
+import TabView from 'primevue/tabview'
+import TabPanel from 'primevue/tabpanel'
+import Avatar from 'primevue/avatar'
 
 import CategoryPage from '@/domain/category/index.vue'
 import ProductPage from '@/domain/product/index.vue'
@@ -69,4 +72,7 @@ app.component('Badge', Badge)
 app.component('RadioButton', RadioButton)
 app.component('Calendar', Calendar)
 app.component('Card', Card)
+app.component('TabView', TabView)
+app.component('TabPanel', TabPanel)
+app.component('Avatar', Avatar)
 app.mount('#app')

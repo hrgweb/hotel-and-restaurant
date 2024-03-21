@@ -1,42 +1,50 @@
 <template>
-  <div class="pos">
-    <div class="header">
-      <Button
-        label="Home"
-        class="home"
-        id="home"
-        severity="info"
-        icon="pi pi-home"
-        @click="componentToShow('home')"
-      />
-      <Button
-        label="Table"
-        class="table"
-        id="table"
-        severity="info"
-        icon="pi pi-table"
-        @click="componentToShow('table')"
-      />
-      <Button
-        label="Takeaway"
-        class="takeaway"
-        id="takeaway"
-        severity="info"
-        icon="pi pi-gift"
-      />
-      <Button
-        label="Delivery"
-        class="delivery"
-        id="delivery"
-        severity="info"
-        icon="pi pi-credit-card"
-      />
-    </div>
+  <TabView class="tabview-custom" @tab-click="componentToShow">
+    <!-- Home -->
+    <TabPanel>
+      <template #header>
+        <div class="flex align-items-center gap-2">
+          <Avatar icon="pi pi-home" shape="circle" />
+          <span class="font-bold white-space-nowrap">Home</span>
+        </div>
+      </template>
+      <PosHome />
+    </TabPanel>
 
-    <div class="main">
+    <!-- Table -->
+    <TabPanel>
+      <template #header>
+        <div class="flex align-items-center gap-2">
+          <Avatar icon="pi pi-table" shape="circle" />
+          <span class="font-bold white-space-nowrap">Table</span>
+        </div>
+      </template>
       <component :is="view" />
-    </div>
-  </div>
+    </TabPanel>
+
+    <!-- Takeaway -->
+    <TabPanel>
+      <template #header>
+        <div class="flex align-items-center gap-2">
+          <Avatar icon="pi pi-gift" shape="circle" />
+          <span class="font-bold white-space-nowrap">Takeaway</span>
+          <Badge value="2" />
+        </div>
+      </template>
+      <p class="m-0">take out</p>
+    </TabPanel>
+
+    <!-- Delivery -->
+    <TabPanel>
+      <template #header>
+        <div class="flex align-items-center gap-2">
+          <Avatar icon="pi pi-credit-card" shape="circle" />
+          <span class="font-bold white-space-nowrap">Delivery</span>
+        </div>
+      </template>
+      <p class="m-0">deliver</p>
+    </TabPanel>
+  </TabView>
 </template>
 
 <script lang="ts" setup>
@@ -59,6 +67,8 @@ watch(
   (newVal) => {
     if (newVal) {
       view.value = PosTableOrder
+    } else {
+      view.value = PosTable
     }
   }
 )
@@ -69,24 +79,9 @@ onMounted(() => {
   pos.products = props.products
 })
 
-let view = shallowRef(PosHome)
-
-const componentToShow = (name: string) => {
+const view = shallowRef(PosTable)
+const componentToShow = () => {
   pos.showOrder = false
-
-  let comp = null
-
-  switch (name) {
-    case 'table':
-      comp = PosTable
-      break
-
-    default:
-      comp = PosHome
-      break
-  }
-
-  view.value = comp
 }
 </script>
 

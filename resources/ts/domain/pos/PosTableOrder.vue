@@ -1,5 +1,5 @@
 <template>
-  <div class="grid order" style="background-color: #e3e3e3">
+  <div class="grid table-order" style="background-color: #e3e3e3">
     <!-- Filter by categories -->
     <div class="col-fixed mx-2" style="background: rgb(53 53 53); width: 200px">
       <Button
@@ -39,9 +39,9 @@
     </div>
 
     <!-- Items added to orders -->
-    <div class="col-fixed" style="">
+    <div class="col-fixed" id="view-order">
       <div
-        class="p-3"
+        class="view-order p-3"
         style="width: 350px; height: 100vh; background-color: #fff"
       >
         <template v-for="order in pos.orders">
@@ -69,9 +69,13 @@ const listOfProducts = computed(() =>
 </script>
 
 <style lang="scss">
-.order {
+.table-order {
   button {
     text-transform: capitalize;
+  }
+
+  #view-order.col-fixed {
+    padding: 0 !important;
   }
 }
 </style>

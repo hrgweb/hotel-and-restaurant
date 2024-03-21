@@ -32,5 +32,9 @@ const pos = usePosStore()
   .order {
     background-color: #fff;
   }
+
+  .col-fixed {
+    padding: 0 !important;
+  }
 }
 </style>
