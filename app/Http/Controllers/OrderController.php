@@ -32,6 +32,7 @@ class OrderController extends Controller
                 'table_id' => $table['id'],
                 'reference_no' => generate_reference_no(),
                 'total' => OrderService::total($orderItems),
+                'type' => $request->input('type'),
                 'status' => OrderStatus::PENDING
             ]);
 

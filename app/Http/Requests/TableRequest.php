@@ -26,7 +26,7 @@ class TableRequest extends FormRequest
             return [
                 'prefix' => 'required',
                 'bulkOfTable' => 'required|gt:0',
-                'capacity' => 'required|gt:0',
+                'capacity' => 'nullable',
                 'status' => 'nullable'
             ];
         }

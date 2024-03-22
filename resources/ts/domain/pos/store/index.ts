@@ -21,6 +21,8 @@ export const usePosStore = defineStore('pos', {
     hasFilteredByCategory: false,
     tabsActiveIndex: 0,
     viewPerTableOrders: [] as OrderItem[],
+    showAboutToOrder: false,
+    orderType: '',
   }),
 
   actions: {
@@ -68,10 +70,17 @@ export const usePosStore = defineStore('pos', {
       this.hasFilteredByCategory = false
     },
 
-    submitOrder() {
+    aboutToOrder() {
+      this.showAboutToOrder = true
+    },
+
+    submitOrder(orderType: string) {
+      this.orderType = orderType
+
       const data = {
         orderItems: this.orderItems,
         table: this.selectedTable,
+        type: orderType,
       }
 
       axios

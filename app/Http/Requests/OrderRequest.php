@@ -23,7 +23,8 @@ class OrderRequest extends FormRequest
     {
         return [
             'orderItems' => 'required',
-            'table' => 'required'
+            'table' => 'required',
+            'type' =>  'required'
         ];
     }
 }

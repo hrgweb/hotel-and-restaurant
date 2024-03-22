@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('table_id')->constrained()->cascadeOnDelete();
             $table->string('reference_no')->index();
             $table->decimal('total')->index();
+            $table->enum('type', ['dinein', 'takeaway', 'delivery']);
             $table->enum('status', ['pending', 'progress', 'completed']);
             $table->timestamps();
         });

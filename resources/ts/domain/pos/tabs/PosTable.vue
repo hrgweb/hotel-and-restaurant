@@ -14,7 +14,10 @@
 
     <div class="order col-fixed" style="width: 390px; height: 100vh">
       <div class="col-fixed">
-        <div v-if="pos.viewPerTableOrders.length" class="p-3">
+        <div
+          v-if="pos.viewPerTableOrders && pos.viewPerTableOrders.length"
+          class="p-3"
+        >
           <div
             class="reference-no flex justify-content-between"
             style="padding-bottom: 0.5rem; border-bottom: 2px dotted gray"

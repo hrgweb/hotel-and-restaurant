@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('prefix');
             $table->string('name')->index()->unique();
-            $table->unsignedInteger('capacity');
+            $table->unsignedInteger('capacity')->default(0);
             $table->enum('status', ['occupied', 'available']);
             $table->timestamps();
         });
