@@ -70,7 +70,10 @@
               <span class="right capitalize">{{ pos.orderStatus }}</span>
             </div>
           </div>
-          <div class="order-actions mt-4">
+          <div
+            v-if="pos.orderStatus !== OrderStatus.COMPLETED"
+            class="order-actions mt-4"
+          >
             <ButtonGroup>
               <Button
                 label="Process"

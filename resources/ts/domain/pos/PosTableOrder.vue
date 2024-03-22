@@ -78,17 +78,17 @@
         <Button
           label="Dine-In"
           severity="info"
-          @click.prevent="pos.orderType = 'dinein'"
+          @click.prevent="pos.orderType = OrderType.DINEIN"
         />
         <Button
           label="Takeaway"
           severity="warning"
-          @click.prevent="pos.orderType = 'takeaway'"
+          @click.prevent="pos.orderType = OrderType.TAKEAWAY"
         />
         <Button
           label="Delivery"
           severity="help"
-          @click.prevent="pos.orderType = 'delivery'"
+          @click.prevent="pos.orderType = OrderType.DELIVERY"
         />
       </div>
 
@@ -111,6 +111,7 @@ import { useImageSrc } from '@/composables/useImageSrc'
 import { computed } from 'vue'
 import PosTableOrderView from './PosTableOrderView.vue'
 import { useToast } from 'primevue/usetoast'
+import { OrderType } from '@/enums/orderType'
 
 const pos = usePosStore()
 const toast = useToast()
