@@ -26,3 +26,4 @@ Route::resource('tables', TableController::class);
 Route::resource('user-roles', UserRoleController::class);
 Route::resource('staffs', StaffController::class);
 Route::resource('orders', OrderController::class);
+Route::patch('/orders/{order}/cancel', [OrderController::class, 'cancel']);

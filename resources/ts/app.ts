@@ -33,26 +33,26 @@ import Avatar from 'primevue/avatar'
 import InputNumber from 'primevue/inputnumber'
 import ButtonGroup from 'primevue/buttongroup'
 
-import CategoryPage from '@/domain/category/index.vue'
-import ProductPage from '@/domain/product/index.vue'
-import TablePage from '@/domain/table/index.vue'
-import UserRolePage from '@/domain/role/index.vue'
-import StaffPage from '@/domain/staff/index.vue'
-import AppHeader from '@/domain/AppHeader.vue'
-import PosPage from '@/domain/pos/index.vue'
+// Pages
+import CategoryPage from './domain/category/index.vue'
+import ProductPage from './domain/product/index.vue'
+import TablePage from './domain/table/index.vue'
+import UserRolePage from './domain/role/index.vue'
+import StaffPage from './domain/staff/index.vue'
+import AppHeader from './domain/AppHeader.vue'
+import PosPage from './domain/pos/index.vue'
 
 const pinia = createPinia()
-const app = createApp({
-  components: {
-    AppHeader,
-    CategoryPage,
-    ProductPage,
-    TablePage,
-    StaffPage,
-    UserRolePage,
-    PosPage,
-  },
-})
+const app = createApp()
+
+app.component('AppHeader', AppHeader)
+app.component('CategoryPage', CategoryPage)
+app.component('ProductPage', ProductPage)
+app.component('TablePage', TablePage)
+app.component('StaffPage', StaffPage)
+app.component('UserRolePage', UserRolePage)
+app.component('PosPage', PosPage)
+
 app.use(pinia)
 app.use(PrimeVue)
 app.use(ConfirmationService)

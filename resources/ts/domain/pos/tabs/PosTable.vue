@@ -74,22 +74,23 @@
             <ButtonGroup>
               <Button
                 label="Process"
-                icon="pi pi-check"
+                icon="pi pi-arrow-circle-up"
                 severity="warning"
-                :disabled="pos.orderStatus === 'process'"
-                @click.prevent="pos.updateOrderStatus('process')"
+                :disabled="pos.orderStatus === OrderStatus.PROCESS"
+                @click.prevent="pos.updateOrderStatus(OrderStatus.PROCESS)"
               />
               <Button
                 label="Completed"
-                icon="pi pi-trash"
+                icon="pi pi-check"
                 severity="info"
-                @click.prevent="pos.updateOrderStatus('completed')"
+                @click.prevent="pos.updateOrderStatus(OrderStatus.COMPLETED)"
               />
               <Button
                 label="Cancel"
                 icon="pi pi-times"
                 severity="danger"
-                @click.prevent="pos.cancel()"
+                :disabled="pos.orderStatus === OrderStatus.PENDING"
+                @click.prevent="askToCancel"
               />
             </ButtonGroup>
           </div>
@@ -104,8 +105,14 @@ import PosTableItem from './../PosTableItem.vue'
 import { usePosStore } from '@/domain/pos/store'
 import { computed } from 'vue'
 import dayjs from 'dayjs'
+import { OrderStatus } from '@/enums/orderStatus'
+import { useConfirm } from 'primevue/useconfirm'
+import { useToast } from 'primevue/usetoast'
+import { useToastMessage } from '@/composables/useToastMessage'
 
 const pos = usePosStore()
+const confirm = useConfirm()
+const toast = useToast()
 
 const subTotal = computed(() => {
   let result = pos.viewPerTableOrders.reduce(
@@ -114,6 +121,22 @@ const subTotal = computed(() => {
   )
   return result ? result.toFixed(2) : 0
 })
+
+const askToCancel = (event) => {
+  confirm.require({
+    target: event.currentTarget,
+    message: 'Are you sure you want to cancel?',
+    icon: 'pi pi-exclamation-triangle',
+    rejectClass: 'p-button-secondary p-button-outlined p-button-sm',
+    acceptClass: 'p-button-sm',
+    rejectLabel: 'No',
+    acceptLabel: 'Yes',
+    accept: () => {
+      pos.cancelProcessedOrder()
+      useToastMessage('1 record successfully cancelled')
+    },
+  })
+}
 </script>
 
 <style lang="scss">

@@ -78,14 +78,13 @@ class OrderController extends Controller
         }
     }
 
-    public function destroy(Order $order)
+    public function cancel(Order $order)
     {
         try {
-            // Remove old img
-            old_img_remove($order->thumbnail);
+            $order->status = OrderStatus::PENDING;
+            $order->save();
 
-            $order->delete();
-            return response()->json(1, 200);
+            return response()->json(true, 200);
         } catch (Exception $e) {
             Log::error($e->getMessage());
             return response()->json($e->getMessage(), 500);

@@ -148,5 +148,15 @@ export const usePosStore = defineStore('pos', {
         })
         .catch((error) => console.error(error))
     },
+
+    cancelProcessedOrder() {
+      axios
+        .patch(`/orders/${this.selectedTable?.order?.id}/cancel`)
+        .then(() => {
+          this.orderStatus = OrderStatus.PENDING
+          this.tables[this.selectedTableIndex].order.status = this.orderStatus
+        })
+        .catch((error) => console.error(error))
+    },
   },
 })
