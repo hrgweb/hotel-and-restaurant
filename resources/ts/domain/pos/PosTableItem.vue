@@ -1,10 +1,8 @@
 <template>
   <Card
-    style="width: 13rem; height: 6rem; cursor: pointer"
-    :style="`${
-      table?.status === 'occupied' ? 'background: #F87171; color: #fff' : ''
-    }`"
+    :class="tableColor"
     class="mr-2 mb-2"
+    style="width: 13rem; height: 6rem; cursor: pointer"
     @click="openOrder"
   >
     <template #title>{{ tableName }}</template>
@@ -14,10 +12,22 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { usePosStore } from '@/domain/pos/store'
+import { TableStatus } from '@/enums/tableStatus'
+import { OrderStatus } from '@/enums/orderStatus'
 
 const pos = usePosStore()
 
 const tableName = computed(() => `${props.table?.prefix} ${props.table?.name}`)
+
+const tableColor = computed(() => {
+  if (props.table?.order?.status === OrderStatus.PROCESS) {
+    return 'bg-yellow-500 text-white'
+  }
+
+  if (props.table?.status === TableStatus.OCCUPIED) {
+    return 'bg-red-500 text-white'
+  }
+})
 
 const props = defineProps({
   table: Object,
