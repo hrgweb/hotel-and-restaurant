@@ -108,7 +108,6 @@ import dayjs from 'dayjs'
 import { OrderStatus } from '@/enums/orderStatus'
 import { useConfirm } from 'primevue/useconfirm'
 import { useToast } from 'primevue/usetoast'
-import { useToastMessage } from '@/composables/useToastMessage'
 
 const pos = usePosStore()
 const confirm = useConfirm()
@@ -133,7 +132,12 @@ const askToCancel = (event) => {
     acceptLabel: 'Yes',
     accept: () => {
       pos.cancelProcessedOrder()
-      useToastMessage('1 record successfully cancelled')
+      toast.add({
+        severity: 'info',
+        summary: 'Info',
+        detail: '1 record successfully cancelled',
+        life: 3000,
+      })
     },
   })
 }

@@ -52,7 +52,7 @@
     <ConfirmPopup></ConfirmPopup>
 
     <!-- Toast -->
-    <Toast position="top-center" />
+    <Toast position="bottom-center" />
   </div>
 </template>
 
