@@ -84,21 +84,24 @@ export const usePosStore = defineStore('pos', {
         type: this.orderType,
       }
 
-      axios
-        .post('/orders', data)
-        .then(async ({ data }) => {
-          if (data && data.order) {
-            this.tables[this.selectedTableIndex].status = 'occupied'
-            this.tables[this.selectedTableIndex].order = data?.order
-            this.tables[this.selectedTableIndex].order.items = data?.orderItems
-          }
-          this.orderItems = []
-          await nextTick()
-          this.openTable()
-        })
-        .catch((error) => {
-          console.error(error)
-        })
+      return new Promise((resolve, reject) => {
+        axios
+          .post('/orders', data)
+          .then(async ({ data }) => {
+            if (data && data.order) {
+              this.tables[this.selectedTableIndex].status = 'occupied'
+              this.tables[this.selectedTableIndex].order = data?.order
+              this.tables[this.selectedTableIndex].order.items =
+                data?.orderItems
+            }
+            this.orderItems = []
+            await nextTick()
+            this.openTable()
+
+            resolve(data)
+          })
+          .catch((error: any) => reject(error))
+      })
     },
 
     openTable() {
@@ -140,23 +143,31 @@ export const usePosStore = defineStore('pos', {
         status: this.selectedTable?.order?.status,
       }
 
-      axios
-        .patch(`/orders/${this.selectedTable?.order?.id}`, data)
-        .then(() => {
-          this.orderStatus = OrderStatus.PROCESS
-          this.tables[this.selectedTableIndex].order.status = this.orderStatus
-        })
-        .catch((error) => console.error(error))
+      return new Promise((resolve, reject) => {
+        axios
+          .patch(`/orders/${this.selectedTable?.order?.id}`, data)
+          .then(() => {
+            this.orderStatus = OrderStatus.PROCESS
+            this.tables[this.selectedTableIndex].order.status = this.orderStatus
+
+            resolve(null)
+          })
+          .catch((error: any) => reject(error))
+      })
     },
 
     cancelProcessedOrder() {
-      axios
-        .patch(`/orders/${this.selectedTable?.order?.id}/cancel`)
-        .then(() => {
-          this.orderStatus = OrderStatus.PENDING
-          this.tables[this.selectedTableIndex].order.status = this.orderStatus
-        })
-        .catch((error) => console.error(error))
+      return new Promise((resolve, reject) => {
+        axios
+          .patch(`/orders/${this.selectedTable?.order?.id}/cancel`)
+          .then(() => {
+            this.orderStatus = OrderStatus.PENDING
+            this.tables[this.selectedTableIndex].order.status = this.orderStatus
+
+            resolve(null)
+          })
+          .catch((error: any) => reject(error))
+      })
     },
   },
 })

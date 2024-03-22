@@ -43,7 +43,7 @@ import AppHeader from './domain/AppHeader.vue'
 import PosPage from './domain/pos/index.vue'
 
 const pinia = createPinia()
-const app = createApp()
+const app = createApp({})
 
 app.component('AppHeader', AppHeader)
 app.component('CategoryPage', CategoryPage)
@@ -54,7 +54,7 @@ app.component('UserRolePage', UserRolePage)
 app.component('PosPage', PosPage)
 
 app.use(pinia)
-app.use(PrimeVue)
+app.use(PrimeVue, { ripple: true })
 app.use(ConfirmationService)
 app.use(ToastService)
 app.component('Button', Button)

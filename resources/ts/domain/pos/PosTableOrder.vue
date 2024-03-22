@@ -99,7 +99,7 @@
         class="w-full mt-2"
         style="height: 60px"
         severity="success"
-        @click.prevent="pos.submitOrder()"
+        @click.prevent="order"
       />
     </Dialog>
   </div>
@@ -110,12 +110,30 @@ import { usePosStore } from '@/domain/pos/store'
 import { useImageSrc } from '@/composables/useImageSrc'
 import { computed } from 'vue'
 import PosTableOrderView from './PosTableOrderView.vue'
+import { useToast } from 'primevue/usetoast'
 
 const pos = usePosStore()
+const toast = useToast()
 
 const listOfProducts = computed(() =>
   !pos.hasFilteredByCategory ? pos.products : pos.filteredProductsByCategory
 )
+
+function order() {
+  pos
+    .submitOrder()
+    .then((data) => {
+      toast.add({
+        severity: 'info',
+        summary: 'Info',
+        detail: 'Successfully added to orders',
+        life: 3000,
+      })
+    })
+    .catch((error: any) => {
+      console.error(error)
+    })
+}
 </script>
 
 <style lang="scss">

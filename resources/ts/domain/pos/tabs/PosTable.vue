@@ -77,13 +77,13 @@
                 icon="pi pi-arrow-circle-up"
                 severity="warning"
                 :disabled="pos.orderStatus === OrderStatus.PROCESS"
-                @click.prevent="pos.updateOrderStatus(OrderStatus.PROCESS)"
+                @click.prevent="updateOrderStatus(OrderStatus.PROCESS)"
               />
               <Button
                 label="Completed"
                 icon="pi pi-check"
                 severity="info"
-                @click.prevent="pos.updateOrderStatus(OrderStatus.COMPLETED)"
+                @click.prevent="updateOrderStatus(OrderStatus.COMPLETED)"
               />
               <Button
                 label="Cancel"
@@ -121,6 +121,24 @@ const subTotal = computed(() => {
   return result ? result.toFixed(2) : 0
 })
 
+const tableName = computed(() => pos.selectedTable?.table_name)
+
+function updateOrderStatus(status: string) {
+  pos
+    .updateOrderStatus(status)
+    .then(() => {
+      toast.add({
+        severity: 'info',
+        summary: 'Info',
+        detail: `${tableName.value} is now processed`,
+        life: 3000,
+      })
+    })
+    .catch((error: any) => {
+      console.error(error)
+    })
+}
+
 const askToCancel = (event) => {
   confirm.require({
     target: event.currentTarget,
@@ -131,13 +149,17 @@ const askToCancel = (event) => {
     rejectLabel: 'No',
     acceptLabel: 'Yes',
     accept: () => {
-      pos.cancelProcessedOrder()
-      toast.add({
-        severity: 'info',
-        summary: 'Info',
-        detail: '1 record successfully cancelled',
-        life: 3000,
-      })
+      pos
+        .cancelProcessedOrder()
+        .then(() => {
+          toast.add({
+            severity: 'info',
+            summary: 'Info',
+            detail: `${tableName.value} was put to pending`,
+            life: 3000,
+          })
+        })
+        .catch((error: any) => console.log(error))
     },
   })
 }
