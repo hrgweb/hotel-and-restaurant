@@ -28,6 +28,7 @@ export const usePosStore = defineStore('pos', {
   actions: {
     openOrder() {
       this.showOrder = true
+      this.showAboutToOrder = false
     },
 
     existOrderIndex(product: Product) {
@@ -74,13 +75,11 @@ export const usePosStore = defineStore('pos', {
       this.showAboutToOrder = true
     },
 
-    submitOrder(orderType: string) {
-      this.orderType = orderType
-
+    submitOrder() {
       const data = {
         orderItems: this.orderItems,
         table: this.selectedTable,
-        type: orderType,
+        type: this.orderType,
       }
 
       axios
@@ -122,6 +121,11 @@ export const usePosStore = defineStore('pos', {
         total += order?.subTotal
       })
       return total
+    },
+
+    closeOrder() {
+      this.showAboutToOrder = false
+      this.orderType = ''
     },
   },
 })

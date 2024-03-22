@@ -55,7 +55,12 @@
 
     <!-- view orders -->
     <div class="col-fixed" id="view-order">
-      <PosTableOrderView />
+      <div
+        class="view-order"
+        style="width: 400px; height: 600px; background-color: #fff"
+      >
+        <PosTableOrderView v-if="pos.orderItems && pos.orderItems.length" />
+      </div>
     </div>
 
     <!-- order type -->
@@ -67,25 +72,35 @@
       :closeOnEscape="true"
       :draggable="false"
       modal
-      @hide="pos.close()"
+      @hide="pos.closeOrder()"
     >
       <div class="actions">
         <Button
           label="Dine-In"
           severity="info"
-          @click.prevent="pos.submitOrder('dinein')"
+          @click.prevent="pos.orderType = 'dinein'"
         />
         <Button
           label="Takeaway"
           severity="warning"
-          @click.prevent="pos.submitOrder('takeaway')"
+          @click.prevent="pos.orderType = 'takeaway'"
         />
         <Button
           label="Delivery"
           severity="help"
-          @click.prevent="pos.submitOrder('delivery')"
+          @click.prevent="pos.orderType = 'delivery'"
         />
       </div>
+
+      <!-- place order -->
+      <Button
+        v-show="pos.orderType"
+        label="Place Order"
+        class="w-full mt-2"
+        style="height: 60px"
+        severity="success"
+        @click.prevent="pos.submitOrder()"
+      />
     </Dialog>
   </div>
 </template>
@@ -98,17 +113,9 @@ import PosTableOrderView from './PosTableOrderView.vue'
 
 const pos = usePosStore()
 
-// const total = computed(() => pos.totalCost())
-
 const listOfProducts = computed(() =>
   !pos.hasFilteredByCategory ? pos.products : pos.filteredProductsByCategory
 )
-
-// const updatedQty = (data: any, index: number, e: any) => {
-//   const adjustedQty = e.value
-//   pos.orderItems[index].qty = adjustedQty
-//   pos.orderItems[index].subTotal = data.product.price * adjustedQty
-// }
 </script>
 
 <style lang="scss">
@@ -120,31 +127,6 @@ const listOfProducts = computed(() =>
   #view-order.col-fixed {
     padding: 0 !important;
   }
-
-  // .view-order {
-  //   .custom-col {
-  //     width: 150px;
-  //     font-size: 0.9rem;
-  //   }
-
-  //   .p-inputnumber-input {
-  //     width: 50px;
-  //     text-align: center;
-  //   }
-
-  //   .footer {
-  //     button {
-  //       width: 100%;
-  //     }
-
-  //     .total {
-  //       span {
-  //         font-weight: bold;
-  //         text-transform: uppercase;
-  //       }
-  //     }
-  //   }
-  // }
 
   .product {
     .p-card-header {

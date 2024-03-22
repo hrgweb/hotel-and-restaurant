@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="view-order"
-    style="width: 400px; height: 600px; background-color: #fff"
-  >
+  <div>
     <DataTable :value="pos.orderItems" scrollable scrollHeight="500px">
       <template #empty>No orders</template>
       <Column
@@ -74,27 +71,25 @@ const updatedQty = (data: any, index: number, e: any) => {
 </script>
 
 <style lang="scss">
-.view-order {
-  .custom-col {
-    width: 150px;
-    font-size: 0.9rem;
+.custom-col {
+  width: 150px;
+  font-size: 0.9rem;
+}
+
+.p-inputnumber-input {
+  width: 50px;
+  text-align: center;
+}
+
+.footer {
+  button {
+    width: 100%;
   }
 
-  .p-inputnumber-input {
-    width: 50px;
-    text-align: center;
-  }
-
-  .footer {
-    button {
-      width: 100%;
-    }
-
-    .total {
-      span {
-        font-weight: bold;
-        text-transform: uppercase;
-      }
+  .total {
+    span {
+      font-weight: bold;
+      text-transform: uppercase;
     }
   }
 }
