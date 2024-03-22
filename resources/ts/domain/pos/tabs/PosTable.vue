@@ -77,13 +77,17 @@
                 icon="pi pi-arrow-circle-up"
                 severity="warning"
                 :disabled="pos.orderStatus === OrderStatus.PROCESS"
-                @click.prevent="updateOrderStatus(OrderStatus.PROCESS)"
+                @click.prevent="
+                  askToUpdateOrderStatus(OrderStatus.PROCESS, $event)
+                "
               />
               <Button
                 label="Completed"
                 icon="pi pi-check"
                 severity="info"
-                @click.prevent="updateOrderStatus(OrderStatus.COMPLETED)"
+                @click.prevent="
+                  askToUpdateOrderStatus(OrderStatus.COMPLETED, $event)
+                "
               />
               <Button
                 label="Cancel"
@@ -121,6 +125,19 @@ const subTotal = computed(() => {
   return result ? result.toFixed(2) : 0
 })
 
+function askToUpdateOrderStatus(status: string, event: any) {
+  confirm.require({
+    target: event.currentTarget,
+    message: `Are you sure you want to update the status to ${status.toLowerCase()}?`,
+    icon: 'pi pi-exclamation-triangle',
+    rejectClass: 'p-button-secondary p-button-outlined p-button-sm',
+    acceptClass: 'p-button-sm',
+    rejectLabel: 'No',
+    acceptLabel: 'Yes',
+    accept: () => updateOrderStatus(status),
+  })
+}
+
 const tableName = computed(() => pos.selectedTable?.table_name)
 
 function updateOrderStatus(status: string) {
@@ -139,7 +156,7 @@ function updateOrderStatus(status: string) {
     })
 }
 
-const askToCancel = (event) => {
+function askToCancel(event) {
   confirm.require({
     target: event.currentTarget,
     message: 'Are you sure you want to cancel?',
