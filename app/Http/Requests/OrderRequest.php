@@ -21,10 +21,14 @@ class OrderRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'orderItems' => 'required',
-            'table' => 'required',
-            'type' =>  'required'
-        ];
+        if ($this->method() === 'POST') {
+            return [
+                'orderItems' => 'required',
+                'table' => 'required',
+                'type' =>  'required'
+            ];
+        }
+
+        return [];
     }
 }

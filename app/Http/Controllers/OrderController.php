@@ -68,11 +68,10 @@ class OrderController extends Controller
     public function update(OrderRequest $request, Order $order)
     {
         try {
-            $validated = $request->validated();
+            $order->status = OrderStatus::PROCESS;
+            $order->save();
 
-            $order->updateOrCreate(['id' => $order->id], $validated);
-
-            return response()->json($validated, 201);
+            return response()->json(true, 201);
         } catch (Exception $e) {
             Log::error($e->getMessage());
             return response()->json($e->getMessage(), 500);

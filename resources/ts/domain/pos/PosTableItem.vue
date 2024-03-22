@@ -31,6 +31,7 @@ const openOrder = () => {
     pos.viewPerTableOrders = props?.table?.order?.items
     pos.selectedTable = props?.table
     pos.selectedTableIndex = props?.index
+    pos.orderStatus = pos.selectedTable?.order?.status
     return
   }
 

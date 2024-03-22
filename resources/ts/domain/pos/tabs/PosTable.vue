@@ -1,5 +1,6 @@
 <template>
   <div class="tables grid">
+    <!-- list of table -->
     <div class="col">
       <div class="flex flex-wrap">
         <template
@@ -12,7 +13,8 @@
       </div>
     </div>
 
-    <div class="order col-fixed" style="width: 390px; height: 100vh">
+    <!-- view orders per table -->
+    <div class="col-fixed" id="order" style="width: 390px; height: 100vh">
       <div class="col-fixed">
         <div
           v-if="pos.viewPerTableOrders && pos.viewPerTableOrders.length"
@@ -65,8 +67,31 @@
             </div>
             <div class="flex justify-content-between mb-1">
               <span class="left">Order Status</span>
-              <span class="right">Pending</span>
+              <span class="right capitalize">{{ pos.orderStatus }}</span>
             </div>
+          </div>
+          <div class="order-actions mt-4">
+            <ButtonGroup>
+              <Button
+                label="Process"
+                icon="pi pi-check"
+                severity="warning"
+                :disabled="pos.orderStatus === 'process'"
+                @click.prevent="pos.updateOrderStatus('process')"
+              />
+              <Button
+                label="Completed"
+                icon="pi pi-trash"
+                severity="info"
+                @click.prevent="pos.updateOrderStatus('completed')"
+              />
+              <Button
+                label="Cancel"
+                icon="pi pi-times"
+                severity="danger"
+                @click.prevent="pos.cancel()"
+              />
+            </ButtonGroup>
           </div>
         </div>
       </div>
@@ -93,8 +118,9 @@ const subTotal = computed(() => {
 
 <style lang="scss">
 .tables {
-  .order {
+  #order {
     background-color: #fff;
+    position: relative;
   }
 
   .col-fixed {
@@ -106,6 +132,14 @@ const subTotal = computed(() => {
   .order-footer {
     span {
       font-size: 0.9rem !important;
+    }
+  }
+
+  .order-actions {
+    text-align: center;
+
+    button {
+      font-size: 0.8rem;
     }
   }
 }

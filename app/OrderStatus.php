@@ -5,6 +5,6 @@ namespace App;
 enum OrderStatus: string
 {
     case PENDING = 'pending';
-    case PROGRESS = 'progress';
+    case PROCESS = 'process';
     case COMPLETED = 'completed';
 }

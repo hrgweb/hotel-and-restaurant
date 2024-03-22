@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('reference_no')->index();
             $table->decimal('total')->index();
             $table->enum('type', ['dinein', 'takeaway', 'delivery']);
-            $table->enum('status', ['pending', 'progress', 'completed']);
+            $table->enum('status', ['pending', 'process', 'completed']);
             $table->timestamps();
         });
     }

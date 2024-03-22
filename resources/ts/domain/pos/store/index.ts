@@ -5,6 +5,7 @@ import type { Product } from '@/domain/product/types'
 import type { Order } from '@/domain/pos/types/order'
 import type { OrderItem } from '@/domain/pos/types/orderItem'
 import { nextTick } from 'vue'
+import { OrderStatus } from '@/enums/orderStatus'
 
 export const usePosStore = defineStore('pos', {
   state: () => ({
@@ -23,6 +24,7 @@ export const usePosStore = defineStore('pos', {
     viewPerTableOrders: [] as OrderItem[],
     showAboutToOrder: false,
     orderType: '',
+    orderStatus: 'pending',
   }),
 
   actions: {
@@ -104,6 +106,7 @@ export const usePosStore = defineStore('pos', {
       this.tabsActiveIndex = 1 // table
       this.showOrder = false
       this.viewPerTableOrders = []
+      this.orderType = ''
     },
 
     async cancelOrder() {
@@ -126,6 +129,24 @@ export const usePosStore = defineStore('pos', {
     closeOrder() {
       this.showAboutToOrder = false
       this.orderType = ''
+    },
+
+    updateOrderStatus(status: string) {
+      this.orderStatus = status
+
+      const data = {
+        perTableOrders: this.viewPerTableOrders,
+        table: this.selectedTable,
+        status: this.selectedTable?.order?.status,
+      }
+
+      axios
+        .patch(`/orders/${this.selectedTable?.order?.id}`, data)
+        .then(() => {
+          this.orderStatus = OrderStatus.PROCESS
+          this.tables[this.selectedTableIndex].order.status = this.orderStatus
+        })
+        .catch((error) => console.error(error))
     },
   },
 })
