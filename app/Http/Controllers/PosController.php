@@ -10,10 +10,7 @@ class PosController extends Controller
 {
     public function index()
     {
-        $tables = Table::with(['order' => [
-            'items',
-            'table'
-        ]])->get();
+        $tables = Table::with(['order' => ['items',]])->get();
         $categories = Category::orderBy('name')->get();
         $products = Product::orderBy('name')->get();
 

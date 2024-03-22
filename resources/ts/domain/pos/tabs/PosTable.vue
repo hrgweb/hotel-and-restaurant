@@ -21,7 +21,7 @@
           <div class="order-header">
             <div class="pb-1 reference-no flex justify-content-between">
               <span class="left">Table No</span>
-              <span class="right">{{ pos?.orderItem?.table?.table_name }}</span>
+              <span class="right">{{ pos?.selectedTable?.table_name }}</span>
             </div>
             <div
               class="pb-1 table-no flex justify-content-between"

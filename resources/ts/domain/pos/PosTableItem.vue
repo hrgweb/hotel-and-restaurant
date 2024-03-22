@@ -29,6 +29,8 @@ const openOrder = () => {
   if (props.table?.status === 'occupied') {
     pos.orderItem = props?.table?.order
     pos.viewPerTableOrders = props?.table?.order?.items
+    pos.selectedTable = props?.table
+    pos.selectedTableIndex = props?.index
     return
   }
 
