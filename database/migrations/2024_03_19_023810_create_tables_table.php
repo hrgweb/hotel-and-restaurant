@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('tables', function (Blueprint $table) {
             $table->id();
             $table->string('prefix');
-            $table->string('name')->index()->unique();
+            $table->string('name');
+            $table->string('table_name')->index()->unique();
             $table->unsignedInteger('capacity')->default(0);
             $table->enum('status', ['occupied', 'available']);
             $table->timestamps();

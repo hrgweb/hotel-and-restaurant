@@ -26,10 +26,12 @@ class TableController extends Controller
             if ($request->input('isBulk')) {
                 $result = [];
                 $i = 1;
+                $prefix = ucwords($request->input('prefix'));
                 while ($i <= $request->input('bulkOfTable')) {
                     $category = Table::create([
-                        'prefix' => ucwords($request->input('prefix')),
+                        'prefix' => $prefix,
                         'name' => $i,
+                        'table_name' =>  $prefix . ' ' . $i,
                         'capacity' => $request->input('capacity'),
                         'status' => $request->input('status')
                     ]);

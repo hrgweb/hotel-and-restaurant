@@ -18,12 +18,18 @@
           v-if="pos.viewPerTableOrders && pos.viewPerTableOrders.length"
           class="p-3"
         >
-          <div
-            class="reference-no flex justify-content-between"
-            style="padding-bottom: 0.5rem; border-bottom: 2px dotted gray"
-          >
-            <span class="left">Order Reference No:</span>
-            <span class="right">{{ pos?.order?.reference_no }}</span>
+          <div class="order-header">
+            <div class="pb-1 reference-no flex justify-content-between">
+              <span class="left">Table No</span>
+              <span class="right">{{ pos?.orderItem?.table?.table_name }}</span>
+            </div>
+            <div
+              class="pb-1 table-no flex justify-content-between"
+              style="border-bottom: 2px dotted gray"
+            >
+              <span class="left">Order Reference No:</span>
+              <span class="right">{{ pos?.orderItem?.reference_no }}</span>
+            </div>
           </div>
           <br />
           <div class="order-items">
@@ -95,6 +101,7 @@ const subTotal = computed(() => {
     padding: 0 !important;
   }
 
+  .order-header,
   .order-items,
   .order-footer {
     span {
