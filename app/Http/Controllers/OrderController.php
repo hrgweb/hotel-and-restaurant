@@ -68,7 +68,7 @@ class OrderController extends Controller
     public function update(OrderRequest $request, Order $order)
     {
         try {
-            $order->status = OrderStatus::PROCESS;
+            $order->status = $request->input('status');
             $order->save();
 
             return response()->json(true, 201);

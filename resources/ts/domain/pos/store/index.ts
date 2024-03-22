@@ -140,14 +140,13 @@ export const usePosStore = defineStore('pos', {
       const data = {
         perTableOrders: this.viewPerTableOrders,
         table: this.selectedTable,
-        status: this.selectedTable?.order?.status,
+        status: this.orderStatus,
       }
 
       return new Promise((resolve, reject) => {
         axios
           .patch(`/orders/${this.selectedTable?.order?.id}`, data)
           .then(() => {
-            this.orderStatus = OrderStatus.PROCESS
             this.tables[this.selectedTableIndex].order.status = this.orderStatus
 
             resolve(null)

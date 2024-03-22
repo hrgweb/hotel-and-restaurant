@@ -130,7 +130,7 @@ function updateOrderStatus(status: string) {
       toast.add({
         severity: 'info',
         summary: 'Info',
-        detail: `${tableName.value} is now processed`,
+        detail: `${tableName.value} is now ${status.toLowerCase()}`,
         life: 3000,
       })
     })

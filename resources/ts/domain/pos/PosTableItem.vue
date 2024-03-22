@@ -20,10 +20,12 @@ const pos = usePosStore()
 const tableName = computed(() => `${props.table?.prefix} ${props.table?.name}`)
 
 const tableColor = computed(() => {
+  if (props.table?.order?.status === OrderStatus.COMPLETED) {
+    return 'bg-green-500 text-white'
+  }
   if (props.table?.order?.status === OrderStatus.PROCESS) {
     return 'bg-yellow-500 text-white'
   }
-
   if (props.table?.status === TableStatus.OCCUPIED) {
     return 'bg-red-500 text-white'
   }
