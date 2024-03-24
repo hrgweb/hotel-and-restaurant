@@ -5,7 +5,7 @@
     style="width: 13rem; height: 6rem; cursor: pointer"
     @click="openOrder"
   >
-    <template #title>{{ tableName }}</template>
+    <template #title>{{ tableName }} </template>
   </Card>
 </template>
 
@@ -26,7 +26,7 @@ const tableColor = computed(() => {
   if (props.table?.order?.status === OrderStatus.PROCESS) {
     return 'bg-yellow-500 text-white'
   }
-  if (props.table?.status === TableStatus.OCCUPIED) {
+  if (props?.table?.order?.status === OrderStatus.PENDING) {
     return 'bg-red-500 text-white'
   }
 })
@@ -44,6 +44,7 @@ const openOrder = () => {
     pos.selectedTable = props?.table
     pos.selectedTableIndex = props?.index
     pos.orderStatus = pos.selectedTable?.order?.status
+    pos.isPaid = false
     return
   }
 
