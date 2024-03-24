@@ -2,7 +2,10 @@
   <div class="tables grid">
     <!-- list of table -->
     <div class="col">
-      <div class="flex flex-wrap" style="height: 85vh; overflow-y: scroll">
+      <div
+        class="flex flex-wrap"
+        style="height: 85vh; overflow-y: scroll; align-content: baseline"
+      >
         <template
           v-for="(table, i) in pos.tables"
           :key="table.id"

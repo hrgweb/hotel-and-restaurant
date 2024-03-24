@@ -27,12 +27,12 @@
     <div class="col">
       <div
         class="product flex flex-wrap"
-        style="height: 580px; overflow-y: scroll"
+        style="height: 580px; overflow-y: scroll; align-content: baseline"
       >
         <template v-for="product in listOfProducts">
           <Card
             class="mr-3 mb-3"
-            style="width: 13rem; cursor: pointer"
+            style="width: 13rem; height: 13rem; cursor: pointer"
             @click="pos.addOrder(product)"
           >
             <template #header>
