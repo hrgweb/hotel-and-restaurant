@@ -6,6 +6,7 @@ import type { Order } from '@/domain/pos/types/order'
 import type { OrderItem } from '@/domain/pos/types/orderItem'
 import { nextTick } from 'vue'
 import { OrderStatus } from '@/enums/orderStatus'
+import { TableStatus } from '@/enums/tableStatus'
 
 export const usePosStore = defineStore('pos', {
   state: () => ({
@@ -25,6 +26,9 @@ export const usePosStore = defineStore('pos', {
     showAboutToOrder: false,
     orderType: '',
     orderStatus: 'pending',
+    showDialogPay: false,
+    cashPayment: 0,
+    subTotal: 0,
   }),
 
   actions: {
@@ -167,6 +171,34 @@ export const usePosStore = defineStore('pos', {
           })
           .catch((error: any) => reject(error))
       })
+    },
+
+    dialogPay() {
+      this.showDialogPay = true
+    },
+
+    payment() {
+      return new Promise((resolve, reject) => {
+        axios
+          .post(`/payment`, {
+            order_id: this.selectedTable?.order?.id,
+            table_id: this.selectedTable?.id,
+            total: this.subTotal,
+            amount: this.cashPayment,
+          })
+          .then(() => {
+            this.tables[this.selectedTableIndex].status = TableStatus.AVAILABLE
+            this.tables[this.selectedTableIndex].order.status = OrderStatus.PAID
+            this.closeDialogPayment()
+
+            resolve(null)
+          })
+          .catch((error: any) => reject(error))
+      })
+    },
+
+    closeDialogPayment() {
+      this.showDialogPay = false
     },
   },
 })

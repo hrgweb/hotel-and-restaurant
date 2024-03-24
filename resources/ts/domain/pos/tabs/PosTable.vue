@@ -2,7 +2,7 @@
   <div class="tables grid">
     <!-- list of table -->
     <div class="col">
-      <div class="flex flex-wrap">
+      <div class="flex flex-wrap" style="height: 85vh; overflow-y: scroll">
         <template
           v-for="(table, i) in pos.tables"
           :key="table.id"
@@ -14,7 +14,11 @@
     </div>
 
     <!-- view orders per table -->
-    <div class="col-fixed" id="order" style="width: 390px; height: 100vh">
+    <div
+      class="col-fixed relative"
+      id="order"
+      style="width: 390px; height: 86vh"
+    >
       <div class="col-fixed">
         <div
           v-if="pos.viewPerTableOrders && pos.viewPerTableOrders.length"
@@ -101,9 +105,36 @@
               />
             </ButtonGroup>
           </div>
+
+          <div
+            v-if="pos.orderStatus === OrderStatus.COMPLETED"
+            class="order-pay absolute"
+            style="bottom: 0"
+          >
+            <Button
+              label="Pay"
+              class="w-full"
+              severity="info"
+              size="large"
+              @click.prevent="pos.dialogPay()"
+            />
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- Pay dialog -->
+    <Dialog
+      v-model:visible="pos.showDialogPay"
+      header="Pay"
+      :style="{ width: '35rem' }"
+      :closeOnEscape="true"
+      :draggable="false"
+      modal
+      @hide="pos.closeDialogPayment()"
+    >
+      <InputText type="text" v-model="pos.cashPayment" @keyup.enter="payment" />
+    </Dialog>
   </div>
 </template>
 
@@ -125,6 +156,7 @@ const subTotal = computed(() => {
     (acc, item) => acc + item?.subTotal,
     0
   )
+  pos.subTotal = result
   return result ? result.toFixed(2) : 0
 })
 
@@ -183,6 +215,22 @@ function askToCancel(event) {
     },
   })
 }
+
+function payment() {
+  pos
+    .payment()
+    .then(() => {
+      toast.add({
+        severity: 'info',
+        summary: 'Info',
+        detail: `${tableName.value} successfully paid`,
+        life: 3000,
+      })
+    })
+    .catch((error: any) => {
+      console.error(error)
+    })
+}
 </script>
 
 <style lang="scss">
@@ -209,6 +257,18 @@ function askToCancel(event) {
 
     button {
       font-size: 0.8rem;
+    }
+  }
+
+  .order-pay {
+    background: silver;
+    left: 0;
+    right: 0;
+
+    .p-button {
+      border-radius: unset !important;
+      height: 3rem;
+      font-size: 1rem;
     }
   }
 }

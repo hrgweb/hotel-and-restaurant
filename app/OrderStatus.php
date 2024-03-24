@@ -7,4 +7,5 @@ enum OrderStatus: string
     case PENDING = 'pending';
     case PROCESS = 'process';
     case COMPLETED = 'completed';
+    case PAID = 'paid';
 }
