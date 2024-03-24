@@ -133,7 +133,23 @@
       modal
       @hide="pos.closeDialogPayment()"
     >
-      <InputText type="text" v-model="pos.cashPayment" @keyup.enter="payment" />
+      <!-- Error -->
+      <Message
+        v-if="pos.errorMsg"
+        severity="error"
+        class="p-0 m-0 mb-3"
+        :closable="false"
+        >{{ pos.errorMsg }}</Message
+      >
+
+      <!-- Amount -->
+      <InputText
+        type="text"
+        v-model="pos.cashPayment"
+        class="w-full"
+        @keyup.enter="payment"
+        @focus="focusPayment"
+      />
     </Dialog>
   </div>
 </template>
@@ -234,7 +250,16 @@ function payment() {
     })
     .catch((error: any) => {
       console.error(error)
+      pos.errorMsg = error?.response?.data
     })
+}
+
+function focusPayment() {
+  if (String(pos.cashPayment).length && parseFloat(pos.cashPayment) > 0) {
+    return
+  }
+
+  pos.cashPayment = null
 }
 </script>
 

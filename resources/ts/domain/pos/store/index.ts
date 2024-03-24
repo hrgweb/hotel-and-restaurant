@@ -29,6 +29,8 @@ export const usePosStore = defineStore('pos', {
     showDialogPay: false,
     cashPayment: 0,
     subTotal: 0,
+    isPaid: false,
+    errorMsg: '',
   }),
 
   actions: {
@@ -189,6 +191,7 @@ export const usePosStore = defineStore('pos', {
           .then(() => {
             this.tables[this.selectedTableIndex].status = TableStatus.AVAILABLE
             this.tables[this.selectedTableIndex].order.status = OrderStatus.PAID
+            this.isPaid = true
             this.closeDialogPayment()
 
             resolve(null)
@@ -198,10 +201,14 @@ export const usePosStore = defineStore('pos', {
     },
 
     closeDialogPayment() {
-      this.tables[this.selectedTableIndex].order = null
+      if (this.isPaid) {
+        this.tables[this.selectedTableIndex].order = null
+        this.cashPayment = 0
+        this.viewPerTableOrders = []
+      }
+
       this.showDialogPay = false
-      this.cashPayment = 0
-      this.viewPerTableOrders = []
+      this.errorMsg = ''
     },
   },
 })
