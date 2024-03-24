@@ -161,18 +161,21 @@ const subTotal = computed(() => {
 })
 
 function askToUpdateOrderStatus(status: string, event: any) {
-  // confirm.require({
-  //   target: event.currentTarget,
-  //   message: `Are you sure you want to update the status to ${status.toLowerCase()}?`,
-  //   icon: 'pi pi-exclamation-triangle',
-  //   rejectClass: 'p-button-secondary p-button-outlined p-button-sm',
-  //   acceptClass: 'p-button-sm',
-  //   rejectLabel: 'No',
-  //   acceptLabel: 'Yes',
-  //   accept: () => updateOrderStatus(status),
-  // })
+  if (status === OrderStatus.PROCESS) {
+    updateOrderStatus(status)
+    return
+  }
 
-  updateOrderStatus(status)
+  confirm.require({
+    target: event.currentTarget,
+    message: `Are you sure you want to update the status to ${status.toLowerCase()}?`,
+    icon: 'pi pi-exclamation-triangle',
+    rejectClass: 'p-button-secondary p-button-outlined p-button-sm',
+    acceptClass: 'p-button-sm',
+    rejectLabel: 'No',
+    acceptLabel: 'Yes',
+    accept: () => updateOrderStatus(status),
+  })
 }
 
 const tableName = computed(() => pos.selectedTable?.table_name)
