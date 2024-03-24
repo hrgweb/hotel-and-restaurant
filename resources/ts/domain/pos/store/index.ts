@@ -198,7 +198,10 @@ export const usePosStore = defineStore('pos', {
     },
 
     closeDialogPayment() {
+      this.tables[this.selectedTableIndex].order = null
       this.showDialogPay = false
+      this.cashPayment = 0
+      this.viewPerTableOrders = []
     },
   },
 })
