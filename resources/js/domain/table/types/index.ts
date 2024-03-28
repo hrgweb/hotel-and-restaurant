@@ -1,7 +1,7 @@
 type Table = {
   prefix: string
   name?: string
-  bulkOfTable?: number | null
+  [key: string]: any
 }
 
 export type { Table }

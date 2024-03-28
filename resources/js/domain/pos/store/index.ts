@@ -93,7 +93,7 @@ export const usePosStore = defineStore('pos', {
       return new Promise((resolve, reject) => {
         axios
           .post('/orders', data)
-          .then(async ({ data }) => {
+          .then(async ({ data }: any) => {
             if (data && data.order) {
               this.tables[this.selectedTableIndex].status = 'occupied'
               this.tables[this.selectedTableIndex].order = data?.order

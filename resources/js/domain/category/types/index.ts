@@ -1,4 +1,5 @@
 type Category = {
+  id?: number
   name: string
   desc: string
   image: Blob | null

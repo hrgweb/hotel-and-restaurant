@@ -6,7 +6,7 @@ type Product = {
   barcode?: string
   name: string
   desc?: string
-  price?: number
+  price: number
   available?: boolean
 }
 
