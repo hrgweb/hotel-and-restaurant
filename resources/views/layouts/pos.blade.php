@@ -18,7 +18,7 @@
         }
     </style>
 
-    @vite('resources/ts/app.ts')
+    @vite('resources/js/app.ts')
 </head>
 
 <body class="font-sans antialiased dark:bg-black dark:text-white/50">
