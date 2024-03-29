@@ -11,8 +11,8 @@ use App\Http\Controllers\TableController;
 use App\Http\Controllers\UserRoleController;
 
 Route::get('/', function () {
-    return redirect(route('pos'));
-    // return redirect(route('categories.index'));
+    // return redirect(route('pos'));
+    return redirect(route('categories.index'));
     // return view('welcome');
 });
 

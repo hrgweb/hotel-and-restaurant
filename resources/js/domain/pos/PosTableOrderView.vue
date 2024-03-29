@@ -15,8 +15,8 @@
             showButtons
             buttonLayout="horizontal"
             style="width: 100%"
-            :min="0"
-            :max="99"
+            :min="1"
+            :max="1000"
             @input="updatedQty(data, index, $event)"
           >
             <template #incrementbuttonicon>
