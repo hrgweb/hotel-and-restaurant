@@ -21,22 +21,12 @@
 </head>
 
 <body>
-    <div id="app" class="flex">
-        <div class="navbar col-fixed" style="width: 300px">
-            <app-navbar />
-        </div>
+    <div id="app" class="flex flex-row">
+        <app-navbar></app-navbar>
 
-        <div class="body">
-            <div class="header">
-                <app-header />
-            </div>
-
-            <main class="p-3">
-                <h2 class="p-0 mt-2">@yield('body-title', 'Page Title')</h2>
-
-                @yield('body')
-            </main>
-        </div>
+        <main class="flex-1">
+            @yield('content')
+        </main>
     </div>
 </body>
 

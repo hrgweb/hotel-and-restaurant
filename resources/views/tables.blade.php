@@ -8,6 +8,8 @@
     Tables
 @endsection
 
-@section('body')
+@section('content')
+    <app-header title="Tables"></app-header>
+
     <table-page :data="{{ json_encode($data) }}" />
 @endsection

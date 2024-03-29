@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar">
+  <div class="navbar" style="">
     <a
       href="#"
       class="text-gray-700 no-underline text-2xl font-bold text-center block py-4 bg-"
@@ -35,6 +35,9 @@
 
 <style scoped>
 .navbar {
+  box-shadow: rgb(223 223 223) 0px 4px 50px;
+  width: 250px;
+
   a {
     color: #4b5563;
   }

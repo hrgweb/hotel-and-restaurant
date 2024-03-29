@@ -8,6 +8,8 @@
     User Roles
 @endsection
 
-@section('body')
+@section('content')
+    <app-header title="User Roles"></app-header>
+
     <user-role-page :data="{{ json_encode($data) }}" />
 @endsection

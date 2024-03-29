@@ -1,13 +1,9 @@
 @extends('layouts.dashboard')
 
-@section('title')
-    Categories
-@endsection
+@section('title', 'Categories')
 
-@section('body-title')
-    Categories
-@endsection
+@section('content')
+    <app-header title="Categories"></app-header>
 
-@section('body')
     <category-page :data="{{ json_encode($data) }}" />
 @endsection
