@@ -13,10 +13,10 @@
       </li>
       <li><i class="pi pi-palette"></i> <a href="/products">Products</a></li>
       <li><i class="pi pi-table"></i> <a href="/tables">Tables</a></li>
-      <li>
-        <i class="pi pi-user-plus"></i> <a href="/user-roles">User Roles</a>
-      </li>
       <li><i class="pi pi-users"></i> <a href="/staffs">Staffs</a></li>
+      <li>
+        <i class="pi pi-user-plus"></i> <a href="/user-roles">Staff Roles</a>
+      </li>
       <li><i class="pi pi-check"></i> <a href="/">Taxes</a></li>
       <li><i class="pi pi-check"></i> <a href="/">Units</a></li>
       <li><i class="pi pi-check"></i> <a href="/">Coupon</a></li>
