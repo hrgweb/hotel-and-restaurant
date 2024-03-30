@@ -45,12 +45,18 @@
       <br />
 
       <div>
-        <Button v-if="!table.isEdit" label="Save" type="submit" />
+        <Button
+          v-if="!table.isEdit"
+          label="Save"
+          type="submit"
+          :loading="table.loading"
+        />
         <Button
           v-else
           label="Update"
           type="button"
           severity="info"
+          :loading="table.loading"
           @click.prevent="update"
         />
         <Button

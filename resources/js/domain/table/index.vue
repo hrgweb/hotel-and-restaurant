@@ -36,5 +36,5 @@ const props = defineProps({
 
 const table = useTableStore()
 
-onMounted(() => (table.data = props.data))
+onMounted(() => (table.data = props.data as any[]))
 </script>
