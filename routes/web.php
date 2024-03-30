@@ -12,16 +12,14 @@ use App\Http\Controllers\TableController;
 use App\Http\Controllers\UserRoleController;
 
 // Auth
-Route::prefix('auth')->group(function () {
-    Route::get('/login', [AuthController::class, 'login'])->name('login')->middleware('guest');
-    Route::post('/signin', [AuthController::class, 'signin'])->name('signin');
-    Route::post('/logout', [AuthController::class, 'logout']);
-});
+Route::get('/login', [AuthController::class, 'login'])->name('login')->middleware('guest');
+Route::post('/signin', [AuthController::class, 'signin'])->name('signin');
+Route::post('/logout', [AuthController::class, 'logout']);
 
-Route::get('/', fn () => 'main page')->middleware('auth');
+Route::get('/', fn () => redirect(route('dashboard')))->middleware('auth');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', fn () =>  view('dashboard'));
+    Route::get('/dashboard', fn () =>  view('dashboard'))->name('dashboard');
     Route::resource('categories', CategoryController::class);
     Route::resource('products', ProductController::class);
     Route::resource('tables', TableController::class);

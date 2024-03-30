@@ -5,6 +5,8 @@
     <span style="cursor: pointer" @click="gotoPos"
       ><span class="pi pi-desktop"></span> POS</span
     >
+
+    <Button label="Logout" @click.prevent="logout" />
   </div>
 </template>
 
@@ -13,8 +15,17 @@ defineProps({
   title: String,
 })
 
-const gotoPos = () => {
+function gotoPos() {
   location.href = '/pos'
+}
+
+function logout() {
+  axios
+    .post('/logout')
+    .then(() => (location.href = 'login'))
+    .catch((error: any) => {
+      console.error(error.response.data)
+    })
 }
 </script>
 

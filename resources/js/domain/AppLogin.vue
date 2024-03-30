@@ -8,7 +8,7 @@
     <form method="POST" @submit.prevent="signin">
       <!-- Error -->
       <Message v-if="hasError" severity="error" :closable="false">{{
-        errorMsg
+        message
       }}</Message>
 
       <div class="flex flex-column gap-2">
@@ -41,18 +41,20 @@ const form = reactive({
   password: '',
 })
 const hasError = ref(false)
-const errorMsg = ref('')
+const message = ref('')
 
 function signin() {
   hasError.value = false
-  errorMsg.value = ''
+  message.value = ''
+
   axios
-    .post('/auth/signin', form)
+    .post('/signin', form)
     .then(() => (location.href = '/dashboard'))
     .catch((error: any) => {
       console.error(error.response.data)
       hasError.value = true
-      errorMsg.value = error?.response?.data?.message
+      message.value = error?.response?.data?.message
+      form.password = ''
     })
 }
 </script>

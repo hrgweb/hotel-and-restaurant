@@ -28,8 +28,14 @@ class AuthController extends Controller
         return response()->json(['auth' => false, 'message' => 'Invalid credentials.'], 500);
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        return 'about ot logoout';
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return response()->json(1);
     }
 }

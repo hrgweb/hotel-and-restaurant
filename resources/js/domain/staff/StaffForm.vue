@@ -38,11 +38,11 @@
       </div>
       <br />
 
-      <div class="flex flex-column gap-2">
+      <!-- <div class="flex flex-column gap-2">
         <label for="dob">Date of Birth</label>
         <Calendar v-model="form.dob" dateFormat="mm-dd-yy" />
       </div>
-      <br />
+      <br /> -->
 
       <div class="flex flex-column gap-2">
         <label for="dob">User Role</label>

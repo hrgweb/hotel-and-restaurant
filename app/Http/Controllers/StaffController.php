@@ -39,7 +39,8 @@ class StaffController extends Controller
                 'email' => $request->input('email'),
                 'username' => $request->input('username'),
                 'gender' => $request->input('gender'),
-                'dob' => $request->input('dob'),
+                // 'dob' => $request->input('dob'),
+                'password' => bcrypt('staff') // default password = staff
             ]);
             $user['name'] = $user?->first_name . ' ' . $user?->last_name;
 
