@@ -49,10 +49,12 @@ export const useStaffStore = defineStore('staff', {
     roles: [] as any[],
     selectedRole: null as Role | null,
     result: null as Staff | null,
+    loading: false,
   }),
 
   actions: {
     save() {
+      this.loading = true
       this.errorMsg = ''
       this.form['role_id'] = this.selectedRole?.id
 
@@ -66,6 +68,9 @@ export const useStaffStore = defineStore('staff', {
         .catch((error: any) => {
           this.errorMsg = error?.response?.data?.message
           console.error(error) // Handle error
+        })
+        .finally(() => {
+          this.loading = false
         })
     },
 
@@ -90,6 +95,7 @@ export const useStaffStore = defineStore('staff', {
     },
 
     update() {
+      this.loading = true
       this.errorMsg = ''
       this.editForm.role_id = this.selectedRole?.id
 
@@ -102,6 +108,9 @@ export const useStaffStore = defineStore('staff', {
         .catch((error: any) => {
           this.errorMsg = error?.response?.data?.message
           console.error(error) // Handle error
+        })
+        .finally(() => {
+          this.loading = false
         })
     },
 

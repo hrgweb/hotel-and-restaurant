@@ -64,12 +64,18 @@
       </div>
 
       <div class="flex flex-column gap-2">
-        <Button v-if="!staff.isEdit" label="Save" type="submit" />
+        <Button
+          v-if="!staff.isEdit"
+          label="Save"
+          type="submit"
+          :loading="staff.loading"
+        />
         <Button
           v-else
           label="Update"
           type="button"
           severity="info"
+          :loading="staff.loading"
           @click.prevent="update"
         />
         <Button
