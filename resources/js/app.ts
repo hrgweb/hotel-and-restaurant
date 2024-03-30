@@ -41,6 +41,7 @@ import UserRolePage from './domain/role/index.vue'
 import StaffPage from './domain/staff/index.vue'
 import AppHeader from './domain/AppHeader.vue'
 import AppNavbar from './domain/AppNavbar.vue'
+import AppLogin from './domain/AppLogin.vue'
 import PosPage from './domain/pos/index.vue'
 
 const pinia = createPinia()
@@ -48,6 +49,7 @@ const app = createApp({})
 
 app.component('AppHeader', AppHeader)
 app.component('AppNavbar', AppNavbar)
+app.component('AppLogin', AppLogin)
 app.component('CategoryPage', CategoryPage)
 app.component('ProductPage', ProductPage)
 app.component('TablePage', TablePage)

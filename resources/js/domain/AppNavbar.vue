@@ -82,7 +82,8 @@
         transition: background-color 0.2s;
 
         &:hover {
-          background-color: #e7e5e5;
+          background-color: #334155;
+          color: #fff;
         }
 
         & > i {
