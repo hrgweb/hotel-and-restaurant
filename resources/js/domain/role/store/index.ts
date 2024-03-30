@@ -21,15 +21,17 @@ export const useRoleStore = defineStore('role', {
     isSearch: false,
     query: '',
     isBulk: false,
+    loading: false,
   }),
 
   actions: {
     save() {
+      this.loading = true
       this.errorMsg = ''
 
       axios
         .post(`/${this.resource}`, this.form)
-        .then(({ data }) => {
+        .then(({ data }: any) => {
           this.data.push(data)
           this.showForm = false
           this.reset()
@@ -37,6 +39,9 @@ export const useRoleStore = defineStore('role', {
         .catch((error: any) => {
           this.errorMsg = error?.response?.data?.message
           console.error(error) // Handle error
+        })
+        .finally(() => {
+          this.loading = false
         })
     },
 
@@ -49,11 +54,12 @@ export const useRoleStore = defineStore('role', {
     },
 
     update() {
+      this.loading = true
       this.errorMsg = ''
 
       axios
         .patch(`/${this.resource}/${this.selectedRole?.id}`, this.editForm)
-        .then(({ data }) => {
+        .then(({ data }: any) => {
           this.data[this.index].role = data?.role
           this.showForm = false
           this.reset()
@@ -61,6 +67,9 @@ export const useRoleStore = defineStore('role', {
         .catch((error: any) => {
           this.errorMsg = error?.response?.data?.message
           console.error(error) // Handle error
+        })
+        .finally(() => {
+          this.loading = false
         })
     },
 
