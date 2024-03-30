@@ -41,7 +41,7 @@ const props = defineProps({
 const product = useProductStore()
 
 onMounted(() => {
-  product.data = props.data
-  product.categories = props.categories
+  product.data = props.data as any[]
+  product.categories = props.categories as any[]
 })
 </script>
