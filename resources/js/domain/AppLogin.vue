@@ -55,6 +55,7 @@ function signin() {
       hasError.value = true
       message.value = error?.response?.data?.message
       form.password = ''
+      document.getElementById('password')?.focus()
     })
 }
 </script>
