@@ -79,6 +79,7 @@
         padding: 0.8rem;
         display: block;
         text-decoration: none;
+        transition: background-color 0.2s;
 
         &:hover {
           background-color: #e7e5e5;

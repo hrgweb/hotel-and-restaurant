@@ -17,7 +17,7 @@
         }
     </style>
 
-    @vite('resources/js/app.ts')
+    @vite(['resources/css/app.scss', 'resources/js/app.ts'])
 </head>
 
 <body>

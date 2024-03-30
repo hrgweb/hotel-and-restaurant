@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="card">
     <CategoryFilter />
     <br />
     <CategoryDataTable />
@@ -28,13 +28,10 @@ import CategoryDataTable from './CategoryDataTable.vue'
 import { useCategoryStore } from '@/domain/category/store/index'
 
 const props = defineProps({
-  data: {
-    type: [Array, Object],
-    required: true,
-  },
+  data: Array,
 })
 
 const category = useCategoryStore()
 
-onMounted(() => (category.data = props.data))
+onMounted(() => (category.data = props.data as any[]))
 </script>
