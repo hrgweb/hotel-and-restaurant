@@ -41,7 +41,7 @@ const props = defineProps({
 const staff = useStaffStore()
 
 onMounted(() => {
-  staff.data = props.data
-  staff.roles = props.roles
+  staff.data = props.data as any[]
+  staff.roles = props.roles as any[]
 })
 </script>

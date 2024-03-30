@@ -4,20 +4,20 @@ import type { Role } from '@/domain/role/types'
 import dayjs from 'dayjs'
 
 type Form = {
-  role_id: number | null
-  user_id: number | null
+  role_id: number | null | undefined
+  user_id: number | null | undefined
   first_name: string
   last_name: string
   email: string
   username: string
   gender: string
-  dob: Date
+  dob: Date | string
 }
 
 export const useStaffStore = defineStore('staff', {
   state: () => ({
     resource: 'staffs',
-    data: [] as Staff[],
+    data: [] as any[],
     form: {
       role_id: null,
       user_id: null,
@@ -41,14 +41,14 @@ export const useStaffStore = defineStore('staff', {
     isEdit: false,
     errorMsg: '',
     showForm: false,
-    selectedStaff: null as Staff,
+    selectedStaff: null as Staff | null,
     index: 0,
-    searchResult: [] as Staff[],
+    searchResult: [] as Staff[] | null,
     isSearch: false,
     query: '',
-    roles: [] as Role[],
+    roles: [] as any[],
     selectedRole: null as Role | null,
-    result: null as Staff,
+    result: null as Staff | null,
   }),
 
   actions: {
@@ -58,7 +58,7 @@ export const useStaffStore = defineStore('staff', {
 
       axios
         .post(`/${this.resource}`, this.form)
-        .then(({ data }) => {
+        .then(({ data }: any) => {
           this.data.push(data)
           this.showForm = false
           this.reset()
@@ -95,7 +95,7 @@ export const useStaffStore = defineStore('staff', {
 
       axios
         .patch(`/${this.resource}/${this.selectedStaff?.id}`, this.editForm)
-        .then(({ data }) => {
+        .then(({ data }: any) => {
           this.updatedValues(data)
           this.showForm = false
         })

@@ -46,7 +46,7 @@ class StaffController extends Controller
             $roleId = $request->input('role_id');
             $staff = Staff::create([
                 'user_role_id' => $roleId,
-                'user_id' => $user?->id
+                'user_id' => $user?->id,
             ]);
         } catch (Exception $e) {
             DB::rollBack();

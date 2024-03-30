@@ -29,7 +29,7 @@ class StaffRequest extends FormRequest
             'gender' => 'nullable',
             'dob' => 'nullable',
             'role_id' => 'required',
-            'user_id' => 'required',
+            'user_id' => 'nullable',
         ];
     }
 
