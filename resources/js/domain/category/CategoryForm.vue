@@ -25,12 +25,18 @@
       </div>
       <br />
       <div class="flex flex-column gap-2">
-        <Button v-if="!category.isEdit" label="Save" type="submit" />
+        <Button
+          v-if="!category.isEdit"
+          label="Save"
+          type="submit"
+          :loading="category.loading"
+        />
         <Button
           v-else
           label="Update"
           type="button"
           severity="info"
+          :loading="category.loading"
           @click.prevent="update"
         />
         <Button

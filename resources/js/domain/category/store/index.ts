@@ -35,10 +35,12 @@ export const useCategoryStore = defineStore('category', {
     searchResult: [] as Category[],
     isSearch: false,
     query: '',
+    loading: false,
   }),
 
   actions: {
     save(hasThumbnail: boolean) {
+      this.loading = true
       this.errorMsg = ''
 
       let formData = new FormData()
@@ -63,6 +65,9 @@ export const useCategoryStore = defineStore('category', {
           this.errorMsg = error?.response?.data?.message
           console.error(error) // Handle error
         })
+        .finally(() => {
+          this.loading = false
+        })
     },
 
     edit(category: Category, index: number) {
@@ -74,6 +79,7 @@ export const useCategoryStore = defineStore('category', {
     },
 
     update(hasThumbnail: boolean) {
+      this.loading = true
       this.errorMsg = ''
 
       let formData = new FormData()
@@ -100,6 +106,9 @@ export const useCategoryStore = defineStore('category', {
         .catch((error: any) => {
           this.errorMsg = error?.response?.data?.message
           console.error(error) // Handle error
+        })
+        .finally(() => {
+          this.loading = false
         })
     },
 

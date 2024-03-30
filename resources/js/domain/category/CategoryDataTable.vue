@@ -10,7 +10,7 @@
         <template #body="{ data }">
           <img
             v-if="data.thumbnail"
-            :src="useImageSrc(data.thumbnail)"
+            :src="String(useImageSrc(data.thumbnail))"
             :alt="data.image"
             class="w-6rem border-round"
             height="96"
@@ -18,7 +18,7 @@
           />
           <img
             v-else
-            :src="useImageSrc('default.png')"
+            :src="String(useImageSrc('default.png'))"
             :alt="data.image"
             class="w-6rem border-round"
             height="96"
@@ -83,7 +83,7 @@ const confirmRemove = (data: Category, index: number, event: any) => {
     accept: () => {
       category
         .remove()
-        .then(({ data: Category }) => {
+        .then(() => {
           category.data.splice(category.index, 1)
           toast.add({
             severity: 'success',
