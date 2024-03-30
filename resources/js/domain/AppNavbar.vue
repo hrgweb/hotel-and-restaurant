@@ -7,26 +7,54 @@
     >
 
     <ul>
-      <li><i class="pi pi-home"></i> <a href="/dashboard">Dashboard</a></li>
       <li>
-        <i class="pi pi-align-left"></i> <a href="/categories">Categories</a>
+        <a href="/dashboard"><i class="pi pi-home"></i>Dashboard</a>
       </li>
-      <li><i class="pi pi-palette"></i> <a href="/products">Products</a></li>
-      <li><i class="pi pi-table"></i> <a href="/tables">Tables</a></li>
-      <li><i class="pi pi-users"></i> <a href="/staffs">Staffs</a></li>
       <li>
-        <i class="pi pi-user-plus"></i> <a href="/user-roles">Staff Roles</a>
+        <a href="/categories"><i class="pi pi-align-left"></i>Categories</a>
       </li>
-      <li><i class="pi pi-check"></i> <a href="/">Taxes</a></li>
-      <li><i class="pi pi-check"></i> <a href="/">Units</a></li>
-      <li><i class="pi pi-check"></i> <a href="/">Coupon</a></li>
-      <li><i class="pi pi-check"></i> <a href="/">Menu Items</a></li>
-      <li><i class="pi pi-check"></i> <a href="/">QR Code</a></li>
-      <li><i class="pi pi-check"></i> <a href="/">Order Management</a></li>
-      <li><i class="pi pi-check"></i> <a href="/">Stock Management</a></li>
-      <li><i class="pi pi-check"></i> <a href="/">Sales Report</a></li>
-      <li><i class="pi pi-check"></i> <a href="/">Drivers</a></li>
-      <li><i class="pi pi-check"></i> <a href="/">Feedback</a></li>
+      <li>
+        <a href="/products"><i class="pi pi-palette"></i>Products</a>
+      </li>
+      <li>
+        <a href="/tables"><i class="pi pi-table"></i> Tables</a>
+      </li>
+      <li>
+        <a href="/staffs"><i class="pi pi-users"></i>Staffs</a>
+      </li>
+      <li>
+        <a href="/user-roles"><i class="pi pi-user-plus"></i>Staff Roles</a>
+      </li>
+      <li>
+        <a href="/"><i class="pi pi-check"></i> Taxes</a>
+      </li>
+      <li>
+        <a href="/"><i class="pi pi-check"></i>Units</a>
+      </li>
+      <li>
+        <a href="/"><i class="pi pi-check"></i>Coupon</a>
+      </li>
+      <li>
+        <a href="/"><i class="pi pi-check"></i>Menu Items</a>
+      </li>
+      <li>
+        <a href="/"><i class="pi pi-check"></i>QR Code</a>
+      </li>
+      <li>
+        <a href="/"><i class="pi pi-check"></i>Order Management</a>
+      </li>
+      <li>
+        <a href="/"><i class="pi pi-check"></i>Stock Management</a>
+      </li>
+      <li>
+        <a href="/"><i class="pi pi-check"></i>Sales Report</a>
+      </li>
+      <li>
+        <a href="/"><i class="pi pi-check"></i>Drivers</a>
+      </li>
+      <li>
+        <a href="/"><i class="pi pi-check"></i>Feedback</a>
+      </li>
     </ul>
   </div>
 </template>
@@ -47,15 +75,19 @@
     margin: 0;
 
     & > li {
-      list-style: none;
-      display: flex;
-      align-items: center;
-      padding-left: 1.5rem;
-
       & > a {
         padding: 0.8rem;
         display: block;
         text-decoration: none;
+
+        &:hover {
+          background-color: #e7e5e5;
+        }
+
+        & > i {
+          padding-left: 1rem;
+          padding-right: 0.6rem;
+        }
       }
     }
   }
