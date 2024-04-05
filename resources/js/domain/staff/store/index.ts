@@ -11,7 +11,7 @@ type Form = {
   email: string
   username: string
   gender: string
-  dob: Date | string
+  dob?: Date | string
 }
 
 export const useStaffStore = defineStore('staff', {
@@ -53,6 +53,7 @@ export const useStaffStore = defineStore('staff', {
   }),
 
   actions: {
+    // TODO: staff role gets empty
     save() {
       this.loading = true
       this.errorMsg = ''

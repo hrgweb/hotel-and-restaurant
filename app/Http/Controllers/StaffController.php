@@ -16,8 +16,8 @@ class StaffController extends Controller
     public function index()
     {
         $staffs = Staff::with([
-            'user' => fn (Builder $query) => $query->selectRaw("id, (first_name || ' ' || last_name) as name, first_name, last_name, DATE(dob) as dob, gender, email, username"),
-            'user_role:id,role'
+            'user' => fn (Builder $query) => $query->selectRaw("id, name, first_name, last_name, gender, email, username"),
+            'staff_role:id,role'
         ])
             ->select(['id', 'user_role_id', 'user_id'])
             ->get();
@@ -33,9 +33,12 @@ class StaffController extends Controller
 
         DB::beginTransaction();
         try {
+            $fname = $request->input('first_name');
+            $lname = $request->input('last_name');
             $user = User::create([
-                'first_name' => $request->input('first_name'),
-                'last_name' => $request->input('last_name'),
+                'first_name' => $fname,
+                'last_name' => $lname,
+                'name' => $fname . ' ' . $lname,
                 'email' => $request->input('email'),
                 'username' => $request->input('username'),
                 'gender' => $request->input('gender'),

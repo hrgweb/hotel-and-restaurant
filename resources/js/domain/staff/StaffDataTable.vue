@@ -11,7 +11,7 @@
       <Column field="user.username" header="Username"></Column>
       <Column header="User Role">
         <template #body="{ data }">
-          <Badge :value="data?.user_role?.role" severity="info"></Badge>
+          <Badge :value="data?.staff_role?.role" severity="info"></Badge>
         </template>
       </Column>
       <Column header="Action">

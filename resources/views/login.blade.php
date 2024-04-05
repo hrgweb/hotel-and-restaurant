@@ -3,5 +3,5 @@
 @section('title', 'Login')
 
 @section('body')
-    <app-login :auth="{{ json_encode($auth) }}"></app-login>
+    <app-login :auth="{{ json_encode(auth()->user()) }}"></app-login>
 @endsection

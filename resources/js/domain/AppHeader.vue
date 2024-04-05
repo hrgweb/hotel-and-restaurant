@@ -6,13 +6,20 @@
       ><span class="pi pi-desktop"></span> POS</span
     >
 
-    <Button label="Logout" @click.prevent="logout" />
+    <div>
+      <Avatar label="P" class="mr-2" size="xlarge" shape="circle" />
+      <div>
+        <span>{{ auth?.name }}</span>
+        <span>{{ auth?.staff?.staff_role?.role }}</span>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 defineProps({
   title: String,
+  auth: Object,
 })
 
 function gotoPos() {

@@ -26,10 +26,14 @@ class StaffFactory extends Factory
 
         DB::beginTransaction();
         try {
+            $fname = 'admin fn';
+            $lname = 'admin ln';
+
             // Create admin user
             $user = User::create([
-                'first_name' => 'admin-fn',
-                'last_name' => 'admin-ln',
+                'first_name' => $fname,
+                'last_name' => $lname,
+                'name' => $fname . ' ' . $lname,
                 'username' => 'admin',
                 'password' => bcrypt('admin')
             ]);
