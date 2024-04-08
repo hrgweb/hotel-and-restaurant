@@ -88,7 +88,7 @@ function update() {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 form {
   & label {
     padding-bottom: 0.6rem;

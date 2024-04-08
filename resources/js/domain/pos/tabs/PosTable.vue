@@ -266,7 +266,7 @@ function focusPayment() {
 }
 </script>
 
-<style lang="scss">
+<style>
 .tables {
   #order {
     background-color: #fff;
