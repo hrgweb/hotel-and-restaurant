@@ -1,23 +1,21 @@
 <template>
-  <div class="header bg-sky-500 flex justify-between p-3 shadow-sm">
-    <h2 class="text-base">{{ title }}</h2>
+  <div class="header bg-white flex justify-between p-3 shadow">
+    <h2 class="text-base font-semibold tracking-wide">{{ title }}</h2>
 
     <div class="flex align-items-center">
       <Button
         class="mr-3"
         icon="pi pi-desktop"
-        severity="warning"
+        severity="info"
         label="POS"
         @click="gotoPos"
       />
 
-      <div class="flex align-items-center cursor-pointer" @click="toggle">
+      <div class="flex" @click="toggle">
         <Avatar label="P" class="mr-2" size="normal" shape="circle" />
-        <div>
-          <h4 class="m-0 text-sm capitalize">{{ auth?.name }}</h4>
-          <span class="capitalize text-xs">{{
-            auth?.staff?.staff_role?.role
-          }}</span>
+        <div class="text-xs capitalize">
+          <h4>{{ auth?.name }}</h4>
+          <span>{{ auth?.staff?.staff_role?.role }}</span>
         </div>
 
         <!-- Overlay -->

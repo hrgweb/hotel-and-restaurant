@@ -1,12 +1,8 @@
 <template>
-  <div class="navbar" style="">
-    <a
-      href="#"
-      class="text-gray-700 no-underline text-2xl font-bold text-center block py-4 bg-"
-      >HRG</a
-    >
+  <div class="navbar text-white shadow-sm" style="width: 230px">
+    <a href="#" class="px-4 pt-3 block text-lg font-bold">HRG</a>
 
-    <ul>
+    <ul class="pt-3">
       <li>
         <a href="/dashboard"><i class="pi pi-home"></i>Dashboard</a>
       </li>
@@ -59,37 +55,18 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
-
 <style scoped>
-.navbar {
-  box-shadow: rgb(223 223 223) 0px 4px 50px;
-  width: 250px;
+ul {
+  li {
+    a {
+      i {
+        @apply mr-2;
+      }
 
-  a {
-    color: #4b5563;
-  }
+      @apply p-2 block px-6;
 
-  ul {
-    padding: 0;
-    margin: 0;
-
-    & > li {
-      & > a {
-        padding: 0.8rem;
-        display: block;
-        text-decoration: none;
-        transition: background-color 0.2s;
-
-        &:hover {
-          background-color: #334155;
-          color: #fff;
-        }
-
-        & > i {
-          padding-left: 1rem;
-          padding-right: 0.6rem;
-        }
+      &:hover {
+        @apply bg-gray-800;
       }
     }
   }

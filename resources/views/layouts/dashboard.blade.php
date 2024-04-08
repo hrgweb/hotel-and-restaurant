@@ -10,11 +10,11 @@
     @vite(['resources/css/app.css', 'resources/js/app.ts'])
 </head>
 
-<body>
+<body class="bg-gray-700">
     <div id="app" class="flex flex-row">
         <app-navbar></app-navbar>
 
-        <main class="flex-1">
+        <main class="flex-1 bg-slate-200">
             @yield('content')
         </main>
     </div>
