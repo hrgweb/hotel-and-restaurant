@@ -4,9 +4,12 @@ import { createApp } from 'vue/dist/vue.esm-bundler.js'
 import { createPinia } from 'pinia'
 import PrimeVue from 'primevue/config'
 
-import 'primevue/resources/themes/aura-light-green/theme.css'
+import Lara from './presets/lara'
+import Wind from './presets/wind'
+
+// import 'primevue/resources/themes/aura-light-green/theme.css'
 import 'primeicons/primeicons.css'
-import 'primeflex/primeflex.css'
+// import 'primeflex/primeflex.css'
 
 import Button from 'primevue/button'
 import InputText from 'primevue/inputtext'
@@ -61,7 +64,7 @@ app.component('UserRolePage', UserRolePage)
 app.component('PosPage', PosPage)
 
 app.use(pinia)
-app.use(PrimeVue, { ripple: true })
+app.use(PrimeVue, { ripple: true, unstyled: true, pt: Wind })
 app.use(ConfirmationService)
 app.use(ToastService)
 app.component('Button', Button)
