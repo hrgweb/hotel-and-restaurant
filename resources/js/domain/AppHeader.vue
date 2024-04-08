@@ -1,16 +1,13 @@
 <template>
-  <div
-    class="header flex justify-content-between align-items-center mb-3 px-5 py-3"
-  >
+  <div class="header bg-sky-500 flex justify-between p-3 shadow-sm">
     <h2 class="text-base">{{ title }}</h2>
 
     <div class="flex align-items-center">
       <Button
         class="mr-3"
         icon="pi pi-desktop"
-        severity="info"
+        severity="warning"
         label="POS"
-        size="small"
         @click="gotoPos"
       />
 
@@ -24,45 +21,6 @@
         </div>
 
         <!-- Overlay -->
-        <OverlayPanel ref="op">
-          <div class="flex flex-column gap-3 w-25rem">
-            <div>
-              <span class="font-medium text-900 block mb-2"
-                >Share this document</span
-              >
-            </div>
-            <div>
-              <span class="font-medium text-900 block mb-2">Invite Member</span>
-            </div>
-            <div>
-              <span class="font-medium text-900 block mb-2">Team Members</span>
-              <ul class="list-none p-0 m-0 flex flex-column gap-3">
-                <li
-                  v-for="member in members"
-                  :key="member.name"
-                  class="flex align-items-center gap-2"
-                >
-                  <img
-                    :src="`https://primefaces.org/cdn/primevue/images/avatar/${member.image}`"
-                    style="width: 32px"
-                  />
-                  <div>
-                    <span class="font-medium">{{ member.name }}</span>
-                    <div class="text-sm text-color-secondary">
-                      {{ member.email }}
-                    </div>
-                  </div>
-                  <div
-                    class="flex align-items-center gap-2 text-color-secondary ml-auto text-sm"
-                  >
-                    <span>{{ member.role }}</span>
-                    <i class="pi pi-angle-down"></i>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </OverlayPanel>
       </div>
     </div>
   </div>
