@@ -5,9 +5,12 @@
 @section('body-title', 'Dashboard')
 
 @section('content')
-    <app-header title="Dashboard" :auth="{{ json_encode(auth()->user()) }}"></app-header>
+    {{-- <app-header title="Dashboard" :auth="{{ json_encode(auth()->user()) }}"></app-header> --}}
 
-    <div>
+    {{-- <div>
         <p>lorem ipsum</p>
-    </div>
+    </div> --}}
+
+    {{-- tmp --}}
+    <app-for-test></app-for-test>
 @endsection

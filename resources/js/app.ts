@@ -32,6 +32,7 @@ import TabPanel from 'primevue/tabpanel'
 import Avatar from 'primevue/avatar'
 import InputNumber from 'primevue/inputnumber'
 import ButtonGroup from 'primevue/buttongroup'
+import OverlayPanel from 'primevue/overlaypanel'
 
 // Pages
 import CategoryPage from './domain/category/index.vue'
@@ -42,6 +43,7 @@ import StaffPage from './domain/staff/index.vue'
 import AppHeader from './domain/AppHeader.vue'
 import AppNavbar from './domain/AppNavbar.vue'
 import AppLogin from './domain/AppLogin.vue'
+import AppForTest from './domain/AppForTest.vue'
 import PosPage from './domain/pos/index.vue'
 
 const pinia = createPinia()
@@ -50,6 +52,7 @@ const app = createApp({})
 app.component('AppHeader', AppHeader)
 app.component('AppNavbar', AppNavbar)
 app.component('AppLogin', AppLogin)
+app.component('AppForTest', AppForTest)
 app.component('CategoryPage', CategoryPage)
 app.component('ProductPage', ProductPage)
 app.component('TablePage', TablePage)
@@ -83,4 +86,5 @@ app.component('TabPanel', TabPanel)
 app.component('Avatar', Avatar)
 app.component('InputNumber', InputNumber)
 app.component('ButtonGroup', ButtonGroup)
+app.component('OverlayPanel ', OverlayPanel)
 app.mount('#app')
