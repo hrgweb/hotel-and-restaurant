@@ -10,7 +10,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.ts'])
 </head>
 
-<body class="bg-gray-700">
+<body class="bg-gray-700 text-gray-800">
     <div id="app" class="flex flex-row w-full">
         <app-navbar></app-navbar>
 

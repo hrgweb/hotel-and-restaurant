@@ -1,5 +1,5 @@
 <template>
-  <div class="header bg-white flex justify-between p-3 shadow">
+  <div class="header bg-white text-gray-700 flex justify-between p-3 shadow">
     <h2 class="text-base font-semibold tracking-wide">{{ title }}</h2>
 
     <div class="flex align-items-center">
@@ -48,13 +48,18 @@
               <InputIcon>
                 <i class="pi pi-cog" />
               </InputIcon>
-              <Button label="Settings" class="text-gray-800" link />
-            </li class="flex items-center">
-            <li>
+              <Button class="text-gray-700" label="Settings" link />
+            </li>
+            <li class="flex items-center">
               <InputIcon>
                 <i class="pi pi-sign-out" />
               </InputIcon>
-              <Button label="Logout" class="text-gray-800" link @click.prevent="logout" />
+              <Button
+                class="text-gray-700"
+                label="Logout"
+                link
+                @click.prevent="logout"
+              />
             </li>
           </ul>
         </div>
