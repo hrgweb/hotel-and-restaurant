@@ -44,7 +44,7 @@ export const usePosStore = defineStore('pos', {
       if (this.orderItems.length <= 0) return -1
 
       return this.orderItems.findIndex(
-        (item: Order) => item.product.id === product.id
+        (item: any) => item.product.id === product.id
       )
     },
 
@@ -55,15 +55,19 @@ export const usePosStore = defineStore('pos', {
       if (foundIndex !== -1) {
         const order = this.orderItems[foundIndex]
         order.qty += 1
-        order.subTotal = order?.product?.price * order?.qty
+        order.subtotal = order.price * order.qty
         return
       }
 
+      console.log('else: ', product)
+
       const qty = 1
       this.orderItems.push({
-        product,
+        product_id: product?.id,
+        product_name: product?.name,
         qty: qty,
-        subTotal: product?.price * qty,
+        subtotal: product?.price * qty,
+        price: product?.price,
       })
     },
 
@@ -129,8 +133,8 @@ export const usePosStore = defineStore('pos', {
       if (this.orderItems.length <= 0) return 0
 
       let total = 0
-      this.orderItems.forEach((order: Order) => {
-        total += order?.subTotal
+      this.orderItems.forEach((order: OrderItem) => {
+        total += order?.subtotal
       })
       return total
     },

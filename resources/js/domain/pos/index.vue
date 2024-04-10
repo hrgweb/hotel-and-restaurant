@@ -62,6 +62,9 @@ import { usePosStore } from '@/domain/pos/store'
 import PosHome from '@/domain/pos/tabs/PosHome.vue'
 import PosTable from '@/domain/pos/tabs/PosTable.vue'
 import PosTableOrder from '@/domain/pos/PosTableOrder.vue'
+import { Category } from '../category/types'
+import { Table } from '../table/types'
+import { Product } from '../product/types'
 
 const pos = usePosStore()
 
@@ -83,9 +86,9 @@ watch(
 )
 
 onMounted(() => {
-  pos.tables = props.tables
-  pos.categories = props.categories
-  pos.products = props.products
+  pos.tables = props.tables as Table[]
+  pos.categories = props.categories as Category[]
+  pos.products = props.products as Product[]
 })
 
 const view = shallowRef(PosTable)
@@ -96,12 +99,7 @@ const componentToShow = () => {
 </script>
 
 <style>
-.p-tabview-panels {
-  background-color: #e3e3e3 !important;
-  padding: 0.5rem !important;
-}
-
-.pos {
-  background: #e3e3e3;
+.p-tabview {
+  @apply bg-gray-500;
 }
 </style>

@@ -4,3 +4,5 @@ type Order = {
   total: number
   status: string
 }
+
+export type { Order }

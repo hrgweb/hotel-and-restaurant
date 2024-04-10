@@ -1,11 +1,11 @@
 <template>
-  <div class="grid table-order">
+  <div class="flex space-x-4">
     <!-- Filter by categories -->
-    <div class="col-fixed mx-2" style="width: 200px">
+    <div class="w-2/12 space-y-2">
       <Button
         label="All Categories"
         severity="secondary"
-        class="w-full mb-1"
+        class="w-full uppercase tracking-wide shadow-md"
         style="height: 60px"
         raised
         @click.prevent="pos.onFilterByAllCategories()"
@@ -15,7 +15,7 @@
         <Button
           :label="category?.name"
           severity="secondary"
-          class="w-full mb-1"
+          class="w-full uppercase tracking-wide shadow-md"
           style="height: 60px"
           raised
           @click.prevent="pos.onFilterByCategory(category)"
@@ -24,7 +24,7 @@
     </div>
 
     <!-- List of products -->
-    <div class="col">
+    <div class="w-7/12">
       <div
         class="product flex flex-wrap"
         style="height: 580px; overflow-y: scroll; align-content: baseline"
@@ -54,7 +54,7 @@
     </div>
 
     <!-- view orders -->
-    <div class="col-fixed" id="view-order">
+    <div class="w-3/12" id="view-order">
       <div
         class="view-order"
         style="width: 400px; height: 600px; background-color: #fff"
@@ -136,41 +136,3 @@ function order() {
     })
 }
 </script>
-
-<style>
-.table-order {
-  button {
-    text-transform: capitalize;
-  }
-
-  #view-order.col-fixed {
-    padding: 0 !important;
-  }
-
-  .product {
-    .p-card-header {
-      padding: 1.5rem;
-    }
-
-    .p-card-body {
-      padding: 0 !important;
-    }
-  }
-}
-
-.order-type {
-  .actions {
-    display: flex;
-
-    button {
-      height: 120px;
-      flex: 1;
-      margin-right: 0.3rem;
-
-      &:last-child {
-        margin-right: 0;
-      }
-    }
-  }
-}
-</style>

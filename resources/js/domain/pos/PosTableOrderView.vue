@@ -2,12 +2,9 @@
   <div>
     <DataTable :value="pos.orderItems" scrollable scrollHeight="500px">
       <template #empty>No orders</template>
-      <Column
-        field="product.name"
-        class="text-sm"
-        header="Product Name"
-      ></Column>
-      <Column field="product.price" header="Price" />
+      <Column field="product_name" class="text-sm" header="Product Name">
+      </Column>
+      <Column field="price" header="Price" />
       <Column header="Qty" class="text-sm custom-col">
         <template #body="{ data, index }">
           <InputNumber
@@ -66,31 +63,6 @@ const total = computed(() => pos.totalCost())
 const updatedQty = (data: any, index: number, e: any) => {
   const adjustedQty = e.value
   pos.orderItems[index].qty = adjustedQty
-  pos.orderItems[index].subTotal = data.product.price * adjustedQty
+  pos.orderItems[index].subtotal = data.product.price * adjustedQty
 }
 </script>
-
-<style>
-.custom-col {
-  width: 150px;
-  font-size: 0.9rem;
-}
-
-.p-inputnumber-input {
-  width: 50px;
-  text-align: center;
-}
-
-.footer {
-  button {
-    width: 100%;
-  }
-
-  .total {
-    span {
-      font-weight: bold;
-      text-transform: uppercase;
-    }
-  }
-}
-</style>
