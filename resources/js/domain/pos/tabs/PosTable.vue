@@ -1,5 +1,5 @@
 <template>
-  <div class="flex">
+  <div class="flex text-sm">
     <!-- list of table -->
     <div class="w-9/12">
       <div class="flex flex-wrap">
@@ -14,28 +14,28 @@
     </div>
 
     <!-- view orders per table -->
-    <div class="w-3/12">
+    <div class="w-3/12 bg-white">
       <div
         v-if="pos.viewPerTableOrders && pos.viewPerTableOrders.length"
         class="p-3"
       >
-        <div class="order-header">
-          <div class="pb-1 reference-no flex justify-content-between">
-            <span class="left">Table No</span>
-            <span class="right">{{ pos?.selectedTable?.table_name }}</span>
+        <div class="leading-3">
+          <div class="space-x-2">
+            <span class="left text-sm">Table No:</span>
+            <span class="right text-sm font-semibold">{{
+              pos?.selectedTable?.table_name
+            }}</span>
           </div>
-          <div
-            class="pb-1 table-no flex justify-content-between"
-            style="border-bottom: 2px dotted gray"
-          >
-            <span class="left">Order Reference No:</span>
-            <span class="right">{{ pos?.orderItem?.reference_no }}</span>
+          <div class="space-x-2 pb-2" style="border-bottom: 2px dotted silver">
+            <span class="left text-sm">Order Reference No:</span>
+            <span class="right text-sm font-semibold">{{
+              pos?.orderItem?.reference_no
+            }}</span>
           </div>
         </div>
-        <br />
-        <div class="order-items">
+        <div class="order-items mt-3">
           <div v-for="orderItem in pos.viewPerTableOrders">
-            <div class="flex justify-content-between">
+            <div class="flex justify-between">
               <span class="left">Item</span>
               <span>
                 <span class="right capitalize pr-2">{{
@@ -45,7 +45,7 @@
               </span>
             </div>
             <div
-              class="flex justify-content-between mb-2"
+              class="flex justify-between mb-2"
               style="padding-bottom: 0.5rem; border-bottom: 1px solid silver"
             >
               <span class="left">Price</span>
@@ -54,28 +54,31 @@
           </div>
         </div>
         <div class="order-footer mt-3">
-          <div class="flex justify-content-between mb-1">
+          <div class="space-x-2 flex justify-between">
             <span class="left">Subtotal</span>
-            <span class="right">{{ subTotal }}</span>
+            <span class="right font-semibold">{{ subTotal }}</span>
           </div>
-          <div class="flex justify-content-between mb-1">
-            <span class="left">Order Created Time</span>
-            <span class="right">{{
+          <div class="space-x-2 flex justify-between">
+            <span class="left"> Created Time</span>
+            <span class="right font-semibold">{{
               dayjs(pos.orderItem?.created_at).format('YYYY-MM-DD hh:mm:ss A')
             }}</span>
           </div>
-          <div class="flex justify-content-between mb-1">
-            <span class="left">Order Status</span>
-            <span class="right capitalize">{{ pos.orderStatus }}</span>
+          <div class="flex justify-between mb-1">
+            <span class="left"> Status</span>
+            <span class="right capitalize font-semibold">{{
+              pos.orderStatus
+            }}</span>
           </div>
         </div>
         <div
           v-if="pos.orderStatus !== OrderStatus.COMPLETED"
-          class="order-actions mt-4"
+          class="order-actions mt-8"
         >
-          <ButtonGroup>
+          <ButtonGroup class="space-x-2">
             <Button
               label="Process"
+              class="text-xs"
               icon="pi pi-arrow-circle-up"
               severity="warning"
               :disabled="pos.orderStatus === OrderStatus.PROCESS"
@@ -85,6 +88,7 @@
             />
             <Button
               label="Completed"
+              class="text-xs"
               icon="pi pi-check"
               severity="info"
               @click.prevent="
@@ -93,6 +97,7 @@
             />
             <Button
               label="Cancel"
+              class="text-xs"
               icon="pi pi-times"
               severity="danger"
               :disabled="pos.orderStatus === OrderStatus.PENDING"
@@ -101,11 +106,7 @@
           </ButtonGroup>
         </div>
 
-        <div
-          v-if="pos.orderStatus === OrderStatus.COMPLETED"
-          class="order-pay absolute"
-          style="bottom: 0"
-        >
+        <div v-if="pos.orderStatus === OrderStatus.COMPLETED" class="mt-8">
           <Button
             label="Pay"
             class="w-full"
@@ -120,27 +121,24 @@
     <!-- Pay dialog -->
     <Dialog
       v-model:visible="pos.showDialogPay"
-      header="Pay"
-      :style="{ width: '35rem' }"
+      header="Amount Received"
+      :style="{ width: '22rem' }"
       :closeOnEscape="true"
       :draggable="false"
       modal
       @hide="pos.closeDialogPayment()"
     >
       <!-- Error -->
-      <Message
-        v-if="pos.errorMsg"
-        severity="error"
-        class="p-0 m-0 mb-3"
-        :closable="false"
-        >{{ pos.errorMsg }}</Message
-      >
+      <Message v-if="pos.errorMsg" severity="error" :closable="false">{{
+        pos.errorMsg
+      }}</Message>
 
       <!-- Amount -->
       <InputText
         type="text"
         v-model="pos.cashPayment"
-        class="w-full"
+        class="w-full mb-3"
+        style="font-size: 1.5rem; font-weight: bold"
         @keyup.enter="payment"
         @focus="focusPayment"
       />

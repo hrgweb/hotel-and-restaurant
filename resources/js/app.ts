@@ -3,6 +3,7 @@ import './bootstrap'
 import { createApp } from 'vue/dist/vue.esm-bundler.js'
 import { createPinia } from 'pinia'
 import PrimeVue from 'primevue/config'
+import Lara from './presets/lara'
 import Wind from './presets/wind'
 
 import 'primeicons/primeicons.css'
@@ -60,7 +61,7 @@ app.component('UserRolePage', UserRolePage)
 app.component('PosPage', PosPage)
 
 app.use(pinia)
-app.use(PrimeVue, { ripple: true, unstyled: true, pt: Wind })
+app.use(PrimeVue, { unstyled: true, pt: Wind })
 app.use(ConfirmationService)
 app.use(ToastService)
 app.component('Button', Button)

@@ -29,6 +29,7 @@ const tableColor = computed(() => {
   if (props?.table?.order?.status === OrderStatus.PENDING) {
     return 'bg-red-500 text-white'
   }
+  return 'bg-white'
 })
 
 const props = defineProps({
