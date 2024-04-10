@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pb-3">
     <!-- Error -->
     <Message v-if="category.errorMsg" severity="error" :closable="false">{{
       category.errorMsg
@@ -13,26 +13,25 @@
         :maxFileSize="100000000"
         @select="selectedThumbnail($event)"
       />
-      <br />
-      <div class="flex flex-column gap-2">
+      <div class="flex flex-col my-3">
         <label for="name">Name</label>
         <InputText id="name" v-model="form.name" />
       </div>
-      <br />
-      <div class="flex flex-column gap-2">
+      <div class="flex flex-col mb-6">
         <label for="desc">Description</label>
         <InputText id="desc" v-model="form.desc" />
       </div>
-      <br />
-      <div class="flex flex-column gap-2">
+      <div class="flex flex-row space-x-2">
         <Button
           v-if="!category.isEdit"
           label="Save"
           type="submit"
           :loading="category.loading"
+          class="w-20"
         />
         <Button
           v-else
+          class="w-20"
           label="Update"
           type="button"
           severity="info"
@@ -41,6 +40,7 @@
         />
         <Button
           label="Cancel"
+          class="w-20"
           type="button"
           severity="secondary"
           @click.prevent="category.close()"

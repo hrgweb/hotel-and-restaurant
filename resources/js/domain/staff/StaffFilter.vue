@@ -1,21 +1,14 @@
 <template>
-  <div class="flex justify-content-between">
+  <div class="flex justify-between mb-6">
     <Button label="New Staff" @click="staff.new()" />
 
     <IconField iconPosition="left">
       <InputIcon class="pi pi-search"> </InputIcon>
       <InputText
         v-model="staff.query"
-        @keyup.enter="staff.search()"
+        @keyup="search()"
         placeholder="Search for staff name"
         id="query"
-      />
-      <Button
-        label="Clear"
-        size="small"
-        severity="danger"
-        text
-        @click.prevent="staff.clearSearch()"
       />
     </IconField>
   </div>
@@ -23,6 +16,10 @@
 
 <script setup lang="ts">
 import { useStaffStore } from '@/domain/staff/store/index'
+import { useDebounce } from '@/composables/useDebounce'
 
 const staff = useStaffStore()
+const { execute } = useDebounce(staff.search, 500)
+
+const search = () => execute(staff.search)
 </script>

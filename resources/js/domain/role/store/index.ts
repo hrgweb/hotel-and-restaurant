@@ -92,7 +92,7 @@ export const useRoleStore = defineStore('role', {
     },
 
     search() {
-      if (!this.query) return
+      // if (!this.query) return
 
       this.isSearch = true
       this.searchResult = this.data.filter(

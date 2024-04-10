@@ -1,48 +1,46 @@
 <template>
-  <div>
-    <DataTable :value="data" :stripedRows="true" :unstyled="true">
-      <Column header="Image">
-        <template #body="{ data }">
-          <img
-            v-if="data.thumbnail"
-            :src="String(useImageSrc(data.thumbnail))"
-            :alt="data.image"
-            class="w-6rem border-round"
-          />
-          <img
-            v-else
-            :src="String(useImageSrc('default.png'))"
-            :alt="data.image"
-            class="w-6rem border-round"
-          />
-        </template>
-      </Column>
-      <Column field="name" header="Name"></Column>
-      <Column field="desc" header="Description"> </Column>
-      <Column header="Action">
-        <template #body="{ data, index }">
-          <Button
-            icon="pi pi-pencil"
-            severity="warning"
-            class="mr-1"
-            @click.prevent="category.edit(data, index)"
-          />
-          <Button
-            icon="pi pi-times"
-            severity="danger"
-            @click.prevent="confirmRemove(data, index, $event)"
-          />
-
-          <!-- Ask dialog remove -->
-          <ConfirmPopup />
-        </template>
-      </Column>
-
-      <template #empty>
-        <p class="text-center">No record found</p>
+  <DataTable :value="data" :stripedRows="true" :unstyled="true">
+    <Column header="Image">
+      <template #body="{ data }">
+        <img
+          v-if="data.thumbnail"
+          :src="String(useImageSrc(data.thumbnail))"
+          :alt="data.image"
+          class="w-6rem border-round"
+        />
+        <img
+          v-else
+          :src="String(useImageSrc('default.png'))"
+          :alt="data.image"
+          class="w-6rem border-round"
+        />
       </template>
-    </DataTable>
-  </div>
+    </Column>
+    <Column field="name" header="Name"></Column>
+    <Column field="desc" header="Description"> </Column>
+    <Column header="Action">
+      <template #body="{ data, index }">
+        <Button
+          icon="pi pi-pencil"
+          severity="warning"
+          class="mr-1"
+          @click.prevent="category.edit(data, index)"
+        />
+        <Button
+          icon="pi pi-times"
+          severity="danger"
+          @click.prevent="confirmRemove(data, index, $event)"
+        />
+
+        <!-- Ask dialog remove -->
+        <ConfirmPopup />
+      </template>
+    </Column>
+
+    <template #empty>
+      <p class="text-center">No record found</p>
+    </template>
+  </DataTable>
 </template>
 
 <script lang="ts" setup>

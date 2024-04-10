@@ -1,11 +1,15 @@
 <template>
-  <div>
+  <div class="pb-3">
     <!-- Error -->
     <Message v-if="product.errorMsg" severity="error" :closable="false">{{
       product.errorMsg
     }}</Message>
 
-    <form enctype="multipart/form-data" @submit.prevent="save">
+    <form
+      class="space-y-3"
+      enctype="multipart/form-data"
+      @submit.prevent="save"
+    >
       <FileUpload
         mode="basic"
         name="thumbnail[]"
@@ -13,8 +17,7 @@
         :maxFileSize="100000000"
         @select="selectedThumbnail($event)"
       />
-      <br />
-      <div class="flex flex-column gap-2">
+      <div class="flex flex-col">
         <label for="category">Category</label>
         <Dropdown
           v-model="product.selectedCategory"
@@ -24,49 +27,41 @@
           class="w-full"
         />
       </div>
-      <br />
-      <div class="flex flex-column gap-2">
+      <div class="flex flex-col">
         <label for="barcode">Barcode</label>
         <InputText id="barcode" v-model="form.barcode" />
       </div>
-      <br />
-      <div class="flex flex-column gap-2">
+      <div class="flex flex-col">
         <label for="name">Name</label>
         <InputText id="name" v-model="form.name" />
       </div>
-      <br />
-      <div class="flex flex-column gap-2">
+      <div class="flex flex-col">
         <label for="desc">Description</label>
         <InputText id="desc" v-model="form.desc" />
       </div>
-      <br />
-      <div class="flex flex-column gap-2">
-        <label for="price">Price</label>
-        <InputText id="price" v-model="form.price" />
-      </div>
-      <br />
-      <div class="flex flex-column gap-2">
-        <label for="available">Available</label>
-        <InputSwitch v-model="form.available" />
-      </div>
-      <br />
-      <div>
-        <!-- Error -->
-        <Message v-if="product.errorMsg" severity="error" :closable="false">{{
-          product.errorMsg
-        }}</Message>
+      <div class="flex space-x-3 items-center">
+        <div class="w-6/12 flex flex-col">
+          <label for="price">Price</label>
+          <InputText id="price" v-model="form.price" />
+        </div>
+        <div class="w-6/12 flex flex-col">
+          <label for="available">Available</label>
+          <InputSwitch v-model="form.available" />
+        </div>
       </div>
 
-      <div class="flex flex-column gap-2">
+      <div class="flex flex-row space-x-2" style="margin-top: 20px">
         <Button
           v-if="!product.isEdit"
           label="Save"
           type="submit"
           :loading="product.loading"
+          class="w-20"
         />
         <Button
           v-else
           label="Update"
+          class="w-20"
           type="button"
           severity="info"
           :loading="product.loading"
@@ -74,6 +69,7 @@
         />
         <Button
           label="Cancel"
+          class="w-20"
           type="button"
           severity="secondary"
           @click.prevent="product.close()"

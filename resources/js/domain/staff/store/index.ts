@@ -154,7 +154,7 @@ export const useStaffStore = defineStore('staff', {
     },
 
     search() {
-      if (!this.query) return
+      // if (!this.query) return
 
       this.isSearch = true
       this.searchResult = this.data.filter(

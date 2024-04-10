@@ -1,13 +1,12 @@
 <template>
-  <div class="card">
+  <div class="bg-slate-50 rounded-lg shadow-sm p-6 m-6">
     <CategoryFilter />
-    <br />
     <CategoryDataTable />
 
     <Dialog
       v-model:visible="category.showForm"
       :header="`${category.isEdit ? ' Edit' : 'New'} Category`"
-      :style="{ width: '35rem' }"
+      :style="{ width: '30rem' }"
       :closeOnEscape="true"
       :draggable="false"
       modal

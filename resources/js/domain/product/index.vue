@@ -1,13 +1,12 @@
 <template>
-  <div>
+  <div class="bg-slate-50 rounded-lg shadow-sm p-6 m-6">
     <ProductFilter />
-    <br />
     <ProductDataTable />
 
     <Dialog
       v-model:visible="product.showForm"
       :header="`${product.isEdit ? ' Edit' : 'New'} Product`"
-      :style="{ width: '35rem' }"
+      :style="{ width: '30rem' }"
       :closeOnEscape="true"
       :draggable="false"
       modal

@@ -25,7 +25,7 @@
         <!-- Overlay -->
         <div
           v-if="toggleOverlay"
-          class="absolute w-60 bg-slate-50 rounded-lg top-12 p-6 right-0 shadow-lg"
+          class="absolute w-60 bg-slate-50 rounded-lg top-12 p-6 right-0 shadow-lg z-50"
         >
           <div
             class="flex flex-col justify-center items-center"
@@ -86,9 +86,3 @@ function logout() {
 
 const toggleOverlay = ref(false)
 </script>
-
-<style>
-.header + div {
-  margin: 0 1.5rem;
-}
-</style>

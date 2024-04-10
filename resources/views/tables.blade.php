@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-    <app-header title="Tables"></app-header>
+    <app-header title="Tables" :auth="{{ json_encode(auth()->user()) }}"></app-header>
 
     <table-page :data="{{ json_encode($data) }}" />
 @endsection

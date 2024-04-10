@@ -168,7 +168,7 @@ export const useProductStore = defineStore('product', {
     },
 
     search() {
-      if (!this.query) return
+      // if (!this.query) return
 
       this.isSearch = true
       this.searchResult = this.data.filter(

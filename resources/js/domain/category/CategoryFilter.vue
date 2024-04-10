@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-between pt-6">
+  <div class="flex justify-between mb-6">
     <Button label="New Category" @click="category.new()" />
 
     <div class="relative">
