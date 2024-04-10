@@ -1,13 +1,12 @@
 <template>
-  <div>
+  <div class="bg-slate-50 rounded-lg shadow-sm p-6 m-6">
     <StaffFilter />
-    <br />
     <StaffDataTable />
 
     <Dialog
       v-model:visible="staff.showForm"
       :header="`${staff.isEdit ? ' Edit' : 'New'} Staff`"
-      :style="{ width: '35rem' }"
+      :style="{ width: '30rem' }"
       :closeOnEscape="true"
       :draggable="false"
       modal
@@ -41,7 +40,7 @@ const props = defineProps({
 const staff = useStaffStore()
 
 onMounted(() => {
-  staff.data = props.data
-  staff.roles = props.roles
+  staff.data = props.data as any[]
+  staff.roles = props.roles as any[]
 })
 </script>

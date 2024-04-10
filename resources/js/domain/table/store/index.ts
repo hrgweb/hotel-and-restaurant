@@ -4,7 +4,7 @@ import type { Table } from '../types'
 export const useTableStore = defineStore('table', {
   state: () => ({
     resource: 'tables',
-    data: [] as Table[],
+    data: [] as any[],
     form: {
       prefix: 'Table',
       name: '',
@@ -24,16 +24,18 @@ export const useTableStore = defineStore('table', {
     isSearch: false,
     query: '',
     isBulk: false,
+    loading: false,
   }),
 
   actions: {
     save() {
+      this.loading = true
       this.errorMsg = ''
       this.form['isBulk'] = this.isBulk
 
       axios
         .post(`/${this.resource}`, this.form)
-        .then(({ data }) => {
+        .then(({ data }: any) => {
           // If result is collection, its bulked
           if (data && data.length && Array.isArray(data)) {
             data.forEach((item: Table | null, index: number) => {
@@ -53,6 +55,9 @@ export const useTableStore = defineStore('table', {
           this.errorMsg = error?.response?.data?.message
           console.error(error) // Handle error
         })
+        .finally(() => {
+          this.loading = false
+        })
     },
 
     edit(table: Table, index: number) {
@@ -64,12 +69,13 @@ export const useTableStore = defineStore('table', {
     },
 
     update() {
+      this.loading = true
       this.errorMsg = ''
       this.form['isBulk'] = this.isBulk
 
       axios
         .patch(`/${this.resource}/${this.selectedTable?.id}`, this.editForm)
-        .then(({ data }) => {
+        .then(({ data }: any) => {
           this.data[this.index].prefix = data?.prefix
           this.data[this.index].name = data?.name
           this.data[this.index].table_name = `${data?.prefix} ${data?.name}`
@@ -79,6 +85,9 @@ export const useTableStore = defineStore('table', {
         .catch((error: any) => {
           this.errorMsg = error?.response?.data?.message
           console.error(error) // Handle error
+        })
+        .finally(() => {
+          this.loading = false
         })
     },
 
@@ -103,7 +112,7 @@ export const useTableStore = defineStore('table', {
     },
 
     search() {
-      if (!this.query) return
+      // if (!this.query) return
 
       this.isSearch = true
       this.searchResult = this.data.filter(

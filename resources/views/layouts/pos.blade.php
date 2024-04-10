@@ -5,20 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-
     <title>@yield('title')</title>
 
-    <style>
-        html,
-        body {
-            padding: 0;
-            margin: 0;
-            min-height: 100vh;
-            color: #161c2d;
-        }
-    </style>
-
-    @vite('resources/js/app.ts')
+    @vite(['resources/css/app.css', 'resources/js/app.ts'])
 </head>
 
 <body class="font-sans antialiased dark:bg-black dark:text-white/50">

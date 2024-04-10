@@ -70,7 +70,7 @@ const updatedQty = (data: any, index: number, e: any) => {
 }
 </script>
 
-<style lang="scss">
+<style>
 .custom-col {
   width: 150px;
   font-size: 0.9rem;

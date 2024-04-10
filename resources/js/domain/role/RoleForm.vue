@@ -1,27 +1,35 @@
 <template>
-  <div>
+  <div class="pb-3">
     <!-- Error -->
     <Message v-if="role.errorMsg" severity="error" :closable="false">{{
       role.errorMsg
     }}</Message>
 
     <form @submit.prevent="save">
-      <div class="flex flex-column gap-2">
+      <div class="flex flex-col">
         <label for="role">Role</label>
         <InputText id="role" v-model="form.role" />
       </div>
-      <br />
-      <div class="flex flex-column gap-2">
-        <Button v-if="!role.isEdit" label="Save" type="submit" />
+      <div class="flex flex-row space-x-2" style="margin-top: 20px">
+        <Button
+          v-if="!role.isEdit"
+          label="Save"
+          class="w-20"
+          type="submit"
+          :loading="role.loading"
+        />
         <Button
           v-else
           label="Update"
+          class="w-20"
           type="button"
           severity="info"
+          :loading="role.loading"
           @click.prevent="update"
         />
         <Button
           label="Cancel"
+          class="w-20"
           type="button"
           severity="secondary"
           @click.prevent="role.close()"

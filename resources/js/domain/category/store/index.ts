@@ -1,34 +1,46 @@
 import { defineStore } from 'pinia'
 import type { Category } from '@/domain/category/types/index'
 
+type Form = {
+  name: string
+  desc: string
+  file?: Blob
+  image?: any
+  thumbnail: string
+}
+
 export const useCategoryStore = defineStore('category', {
   state: () => ({
     resource: 'categories',
-    data: [] as Category[],
+    data: [] as any[],
     form: {
       name: '',
       desc: '',
       file: null as Blob | null,
+      image: null as Blob | null,
       thumbnail: '',
-    } as Category,
+    } as Form,
     editForm: {
       name: '',
       desc: '',
       file: null as Blob | null,
+      image: null as Blob | null,
       thumbnail: '',
-    } as Category,
+    } as Form,
     isEdit: false,
     errorMsg: '',
     showForm: false,
-    selectedCategory: null as Category,
+    selectedCategory: null as Category | null,
     index: 0,
     searchResult: [] as Category[],
     isSearch: false,
     query: '',
+    loading: false,
   }),
 
   actions: {
     save(hasThumbnail: boolean) {
+      this.loading = true
       this.errorMsg = ''
 
       let formData = new FormData()
@@ -44,7 +56,7 @@ export const useCategoryStore = defineStore('category', {
         .post(`/${this.resource}`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
-        .then(({ data }: Category) => {
+        .then(({ data }: any) => {
           this.data.push(data)
           this.showForm = false
           this.reset()
@@ -52,6 +64,9 @@ export const useCategoryStore = defineStore('category', {
         .catch((error: any) => {
           this.errorMsg = error?.response?.data?.message
           console.error(error) // Handle error
+        })
+        .finally(() => {
+          this.loading = false
         })
     },
 
@@ -64,6 +79,7 @@ export const useCategoryStore = defineStore('category', {
     },
 
     update(hasThumbnail: boolean) {
+      this.loading = true
       this.errorMsg = ''
 
       let formData = new FormData()
@@ -80,7 +96,7 @@ export const useCategoryStore = defineStore('category', {
         .post(`/${this.resource}/${this.selectedCategory?.id}`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
-        .then(({ data }: Category) => {
+        .then(({ data }: any) => {
           if (data?.thumbnail) {
             this.data[this.index].thumbnail = data?.thumbnail // update thumbnail
           }
@@ -90,6 +106,9 @@ export const useCategoryStore = defineStore('category', {
         .catch((error: any) => {
           this.errorMsg = error?.response?.data?.message
           console.error(error) // Handle error
+        })
+        .finally(() => {
+          this.loading = false
         })
     },
 
@@ -113,7 +132,7 @@ export const useCategoryStore = defineStore('category', {
     },
 
     search() {
-      if (!this.query) return
+      // if (!this.query) return
 
       this.isSearch = true
       this.searchResult = this.data.filter(

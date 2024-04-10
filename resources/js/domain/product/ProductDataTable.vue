@@ -36,6 +36,7 @@
           <Badge
             :value="`${data?.available ? 'Available' : 'Not Available'}`"
             :severity="`${data?.available ? 'success' : 'danger'}`"
+            class="w-20"
           ></Badge>
         </template>
       </Column>

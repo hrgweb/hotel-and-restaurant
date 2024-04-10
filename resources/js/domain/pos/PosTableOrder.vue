@@ -137,7 +137,7 @@ function order() {
 }
 </script>
 
-<style lang="scss">
+<style>
 .table-order {
   button {
     text-transform: capitalize;

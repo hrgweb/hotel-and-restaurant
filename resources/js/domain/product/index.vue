@@ -1,13 +1,12 @@
 <template>
-  <div>
+  <div class="bg-slate-50 rounded-lg shadow-sm p-6 m-6">
     <ProductFilter />
-    <br />
     <ProductDataTable />
 
     <Dialog
       v-model:visible="product.showForm"
       :header="`${product.isEdit ? ' Edit' : 'New'} Product`"
-      :style="{ width: '35rem' }"
+      :style="{ width: '30rem' }"
       :closeOnEscape="true"
       :draggable="false"
       modal
@@ -41,7 +40,7 @@ const props = defineProps({
 const product = useProductStore()
 
 onMounted(() => {
-  product.data = props.data
-  product.categories = props.categories
+  product.data = props.data as any[]
+  product.categories = props.categories as any[]
 })
 </script>

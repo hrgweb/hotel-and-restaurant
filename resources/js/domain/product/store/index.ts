@@ -3,7 +3,7 @@ import type { Product } from '@/types/product'
 import type { Category } from '@/types/category'
 
 type Form = {
-  category_id: number
+  category_id?: number
   barcode: string
   name: string
   desc: string
@@ -11,12 +11,13 @@ type Form = {
   thumbnail: string
   price: number
   available: boolean
+  [key: string]: any
 }
 
 export const useProductStore = defineStore('product', {
   state: () => ({
     resource: 'products',
-    data: [] as Product[],
+    data: [] as any[],
     form: {
       category_id: 0,
       barcode: '',
@@ -47,10 +48,12 @@ export const useProductStore = defineStore('product', {
     query: '',
     categories: [] as Category[] | null,
     selectedProduct: null as Product,
+    loading: false,
   }),
 
   actions: {
     save(hasThumbnail: boolean) {
+      this.loading = true
       this.errorMsg = ''
 
       const formData = this.formData(this.form, hasThumbnail)
@@ -68,6 +71,9 @@ export const useProductStore = defineStore('product', {
         .catch((error: any) => {
           this.errorMsg = error?.response?.data?.message
           console.error(error) // Handle error
+        })
+        .finally(() => {
+          this.loading = false
         })
     },
 
@@ -112,6 +118,7 @@ export const useProductStore = defineStore('product', {
     },
 
     update(hasThumbnail: boolean) {
+      this.loading = true
       this.errorMsg = ''
 
       const formData = this.formData(this.editForm, hasThumbnail)
@@ -131,10 +138,13 @@ export const useProductStore = defineStore('product', {
           this.errorMsg = error?.response?.data
           console.error(error) // Handle error
         })
+        .finally(() => {
+          this.loading = false
+        })
     },
 
     reset() {
-      this.form.category_id = null
+      this.form.category_id = 0
       this.form.barcode = ''
       this.form.name = ''
       this.form.desc = ''
@@ -158,7 +168,7 @@ export const useProductStore = defineStore('product', {
     },
 
     search() {
-      if (!this.query) return
+      // if (!this.query) return
 
       this.isSearch = true
       this.searchResult = this.data.filter(

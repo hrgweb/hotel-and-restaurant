@@ -1,13 +1,12 @@
 <template>
-  <div>
+  <div class="bg-slate-50 rounded-lg shadow-sm p-6 m-6">
     <CategoryFilter />
-    <br />
     <CategoryDataTable />
 
     <Dialog
       v-model:visible="category.showForm"
       :header="`${category.isEdit ? ' Edit' : 'New'} Category`"
-      :style="{ width: '35rem' }"
+      :style="{ width: '30rem' }"
       :closeOnEscape="true"
       :draggable="false"
       modal
@@ -28,13 +27,10 @@ import CategoryDataTable from './CategoryDataTable.vue'
 import { useCategoryStore } from '@/domain/category/store/index'
 
 const props = defineProps({
-  data: {
-    type: [Array, Object],
-    required: true,
-  },
+  data: Array,
 })
 
 const category = useCategoryStore()
 
-onMounted(() => (category.data = props.data))
+onMounted(() => (category.data = props.data as any[]))
 </script>

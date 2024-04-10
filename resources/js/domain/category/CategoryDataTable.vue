@@ -1,57 +1,46 @@
 <template>
-  <div>
-    <DataTable
-      :value="data"
-      tableStyle="min-width: 50rem"
-      :stripedRows="true"
-      size="small"
-    >
-      <Column header="Image">
-        <template #body="{ data }">
-          <img
-            v-if="data.thumbnail"
-            :src="useImageSrc(data.thumbnail)"
-            :alt="data.image"
-            class="w-6rem border-round"
-            height="96"
-            width="96"
-          />
-          <img
-            v-else
-            :src="useImageSrc('default.png')"
-            :alt="data.image"
-            class="w-6rem border-round"
-            height="96"
-            width="96"
-          />
-        </template>
-      </Column>
-      <Column field="name" header="Name"></Column>
-      <Column field="desc" header="Description"> </Column>
-      <Column header="Action">
-        <template #body="{ data, index }">
-          <Button
-            icon="pi pi-pencil"
-            severity="warning"
-            class="mr-1"
-            @click.prevent="category.edit(data, index)"
-          />
-          <Button
-            icon="pi pi-times"
-            severity="danger"
-            @click.prevent="confirmRemove(data, index, $event)"
-          />
-
-          <!-- Ask dialog remove -->
-          <ConfirmPopup />
-        </template>
-      </Column>
-
-      <template #empty>
-        <p class="text-center">No record found</p>
+  <DataTable :value="data" :stripedRows="true" :unstyled="true">
+    <Column header="Image">
+      <template #body="{ data }">
+        <img
+          v-if="data.thumbnail"
+          :src="String(useImageSrc(data.thumbnail))"
+          :alt="data.image"
+          class="w-6rem border-round"
+        />
+        <img
+          v-else
+          :src="String(useImageSrc('default.png'))"
+          :alt="data.image"
+          class="w-6rem border-round"
+        />
       </template>
-    </DataTable>
-  </div>
+    </Column>
+    <Column field="name" header="Name"></Column>
+    <Column field="desc" header="Description"> </Column>
+    <Column header="Action">
+      <template #body="{ data, index }">
+        <Button
+          icon="pi pi-pencil"
+          severity="warning"
+          class="mr-1"
+          @click.prevent="category.edit(data, index)"
+        />
+        <Button
+          icon="pi pi-times"
+          severity="danger"
+          @click.prevent="confirmRemove(data, index, $event)"
+        />
+
+        <!-- Ask dialog remove -->
+        <ConfirmPopup />
+      </template>
+    </Column>
+
+    <template #empty>
+      <p class="text-center">No record found</p>
+    </template>
+  </DataTable>
 </template>
 
 <script lang="ts" setup>
@@ -83,7 +72,7 @@ const confirmRemove = (data: Category, index: number, event: any) => {
     accept: () => {
       category
         .remove()
-        .then(({ data: Category }) => {
+        .then(() => {
           category.data.splice(category.index, 1)
           toast.add({
             severity: 'success',
@@ -99,3 +88,10 @@ const confirmRemove = (data: Category, index: number, event: any) => {
   })
 }
 </script>
+
+<style>
+img {
+  object-fit: cover;
+  @apply w-24 h-20;
+}
+</style>

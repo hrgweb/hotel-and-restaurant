@@ -1,13 +1,12 @@
 <template>
-  <div>
+  <div class="bg-slate-50 rounded-lg shadow-sm p-6 m-6">
     <TableFilter />
-    <br />
     <TableDataTable />
 
     <Dialog
       v-model:visible="table.showForm"
       :header="`${table.isEdit ? ' Edit' : 'New'} Table`"
-      :style="{ width: '35rem' }"
+      :style="{ width: '30rem' }"
       :closeOnEscape="true"
       :draggable="false"
       modal
@@ -36,5 +35,5 @@ const props = defineProps({
 
 const table = useTableStore()
 
-onMounted(() => (table.data = props.data))
+onMounted(() => (table.data = props.data as any[]))
 </script>

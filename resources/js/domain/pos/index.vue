@@ -95,7 +95,7 @@ const componentToShow = () => {
 }
 </script>
 
-<style lang="scss">
+<style>
 .p-tabview-panels {
   background-color: #e3e3e3 !important;
   padding: 0.5rem !important;
