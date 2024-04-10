@@ -11,14 +11,53 @@
         @click="gotoPos"
       />
 
-      <div class="flex" @click="toggle">
-        <Avatar label="P" class="mr-2" size="normal" shape="circle" />
-        <div class="text-xs capitalize">
+      <div
+        class="flex cursor-pointer relative"
+        @click="toggleOverlay = !toggleOverlay"
+      >
+        <div class="text-xs capitalize text-right pr-3">
           <h4>{{ auth?.name }}</h4>
           <span>{{ auth?.staff?.staff_role?.role }}</span>
         </div>
 
+        <Avatar label="P" class="shadow-sm" size="normal" shape="circle" />
+
         <!-- Overlay -->
+        <div
+          v-if="toggleOverlay"
+          class="absolute w-60 bg-slate-50 rounded-lg top-12 p-6 right-0 shadow-lg"
+        >
+          <div
+            class="flex flex-col justify-center items-center"
+            @click.stop="void"
+          >
+            <Avatar
+              label="P"
+              class="shadow-sm mb-4"
+              size="large"
+              shape="circle"
+            />
+            <h3 class="text-sm capitalize font-semibold">{{ auth?.name }}</h3>
+            <span class="text-sm capitalize">{{
+              auth?.staff?.staff_role?.role
+            }}</span>
+          </div>
+
+          <ul class="mt-4">
+            <li class="flex items-center">
+              <InputIcon>
+                <i class="pi pi-cog" />
+              </InputIcon>
+              <Button label="Settings" class="text-gray-800" link />
+            </li class="flex items-center">
+            <li>
+              <InputIcon>
+                <i class="pi pi-sign-out" />
+              </InputIcon>
+              <Button label="Logout" class="text-gray-800" link @click.prevent="logout" />
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -45,31 +84,7 @@ function logout() {
     })
 }
 
-const op = ref()
-const members = ref([
-  {
-    name: 'Amy Elsner',
-    image: 'amyelsner.png',
-    email: 'amy@email.com',
-    role: 'Owner',
-  },
-  {
-    name: 'Bernardo Dominic',
-    image: 'bernardodominic.png',
-    email: 'bernardo@email.com',
-    role: 'Editor',
-  },
-  {
-    name: 'Ioni Bowcher',
-    image: 'ionibowcher.png',
-    email: 'ioni@email.com',
-    role: 'Viewer',
-  },
-])
-
-const toggle = (event) => {
-  op.value.toggle(event)
-}
+const toggleOverlay = ref(false)
 </script>
 
 <style>

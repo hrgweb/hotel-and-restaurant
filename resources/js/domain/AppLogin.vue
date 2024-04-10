@@ -1,5 +1,7 @@
 <template>
-  <div class="login w-96 m-auto mt-40 shadow p-6 bg-slate-50 rounded-lg">
+  <div
+    class="login w-96 m-auto mt-40 shadow p-6 bg-slate-600 text-white rounded-lg"
+  >
     <h2 class="text-3xl font-bold text-center pb-6">Sign In</h2>
 
     <form method="POST" @submit.prevent="signin">
@@ -19,7 +21,12 @@
       </div>
 
       <div class="mt-4">
-        <Button label="Sign In" type="submit" class="w-full h-9" />
+        <Button
+          label="Sign In"
+          severity="info"
+          type="submit"
+          class="w-full h-9"
+        />
       </div>
     </form>
   </div>
