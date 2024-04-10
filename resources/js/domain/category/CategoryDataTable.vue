@@ -1,11 +1,6 @@
 <template>
   <div>
-    <DataTable
-      :value="data"
-      tableStyle="min-width: 50rem"
-      :stripedRows="true"
-      size="small"
-    >
+    <DataTable :value="data" :stripedRows="true" :unstyled="true">
       <Column header="Image">
         <template #body="{ data }">
           <img
@@ -13,16 +8,12 @@
             :src="String(useImageSrc(data.thumbnail))"
             :alt="data.image"
             class="w-6rem border-round"
-            height="96"
-            width="96"
           />
           <img
             v-else
             :src="String(useImageSrc('default.png'))"
             :alt="data.image"
             class="w-6rem border-round"
-            height="96"
-            width="96"
           />
         </template>
       </Column>
@@ -99,3 +90,10 @@ const confirmRemove = (data: Category, index: number, event: any) => {
   })
 }
 </script>
+
+<style>
+img {
+  object-fit: cover;
+  @apply w-24 h-20;
+}
+</style>

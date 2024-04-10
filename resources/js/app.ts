@@ -3,13 +3,9 @@ import './bootstrap'
 import { createApp } from 'vue/dist/vue.esm-bundler.js'
 import { createPinia } from 'pinia'
 import PrimeVue from 'primevue/config'
-
-import Lara from './presets/lara'
 import Wind from './presets/wind'
 
-// import 'primevue/resources/themes/aura-light-green/theme.css'
 import 'primeicons/primeicons.css'
-// import 'primeflex/primeflex.css'
 
 import Button from 'primevue/button'
 import InputText from 'primevue/inputtext'
