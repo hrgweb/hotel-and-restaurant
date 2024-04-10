@@ -31,8 +31,7 @@
       >
         <template v-for="product in listOfProducts">
           <Card
-            class="mr-3 mb-3"
-            style="width: 13rem; height: 13rem; cursor: pointer"
+            class="mr-3 mb-3 w-52 h-48 cursor-pointer"
             @click="pos.addOrder(product)"
           >
             <template #header>
@@ -40,7 +39,7 @@
                 alt="user header"
                 class="w-full border-round-sm"
                 style="height: 110px"
-                :src="useImageSrc(product.thumbnail)"
+                :src="String(useImageSrc(product.thumbnail))"
               />
             </template>
             <template #title
@@ -55,10 +54,7 @@
 
     <!-- view orders -->
     <div class="w-3/12" id="view-order">
-      <div
-        class="view-order"
-        style="width: 400px; height: 600px; background-color: #fff"
-      >
+      <div class="view-order">
         <PosTableOrderView v-if="pos.orderItems && pos.orderItems.length" />
       </div>
     </div>

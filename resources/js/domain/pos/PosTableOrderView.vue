@@ -2,16 +2,15 @@
   <div>
     <DataTable :value="pos.orderItems" scrollable scrollHeight="500px">
       <template #empty>No orders</template>
-      <Column field="product_name" class="text-sm" header="Product Name">
-      </Column>
+      <Column field="product_name" class="text-sm" header="Product "> </Column>
       <Column field="price" header="Price" />
-      <Column header="Qty" class="text-sm custom-col">
+      <Column header="Qty" class="text-sm">
         <template #body="{ data, index }">
           <InputNumber
             v-model="data.qty"
             showButtons
             buttonLayout="horizontal"
-            style="width: 100%"
+            class="w-full"
             :min="1"
             :max="1000"
             @input="updatedQty(data, index, $event)"

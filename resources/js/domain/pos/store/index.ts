@@ -43,9 +43,7 @@ export const usePosStore = defineStore('pos', {
       // If no order items return -1 as not found
       if (this.orderItems.length <= 0) return -1
 
-      return this.orderItems.findIndex(
-        (item: any) => item.product.id === product.id
-      )
+      return this.orderItems.findIndex((item: any) => item.id === product.id)
     },
 
     addOrder(product: Product) {
@@ -58,8 +56,6 @@ export const usePosStore = defineStore('pos', {
         order.subtotal = order.price * order.qty
         return
       }
-
-      console.log('else: ', product)
 
       const qty = 1
       this.orderItems.push({
