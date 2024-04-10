@@ -11,7 +11,7 @@
 </head>
 
 <body class="bg-gray-700">
-    <div id="app" class="flex flex-row">
+    <div id="app" class="flex flex-row w-full">
         <app-navbar></app-navbar>
 
         <main class="flex-1 bg-slate-200">

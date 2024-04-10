@@ -1,9 +1,6 @@
 <template>
-  <div
-    class="login m-auto w-28rem surface-700 text-white p-4 border-round-md"
-    style="margin-top: 150px !important"
-  >
-    <h2 class="m-0 pb-3">Sign In</h2>
+  <div class="login w-96 m-auto mt-40 shadow p-6 bg-slate-50 rounded-lg">
+    <h2 class="text-3xl font-bold text-center pb-6">Sign In</h2>
 
     <form method="POST" @submit.prevent="signin">
       <!-- Error -->
@@ -11,18 +8,18 @@
         message
       }}</Message>
 
-      <div class="flex flex-column gap-2">
+      <div class="flex flex-col mb-4">
         <label for="username">Username</label>
         <InputText id="username" v-model="form.username" />
       </div>
 
-      <div class="flex flex-column gap-2 mt-2">
+      <div class="flex flex-col mb-6">
         <label for="password">Password</label>
         <InputText id="password" type="password" v-model="form.password" />
       </div>
 
       <div class="mt-4">
-        <Button label="Sign In" type="submit" class="w-full" />
+        <Button label="Sign In" type="submit" class="w-full h-9" />
       </div>
     </form>
   </div>
